@@ -1,0 +1,19 @@
+Metadata-Version: 2.4
+Name: insight-forge-backend
+Version: 2.0.0
+Summary: Enterprise educational decision intelligence backend
+Requires-Python: <3.14,>=3.13
+Requires-Dist: fastapi
+Requires-Dist: uvicorn[standard]
+Requires-Dist: sqlalchemy[asyncio]<2.1,>=2.0
+Requires-Dist: psycopg[binary,pool]<4.0,>=3.3
+Requires-Dist: alembic<2.0,>=1.16
+Requires-Dist: pydantic<3.0,>=2.11
+Requires-Dist: pydantic-settings<3.0,>=2.10
+Requires-Dist: python-dotenv<2.0,>=1.1
+Provides-Extra: dev
+Requires-Dist: pytest<9.0,>=8.4; extra == "dev"
+Requires-Dist: pytest-asyncio<2.0,>=1.0; extra == "dev"
+Requires-Dist: httpx<1.0,>=0.28; extra == "dev"
+Requires-Dist: ruff<1.0,>=0.12; extra == "dev"
+Requires-Dist: mypy<2.0,>=1.16; extra == "dev"
