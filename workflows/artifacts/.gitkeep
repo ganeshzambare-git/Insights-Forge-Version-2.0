@@ -1,0 +1,24 @@
+# Task Artifacts
+
+This directory stores outputs from agent workflow stages.
+
+## Structure
+
+```
+workflows/
+├── development-workflow.md    ← Process guide
+└── artifacts/                 ← Per-task outputs
+    ├── implementation-plan.md
+    ├── review-report.md
+    └── qa-report.md
+```
+
+## Usage
+
+When starting a new task:
+1. Clear or archive previous artifacts
+2. Create fresh `implementation-plan.md` during planning
+3. Create `review-report.md` after implementation
+4. Create `qa-report.md` after testing
+
+Artifacts are ephemeral — they document a single task cycle. Permanent knowledge goes into `brain/`.

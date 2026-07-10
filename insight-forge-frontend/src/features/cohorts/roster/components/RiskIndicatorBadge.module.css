@@ -1,0 +1,47 @@
+.amberBadge {
+  background-color: #ffedd5;
+  color: #c2410c; /* WCAG 4.8:1 contrast */
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+  min-width: 60px;
+}
+
+.criticalBadge {
+  background-color: #fee2e2;
+  color: #b91c1c; /* WCAG 5.5:1 contrast */
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+  min-width: 60px;
+}
+
+.normalBadge {
+  background-color: #dcfce7;
+  color: #15803d; /* WCAG 5.0:1 contrast */
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+  min-width: 60px;
+}
+
+.neutralBadge {
+  background-color: #f1f5f9;
+  color: #475569; /* WCAG 5.3:1 contrast */
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+  min-width: 60px;
+}

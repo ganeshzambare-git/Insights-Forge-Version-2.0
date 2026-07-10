@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: insight-forge-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=insight_forge_user
+      - POSTGRES_PASSWORD=insight_forge_password
+      - POSTGRES_DB=insight_forge_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - insight-forge-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: insight-forge-redis
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - insight-forge-network
+
+  backend:
+    build:
+      context: ./insight-forge-backend
+      dockerfile: Dockerfile
+    container_name: insight-forge-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=Insight Forge
+      - APP_VERSION=2.0.0
+      - APP_ENV=development
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - DATABASE_URL=postgresql+asyncpg://insight_forge_user:insight_forge_password@postgres:5432/insight_forge_db
+      - MIGRATION_DATABASE_URL=postgresql://insight_forge_user:insight_forge_password@postgres:5432/insight_forge_db
+      - SECRET_KEY=default-secret-key-32-characters-long-secret
+      - JWT_SECRET=default-secret-key-32-characters-long-secret
+      - JWT_SECRET_KEY=default-secret-key-32-characters-long-secret
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - LOG_LEVEL=INFO
+    depends_on:
+      - postgres
+      - redis
+    restart: always
+    networks:
+      - insight-forge-network
+
+  frontend:
+    build:
+      context: ./insight-forge-frontend
+      dockerfile: Dockerfile
+    container_name: insight-forge-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    restart: always
+    networks:
+      - insight-forge-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  insight-forge-network:
+    driver: bridge

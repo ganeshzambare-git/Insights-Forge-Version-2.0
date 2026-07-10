@@ -1,0 +1,13 @@
+# Ignore folders from docker context build copy
+**/node_modules
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/.git
+**/.next
+**/build
+**/dist
+**/*.egg-info
+**/postgres_data
+.env
+.env.local

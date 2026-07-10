@@ -1,0 +1,5 @@
+fastapi
+python-dotenv
+psycopg-binary
+sqlalchemy
+httpx

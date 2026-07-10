@@ -1,0 +1,141 @@
+.card {
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.title {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.refreshBtn {
+  padding: 0.5rem 1rem;
+  background-color: #334155;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.375rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px;
+  white-space: nowrap;
+}
+
+.refreshBtn:hover:not(:disabled) {
+  background-color: #475569;
+}
+
+.refreshBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.errorAlert {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #f87171;
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+}
+
+.loader {
+  color: #a78bfa;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.emptyState {
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.emptyState span {
+  color: #10b981;
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.table th {
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.table td {
+  color: #e2e8f0;
+}
+
+.payloadId {
+  font-family: monospace;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+/* High contrast details ratio matching WCAG rules */
+.errorDetails {
+  color: #f87171 !important;
+  font-weight: 600;
+}
+
+.timestamp {
+  font-family: monospace;
+  color: #94a3b8;
+}
+
+.failedBadge {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
