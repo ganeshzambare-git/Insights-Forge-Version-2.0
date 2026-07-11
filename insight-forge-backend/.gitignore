@@ -8,3 +8,5 @@ __pycache__/
 
 # Uploaded raw datasets (local storage backend)
 storage/
+!app/storage/
+!app/storage/*.py

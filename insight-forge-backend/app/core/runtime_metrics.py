@@ -10,7 +10,10 @@ data. In-memory only — counters reset when the process restarts.
 from __future__ import annotations
 
 import os
-import resource
+try:
+    import resource
+except ImportError:
+    resource = None
 import threading
 import time
 from collections import defaultdict, deque
