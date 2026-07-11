@@ -19,29 +19,29 @@
 }
 
 .title {
-  color: #ffffff;
+  color: var(--ink);
   font-size: 1.75rem;
   font-weight: 700;
 }
 
 .subtitle {
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 0.9rem;
 }
 
 .termTabs {
   display: flex;
   gap: 0.5rem;
-  background-color: rgba(15, 23, 42, 0.6);
+  background: var(--surface-2);
   padding: 0.25rem;
   border-radius: 0.375rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
 }
 
 .termTab {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: var(--muted);
   padding: 0.5rem 1rem;
   font-size: 0.85rem;
   font-weight: 700;
@@ -51,14 +51,14 @@
 }
 
 .activeTab {
-  background-color: #6366f1;
-  color: #ffffff;
+  background-color: var(--violet);
+  color: var(--ink);
 }
 
 .errorAlert {
-  background-color: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.25);
-  color: #f87171;
+  background-color: var(--critical-wash);
+  border: 1px solid var(--critical-wash);
+  color: var(--critical);
   border-radius: 0.5rem;
   padding: 0.75rem;
   margin-bottom: 1.5rem;
@@ -66,7 +66,7 @@
 }
 
 .loader {
-  color: #10b981;
+  color: var(--safe);
   font-size: 0.9rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -102,15 +102,15 @@
 }
 
 .statCard {
-  background: rgba(30, 41, 59, 0.4);
+  background: var(--surface);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
   border-radius: 0.75rem;
   padding: 1.25rem;
 }
 
 .statCard h3 {
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -118,40 +118,40 @@
 }
 
 .statVal {
-  color: #10b981;
+  color: var(--safe);
   font-size: 2.25rem;
   font-weight: 800;
 }
 
 .statMeta {
-  color: #64748b;
+  color: var(--faint);
   font-size: 0.75rem;
   margin-top: 0.25rem;
 }
 
 .sectionCard {
-  background: rgba(30, 41, 59, 0.4);
+  background: var(--surface);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
   border-radius: 0.75rem;
   padding: 1.5rem;
 }
 
 .sectionTitle {
-  color: #ffffff;
+  color: var(--ink);
   font-size: 1.05rem;
   font-weight: 700;
   margin-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border);
   padding-bottom: 0.5rem;
 }
 
 .emptyLedgerCard {
-  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border: 1px dashed var(--border-strong);
   border-radius: 0.5rem;
   padding: 2.5rem 1.5rem;
   text-align: center;
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.6;
 }
@@ -168,32 +168,32 @@
 .table th, .table td {
   padding: 0.75rem;
   font-size: 0.85rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border);
 }
 
 .table th {
-  color: #64748b;
+  color: var(--faint);
   text-transform: uppercase;
   font-weight: 700;
   text-align: center;
 }
 
 .table td {
-  color: #e2e8f0;
+  color: var(--ink);
   text-align: center;
 }
 
 .presentBadge {
-  background-color: rgba(16, 185, 129, 0.15);
-  color: #10b981;
+  background-color: var(--safe-wash);
+  color: var(--safe);
   padding: 0.125rem 0.5rem;
   border-radius: 0.25rem;
   font-size: 0.75rem;
 }
 
 .absentBadge {
-  background-color: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
+  background-color: var(--critical-wash);
+  color: var(--critical);
   padding: 0.125rem 0.5rem;
   border-radius: 0.25rem;
   font-size: 0.75rem;
@@ -201,22 +201,22 @@
 
 /* Chart Container Card styling rules: White background, 4px border-radius, subtle borders, consistent spacing */
 .chartContainerCard {
-  background-color: #ffffff;
+  background: var(--surface);
   border-radius: 4px; /* Task 20 requirement */
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--ink);
   padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow);
 }
 
 .chartCardTitle {
-  color: #0f172a;
+  color: var(--ink);
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 0.25rem;
 }
 
 .chartCardSubtitle {
-  color: #64748b;
+  color: var(--faint);
   font-size: 0.8rem;
   margin-bottom: 1.5rem;
 }
@@ -238,14 +238,14 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #475569;
+  color: var(--faint);
   font-weight: 600;
 }
 
 .legendLineIndigo {
   width: 1.25rem;
   height: 4px;
-  background-color: #4f46e5;
+  background-color: var(--violet);
   border-radius: 2px;
   display: inline-block;
 }
@@ -253,7 +253,7 @@
 .legendLineDottedGreen {
   width: 1.25rem;
   height: 0;
-  border-top: 3px dashed #10b981;
+  border-top: 3px dashed var(--safe);
   display: inline-block;
 }
 
@@ -264,8 +264,8 @@
 }
 
 .moduleItem {
-  background-color: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
   padding: 1rem;
 }
@@ -278,14 +278,14 @@
 }
 
 .moduleName {
-  color: #ffffff;
+  color: var(--ink);
   font-size: 0.85rem;
   font-weight: 700;
 }
 
 .statusBadgeRec {
   background-color: rgba(99, 102, 241, 0.15);
-  color: #818cf8;
+  color: var(--violet);
   padding: 0.125rem 0.5rem;
   border-radius: 0.25rem;
   font-size: 0.7rem;
@@ -293,8 +293,8 @@
 }
 
 .statusBadgeComp {
-  background-color: rgba(16, 185, 129, 0.15);
-  color: #34d399;
+  background-color: var(--safe-wash);
+  color: var(--safe);
   padding: 0.125rem 0.5rem;
   border-radius: 0.25rem;
   font-size: 0.7rem;
@@ -302,6 +302,6 @@
 }
 
 .moduleMeta {
-  color: #64748b;
+  color: var(--faint);
   font-size: 0.75rem;
 }

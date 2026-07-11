@@ -19,7 +19,7 @@ export const ConnectionOverlay: React.FC<ConnectionOverlayProps> = ({
   return (
     <div className={styles.overlay} role="alert" aria-live="assertive">
       <div className={styles.dialog}>
-        <div className={styles.icon}>⚠️</div>
+        <div className={styles.icon}></div>
         <h3 className={styles.title}>Network Link Failure</h3>
         
         <p className={styles.message}>

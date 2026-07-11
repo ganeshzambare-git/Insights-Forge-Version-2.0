@@ -15,8 +15,8 @@
   width: 460px;
   max-width: 100%;
   height: 100%;
-  background-color: #0f172a;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface);
+  border-left: 1px solid var(--border-strong);
   box-shadow: -4px 0 30px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
@@ -34,14 +34,14 @@
 
 .header {
   padding: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .title {
-  color: #ffffff;
+  color: var(--ink);
   font-size: 1.25rem;
   font-weight: 700;
 }
@@ -49,7 +49,7 @@
 .closeBtn {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 1.25rem;
   cursor: pointer;
   padding: 0.5rem;
@@ -58,7 +58,7 @@
 }
 
 .closeBtn:hover {
-  color: #ffffff;
+  color: var(--ink);
 }
 
 .content {
@@ -71,7 +71,7 @@
 }
 
 .sectionTitle {
-  color: #ffffff;
+  color: var(--ink);
   font-size: 0.95rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -80,8 +80,8 @@
 }
 
 .profileCard {
-  background-color: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
   padding: 1rem;
   display: flex;
@@ -96,12 +96,12 @@
 }
 
 .profileLabel {
-  color: #64748b;
+  color: var(--faint);
   font-weight: 600;
 }
 
 .profileVal {
-  color: #cbd5e1;
+  color: var(--ink-soft);
   font-weight: 700;
 }
 
@@ -118,7 +118,7 @@
 }
 
 .notesLabel {
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 0.8rem;
   font-weight: 600;
 }
@@ -126,10 +126,10 @@
 .textarea {
   width: 100%;
   height: 160px;
-  background-color: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
   border-radius: 0.375rem;
-  color: #ffffff;
+  color: var(--ink);
   padding: 0.75rem;
   font-size: 0.9rem;
   resize: none;
@@ -139,16 +139,16 @@
 }
 
 .textarea:focus {
-  border-color: #6366f1;
+  border-color: var(--violet);
   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
 }
 
 .invalidField {
-  border-color: #ef4444 !important;
+  border-color: var(--critical) !important;
 }
 
 .validationText {
-  color: #f87171;
+  color: var(--critical);
   font-size: 0.8rem;
   font-weight: 600;
 }
@@ -161,8 +161,8 @@
 .submitBtn {
   flex: 1;
   padding: 0.75rem;
-  background-color: #6366f1;
-  color: #ffffff;
+  background-color: var(--violet);
+  color: var(--ink);
   border: none;
   border-radius: 0.375rem;
   font-weight: 700;
@@ -171,34 +171,34 @@
 }
 
 .submitBtn:disabled {
-  background-color: #334155;
-  color: #64748b;
+  background: var(--surface);
+  color: var(--faint);
   cursor: not-allowed;
 }
 
 .cancelBtn {
   padding: 0.75rem 1.25rem;
   background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-strong);
   border-radius: 0.375rem;
-  color: #94a3b8;
+  color: var(--muted);
   font-weight: 600;
   cursor: pointer;
   min-height: 44px;
 }
 
 .cancelBtn:hover {
-  background-color: rgba(255, 255, 255, 0.02);
-  color: #ffffff;
+  background: var(--surface);
+  color: var(--ink);
 }
 
 .successMessage {
-  background-color: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  background-color: var(--safe-wash);
+  border: 1px solid var(--safe-wash);
   border-radius: 0.5rem;
   padding: 1.5rem;
   text-align: center;
-  color: #34d399;
+  color: var(--safe);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -210,8 +210,8 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background-color: rgba(16, 185, 129, 0.2);
-  color: #10b981;
+  background-color: var(--safe-wash);
+  color: var(--safe);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -222,8 +222,8 @@
 .doneBtn {
   margin-top: 0.5rem;
   padding: 0.5rem 2rem;
-  background-color: #10b981;
-  color: #ffffff;
+  background-color: var(--safe);
+  color: var(--ink);
   border: none;
   border-radius: 0.375rem;
   font-weight: 700;

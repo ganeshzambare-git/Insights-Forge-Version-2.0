@@ -10,9 +10,10 @@ from fastapi import APIRouter, Depends, Request, Query, status
 
 from app.core.roles import Role
 from app.dependencies.auth import get_current_user, RequireRoles
-from app.dependencies.services import get_cohort_service
+from app.dependencies.services import get_cohort_service, get_student_metric_service
 from app.models.user import User
 from app.services.cohort import CohortService
+from app.services.student_metric import StudentMetricService
 from app.api.v1.schemas.cohort import CohortCreate, CohortUpdate, CohortResponse
 from app.utils.response import api_response
 from app.services.exceptions import NotFoundError, AuthorizationError
@@ -277,34 +278,31 @@ async def get_cohort_roster(
     cohort_id: uuid.UUID,
     search: str | None = Query(default=None, description="Dynamic search query filter."),
     current_user: User = Depends(get_current_user),
+    cohort_service: CohortService = Depends(get_cohort_service),
+    metric_service: StudentMetricService = Depends(get_student_metric_service),
 ) -> dict[str, Any]:
     req_id = getattr(request.state, "request_id", "unknown-req-id")
 
-    # Generate 200 student mock rows to allow virtualization scrolling tests
-    students = []
-    first_names = ["John", "Jane", "Alice", "Bob", "Charlie", "David", "Emma", "Fiona", "George", "Hannah"]
-    last_names = ["Smith", "Jones", "Miller", "Davis", "Garcia", "Rodriguez", "Wilson", "Martinez", "Anderson", "Taylor"]
+    # Verify the cohort exists and belongs to the caller's tenant.
+    cohort = await cohort_service.get_cohort(cohort_id)
+    if not cohort:
+        raise NotFoundError(
+            f"Cohort with ID '{cohort_id}' not found.",
+            error_code="cohort_not_found",
+        )
+    if (
+        current_user.assigned_role != Role.ADMIN.value
+        and cohort.tenant_id != current_user.tenant_id
+    ):
+        raise AuthorizationError(
+            "Access denied to target tenant partition.",
+            error_code="tenant_forbidden",
+        )
 
-    for i in range(1, 201):
-        f_name = first_names[i % len(first_names)]
-        l_name = last_names[(i * 3) % len(last_names)]
-        
-        # Distribute ML risk levels: Amber, Critical, Normal, and UnknownStatus fallback
-        risk = "Amber" if (i % 7 == 0) else ("Critical" if (i % 11 == 0) else ("Normal" if (i % 2 == 0) else "UnknownStatus"))
-        
-        students.append({
-            "id": f"student-uuid-{i}",
-            "name": f"{f_name} {l_name}",
-            "email": f"{f_name.lower()}.{l_name.lower()}{i}@institution.edu",
-            "gpa": round(2.0 + (i % 200) * 0.01, 2),
-            "status": "Enrolled" if (i % 12 != 0) else "Academic Probation",
-            "risk_level": risk
-        })
-
-    # Apply search filter
-    if search:
-        q = search.lower()
-        students = [s for s in students if q in s["name"].lower() or q in s["email"].lower()]
+    # Real roster built from each student's latest metric in this cohort.
+    students = await metric_service.cohort_roster(
+        tenant_id=cohort.tenant_id, cohort_id=cohort_id, search=search
+    )
 
     return api_response(
         success=True,
@@ -312,7 +310,7 @@ async def get_cohort_roster(
         data={
             "cohort_id": str(cohort_id),
             "records": students,
-            "total_count": len(students)
+            "total_count": len(students),
         },
         request_id=req_id,
     )

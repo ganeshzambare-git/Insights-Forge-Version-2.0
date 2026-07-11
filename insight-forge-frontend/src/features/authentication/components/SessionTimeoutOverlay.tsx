@@ -26,7 +26,7 @@ export const SessionTimeoutOverlay: React.FC<SessionTimeoutOverlayProps> = ({ on
     <div className={`${styles.overlay} ${isExpired ? styles.expired : ''}`} role="alert" aria-live="assertive">
       <div className={styles.modal}>
         <div className={styles.iconContainer}>
-          {isExpired ? '⏳' : '⚠️'}
+          {isExpired ? '⏳' : ''}
         </div>
         <h2 className={styles.title}>
           {isExpired ? 'Session Expired' : 'Session Expiring Soon'}

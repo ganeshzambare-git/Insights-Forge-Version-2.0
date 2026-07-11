@@ -29,3 +29,6 @@ junit.xml
 Thumbs.db
 .idea/
 .vscode/
+
+# Uploaded datasets
+storage/

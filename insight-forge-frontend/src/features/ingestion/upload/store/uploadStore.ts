@@ -5,9 +5,10 @@ interface UploadState {
   error: string | null;
   progress: number;
   qualityScore: number | null;
+  datasetId: string | null;
   uploadStatus: 'idle' | 'validating' | 'uploading' | 'completed' | 'failed';
   validationLog: string[];
-  abortController: AbortController | null;
+  xhr: XMLHttpRequest | null;
   actions: {
     setValidation: (score: number, logs: string[]) => void;
     startChunkedUpload: (file: File) => Promise<void>;
@@ -21,71 +22,83 @@ const useUploadStoreInternal = create<UploadState>((set, get) => ({
   error: null,
   progress: 0,
   qualityScore: null,
+  datasetId: null,
   uploadStatus: 'idle',
   validationLog: [],
-  abortController: null,
+  xhr: null,
   actions: {
     setValidation: (score, logs) => set({ qualityScore: score, validationLog: logs, uploadStatus: 'idle' }),
-    startChunkedUpload: async (file) => {
-      const controller = new AbortController();
-      set({ uploadStatus: 'uploading', error: null, progress: 0, abortController: controller });
+    // Streams the whole file to the real ingestion endpoint in a single
+    // multipart request. The backend stores the raw file and registers a
+    // dataset (Pending) before handing off to the cleaning worker.
+    startChunkedUpload: (file) => {
+      return new Promise<void>((resolve) => {
+        set({ uploadStatus: 'uploading', error: null, progress: 0, datasetId: null });
 
-      const CHUNK_SIZE = 1024 * 1024; // 1 MB chunk boundaries
-      const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
-      const fileId = `ingest-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        const token = typeof window !== 'undefined' ? sessionStorage.getItem('__access_token') : '';
+        const tenantId = typeof window !== 'undefined' ? sessionStorage.getItem('__tenant_context_id') : '';
 
-      try {
-        for (let i = 0; i < totalChunks; i++) {
-          if (controller.signal.aborted) {
-            throw new Error('Upload cancelled by user.');
+        const formData = new FormData();
+        formData.append('file', file, file.name);
+
+        const xhr = new XMLHttpRequest();
+        set({ xhr });
+        xhr.open('POST', `${apiUrl}/api/v1/ingestion/upload`);
+        if (token) xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+        if (tenantId) xhr.setRequestHeader('X-Tenant-ID', tenantId);
+
+        // Real upload progress reported by the browser.
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            set({ progress: Math.round((event.loaded / event.total) * 100) });
+          }
+        };
+
+        const fail = (message: string) => {
+          set({ error: message, uploadStatus: 'failed', xhr: null });
+          resolve();
+        };
+
+        xhr.onload = () => {
+          let payload: any = null;
+          try {
+            payload = JSON.parse(xhr.responseText);
+          } catch {
+            payload = null;
           }
 
-          const start = i * CHUNK_SIZE;
-          const end = Math.min(start + CHUNK_SIZE, file.size);
-          const chunkBlob = file.slice(start, end);
-
-          const formData = new FormData();
-          formData.append('file_id', fileId);
-          formData.append('chunk_index', i.toString());
-          formData.append('total_chunks', totalChunks.toString());
-          formData.append('file', chunkBlob, file.name);
-
-          const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
-          const token = typeof window !== 'undefined' ? sessionStorage.getItem('__access_token') : '';
-
-          const res = await fetch(`${apiUrl}/api/v1/ingest/upload-telemetry`, {
-            method: 'POST',
-            body: formData,
-            signal: controller.signal,
-            headers: token ? { 'Authorization': `Bearer ${token}` } : undefined
-          });
-
-          if (!res.ok) {
-            throw new Error(`Failed to transmit chunk ${i + 1}. Server status: ${res.status}`);
+          if (xhr.status >= 200 && xhr.status < 300 && payload?.success) {
+            set({
+              progress: 100,
+              uploadStatus: 'completed',
+              datasetId: payload?.data?.dataset_id ?? null,
+              xhr: null,
+            });
+            resolve();
+            return;
           }
 
-          const data = await res.json();
-          if (!data.success) {
-            throw new Error(data.message || `Ingest rejection on chunk ${i + 1}.`);
-          }
+          const message =
+            payload?.message ||
+            payload?.errors?.[0]?.message ||
+            `Upload failed. Server status: ${xhr.status}`;
+          fail(message);
+        };
 
-          const percentage = Math.round(((i + 1) / totalChunks) * 100);
-          set({ progress: percentage });
-        }
+        xhr.onerror = () => fail('Network interruption encountered.');
+        xhr.onabort = () => {
+          set({ error: 'Upload cancelled by user.', uploadStatus: 'idle', xhr: null });
+          resolve();
+        };
 
-        set({ uploadStatus: 'completed', abortController: null });
-      } catch (err: any) {
-        if (err.name === 'AbortError' || err.message === 'Upload cancelled by user.') {
-          set({ error: 'Upload cancelled by user.', uploadStatus: 'idle', abortController: null });
-        } else {
-          set({ error: err.message || 'Network interruption encountered.', uploadStatus: 'failed', abortController: null });
-        }
-      }
+        xhr.send(formData);
+      });
     },
     cancelUpload: () => {
-      const { abortController } = get();
-      if (abortController) {
-        abortController.abort();
+      const { xhr } = get();
+      if (xhr) {
+        xhr.abort();
       }
     },
     resetUpload: () => {
@@ -94,9 +107,10 @@ const useUploadStoreInternal = create<UploadState>((set, get) => ({
         error: null,
         progress: 0,
         qualityScore: null,
+        datasetId: null,
         uploadStatus: 'idle',
         validationLog: [],
-        abortController: null,
+        xhr: null,
       });
     },
   },
@@ -107,4 +121,5 @@ export const useUploadStatus = () => useUploadStoreInternal((s) => s.uploadStatu
 export const useUploadError = () => useUploadStoreInternal((s) => s.error);
 export const useUploadQualityScore = () => useUploadStoreInternal((s) => s.qualityScore);
 export const useUploadValidationLog = () => useUploadStoreInternal((s) => s.validationLog);
+export const useUploadDatasetId = () => useUploadStoreInternal((s) => s.datasetId);
 export const useUploadActions = () => useUploadStoreInternal((s) => s.actions);

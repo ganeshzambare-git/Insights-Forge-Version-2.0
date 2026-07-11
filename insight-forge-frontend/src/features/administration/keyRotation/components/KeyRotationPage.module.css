@@ -8,14 +8,14 @@
 }
 
 .title {
-  color: #ffffff;
+  color: var(--ink);
   font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 0.25rem;
 }
 
 .subtitle {
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 0.9rem;
 }
 
@@ -32,23 +32,23 @@
 }
 
 .card {
-  background: rgba(30, 41, 59, 0.4);
+  background: var(--surface);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
   border-radius: 0.75rem;
   padding: 1.75rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
 }
 
 .cardTitle {
-  color: #ffffff;
+  color: var(--ink);
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border);
   padding-bottom: 0.5rem;
 }
 
@@ -60,20 +60,20 @@
 }
 
 .statusLabel {
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 0.9rem;
 }
 
 .statusValue {
-  color: #ffffff;
+  color: var(--ink);
   font-weight: 600;
   font-size: 0.95rem;
 }
 
 .statusBadge {
-  background-color: rgba(52, 211, 153, 0.15);
-  color: #34d399;
-  border: 1px solid rgba(52, 211, 153, 0.2);
+  background-color: var(--safe-wash);
+  color: var(--safe);
+  border: 1px solid var(--safe-wash);
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   font-size: 0.75rem;
@@ -81,7 +81,7 @@
 }
 
 .helpText {
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.5;
   margin-bottom: 2rem;
@@ -89,8 +89,8 @@
 
 .actionBtn {
   padding: 0.75rem;
-  background-color: #ef4444;
-  color: #ffffff;
+  background-color: var(--critical);
+  color: var(--ink);
   border: none;
   border-radius: 0.375rem;
   font-weight: 600;
@@ -104,11 +104,11 @@
 }
 
 .eventLog {
-  background-color: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 0.375rem;
   padding: 0.75rem 1rem;
-  color: #e2e8f0;
+  color: var(--ink);
   font-size: 0.85rem;
   margin-top: 1rem;
   line-height: 1.4;

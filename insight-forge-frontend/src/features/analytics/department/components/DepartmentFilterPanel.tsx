@@ -84,7 +84,7 @@ export const DepartmentFilterPanel: React.FC = () => {
       {/* Error Alert Screen */}
       {!loading && !timeoutOccurred && error && (
         <div className={styles.errorCard}>
-          <p>⚠️ Error contacting gateway logs: {error}</p>
+          <p>Error contacting gateway logs: {error}</p>
           <button onClick={handleRetry} className={styles.retryBtn}>
             Retry Request
           </button>
@@ -115,11 +115,11 @@ export const DepartmentFilterPanel: React.FC = () => {
                   </td>
                   <td>
                     {r.risk_level === 'High' ? (
-                      <span className={styles.riskHigh}>🚨 High Risk</span>
+                      <span className={styles.riskHigh}>High Risk</span>
                     ) : r.risk_level === 'Medium' ? (
-                      <span className={styles.riskMedium}>⚠️ Medium Risk</span>
+                      <span className={styles.riskMedium}>Medium Risk</span>
                     ) : (
-                      <span className={styles.riskLow}>✓ Low Risk</span>
+                      <span className={styles.riskLow}>Low Risk</span>
                     )}
                   </td>
                 </tr>

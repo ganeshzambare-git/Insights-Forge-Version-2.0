@@ -10,10 +10,10 @@ export const AttendanceSummary: React.FC = () => {
   if (!summary) return null;
 
   const cards = [
-    { label: 'Average Rate', value: `${summary.average_attendance_rate.toFixed(1)}%`, icon: '📊', color: '#38bdf8' },
-    { label: 'Peak Rate',    value: `${summary.peak_attendance_rate.toFixed(1)}%`,    icon: '🏆', color: '#34d399' },
-    { label: 'Trough Rate',  value: `${summary.trough_attendance_rate.toFixed(1)}%`,  icon: '📉', color: '#f59e0b' },
-    { label: 'Months Tracked', value: `${summary.total_months}`,                      icon: '📅', color: '#a78bfa' },
+    { label: 'Average Rate', value: `${summary.average_attendance_rate.toFixed(1)}%`, icon: '', color: 'var(--brand)' },
+    { label: 'Peak Rate',    value: `${summary.peak_attendance_rate.toFixed(1)}%`,    icon: '', color: 'var(--safe)' },
+    { label: 'Trough Rate',  value: `${summary.trough_attendance_rate.toFixed(1)}%`,  icon: '', color: 'var(--warn)' },
+    { label: 'Months Tracked', value: `${summary.total_months}`,                      icon: '', color: 'var(--violet)' },
   ];
 
   return (

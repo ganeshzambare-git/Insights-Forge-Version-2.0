@@ -40,7 +40,7 @@ export const AuditExportPanel: React.FC = () => {
 
         {exportStatus === 'completed' && (
           <div className={styles.successCard} role="status">
-            <div className={styles.successIcon}>✓</div>
+            <div className={styles.successIcon}></div>
             <div className={styles.successBody}>
               <p className={styles.successMessage}>
                 Audit compliance packet compiled successfully. Download available securely.
@@ -59,7 +59,7 @@ export const AuditExportPanel: React.FC = () => {
 
         {exportStatus === 'failed' && error && (
           <div className={styles.errorCard} role="alert">
-            <p>⚠️ Failed compiling compliance packet: {error}</p>
+            <p>Failed compiling compliance packet: {error}</p>
             <button onClick={resetExport} className={styles.resetLink}>
               Try Again
             </button>

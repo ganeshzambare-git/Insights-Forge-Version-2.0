@@ -110,7 +110,7 @@ export const KeyRotationModal: React.FC = () => {
           {step === 'warning' && (
             <>
               <div className={styles.warningAlert} role="alert">
-                <span className={styles.alertIcon}>⚠️</span>
+                <span className={styles.alertIcon}></span>
                 <p className={styles.alertText}>
                   Warning: This will invalidate all active sessions. Confirm immediate rotation of cryptographic SSO keys?
                 </p>
@@ -136,7 +136,7 @@ export const KeyRotationModal: React.FC = () => {
 
           {step === 'confirm' && (
             <div className={styles.confirmSection}>
-              <div className={styles.confirmBadge}>🔒 Re-verification Required</div>
+              <div className={styles.confirmBadge}>Re-verification Required</div>
               <p className={styles.confirmMessage}>
                 This operation is permanent and irreversible. All federated identity claims will reject old tokens immediately, logging out all active users.
               </p>
@@ -146,7 +146,7 @@ export const KeyRotationModal: React.FC = () => {
 
           {step === 'success' && (
             <div className={styles.successSection}>
-              <div className={styles.successIcon}>✓</div>
+              <div className={styles.successIcon}></div>
               <p className={styles.successMessage}>
                 Cryptographic signing keys rotated successfully. Old tokens are invalidated.
               </p>

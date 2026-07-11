@@ -126,8 +126,7 @@ export const CoachingDrawer: React.FC<CoachingDrawerProps> = ({ student, onClose
             className={styles.closeBtn}
             aria-label="Close coaching drawer"
           >
-            ✕
-          </button>
+                      </button>
         </header>
 
         <div className={styles.content}>
@@ -160,7 +159,7 @@ export const CoachingDrawer: React.FC<CoachingDrawerProps> = ({ student, onClose
             
             {success ? (
               <div className={styles.successMessage} role="status">
-                <div className={styles.successIcon}>✓</div>
+                <div className={styles.successIcon}></div>
                 <p>Academic intervention action recorded securely.</p>
                 <button 
                   onClick={() => { onClose(); triggerRef.current?.focus(); }} 
@@ -193,7 +192,7 @@ export const CoachingDrawer: React.FC<CoachingDrawerProps> = ({ student, onClose
                   )}
                   {error && (
                     <span className={styles.validationText} role="alert">
-                      ⚠️ {error}
+                      {error}
                     </span>
                   )}
                 </div>
