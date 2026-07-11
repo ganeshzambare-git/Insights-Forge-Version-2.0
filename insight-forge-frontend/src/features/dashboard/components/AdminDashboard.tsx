@@ -43,7 +43,7 @@ export const AdminDashboard: React.FC = () => {
     return (
       <div className={styles.container}>
         <div className={styles.errorCard}>
-          <span className={styles.errorIcon}>⚠️</span>
+          <span className={styles.errorIcon}></span>
           <h3>Observability Fetch Failure</h3>
           <p>{error}</p>
           <button onClick={handleRetry} className={styles.retryButton}>
@@ -91,7 +91,7 @@ export const AdminDashboard: React.FC = () => {
               <div className={styles.progressBarBg}>
                 <div 
                   className={styles.progressBarFill} 
-                  style={{ width: `${metrics.server_health.cpu_utilization}%`, backgroundColor: '#38bdf8' }} 
+                  style={{ width: `${metrics.server_health.cpu_utilization}%`, backgroundColor: 'var(--brand)' }}
                 />
               </div>
               <div className={styles.metricRow}>
@@ -101,12 +101,12 @@ export const AdminDashboard: React.FC = () => {
               <div className={styles.progressBarBg}>
                 <div 
                   className={styles.progressBarFill} 
-                  style={{ width: `${metrics.server_health.ram_utilization}%`, backgroundColor: '#818cf8' }} 
+                  style={{ width: `${metrics.server_health.ram_utilization}%`, backgroundColor: 'var(--violet)' }}
                 />
               </div>
               <div className={styles.metricRow} style={{ marginTop: '1rem' }}>
                 <span className={styles.metricLabel}>Active DB Connections</span>
-                <span className={styles.metricValue} style={{ color: '#38bdf8' }}>{metrics.server_health.db_connection_pool}</span>
+                <span className={styles.metricValue} style={{ color: 'var(--brand-ink)' }}>{metrics.server_health.db_connection_pool}</span>
               </div>
             </div>
 
@@ -125,12 +125,12 @@ export const AdminDashboard: React.FC = () => {
               <div className={styles.progressBarBg}>
                 <div 
                   className={styles.progressBarFill} 
-                  style={{ width: `${metrics.pyspark_load.load_percentage}%`, backgroundColor: '#a78bfa' }} 
+                  style={{ width: `${metrics.pyspark_load.load_percentage}%`, backgroundColor: 'var(--violet)' }}
                 />
               </div>
               <div className={styles.metricRow} style={{ marginTop: '1.5rem' }}>
                 <span className={styles.metricLabel}>Active Job Queue Size</span>
-                <span className={styles.metricValue} style={{ color: '#a78bfa' }}>{metrics.pyspark_load.queue_size} jobs</span>
+                <span className={styles.metricValue} style={{ color: 'var(--violet)' }}>{metrics.pyspark_load.queue_size} jobs</span>
               </div>
               <p className={styles.metaHelpText}>Governs dataset partition isolation and risk classification triggers.</p>
             </div>
@@ -139,15 +139,15 @@ export const AdminDashboard: React.FC = () => {
             <div className={styles.card}>
               <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>Inbound Traffic</h3>
-                <span className={styles.trafficPulse}>🟢 Live</span>
+                <span className={styles.trafficPulse}>Live</span>
               </div>
               <div className={styles.bigMetric}>
                 <div className={styles.bigValue}>{metrics.inbound_traffic.current_rate_per_sec}</div>
                 <div className={styles.bigLabel}>requests / sec</div>
               </div>
-              <div className={styles.metricRow} style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1rem', marginTop: '1rem' }}>
+              <div className={styles.metricRow} style={{ borderTop: '1px solid var(--border)', paddingTop: '1rem', marginTop: '1rem' }}>
                 <span className={styles.metricLabel}>Total Requests (24h)</span>
-                <span className={styles.metricValue} style={{ color: '#34d399' }}>{metrics.inbound_traffic.total_requests_24h.toLocaleString()}</span>
+                <span className={styles.metricValue} style={{ color: 'var(--safe)' }}>{metrics.inbound_traffic.total_requests_24h.toLocaleString()}</span>
               </div>
             </div>
           </div>

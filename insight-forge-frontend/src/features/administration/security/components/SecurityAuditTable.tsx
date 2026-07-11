@@ -5,9 +5,9 @@ import { useAuditLogs, useAuditTotalRecords, useAuditActions, type AuditLogRecor
 import styles from './SecurityAuditPage.module.css';
 
 const SEVERITY_STYLE: Record<AuditSeverity, { color: string; bg: string }> = {
-  INFO:     { color: '#38bdf8', bg: 'rgba(56,189,248,0.1)' },
-  WARNING:  { color: '#f59e0b', bg: 'rgba(245,158,11,0.1)' },
-  CRITICAL: { color: '#f87171', bg: 'rgba(248,113,113,0.12)' },
+  INFO:     { color: 'var(--brand)', bg: 'rgba(56,189,248,0.1)' },
+  WARNING:  { color: 'var(--warn)', bg: 'rgba(245,158,11,0.1)' },
+  CRITICAL: { color: 'var(--critical)', bg: 'rgba(248,113,113,0.12)' },
 };
 
 export const SecurityAuditTable: React.FC = () => {

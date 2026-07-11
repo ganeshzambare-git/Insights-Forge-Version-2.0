@@ -26,7 +26,7 @@ export const TaskResultBanner: React.FC = () => {
         )}
         {task.result.download_url && (
           <a href={task.result.download_url} className={styles.downloadLink} aria-label="Download task output file">
-            ⬇ Download Output
+            Download Output
           </a>
         )}
       </div>

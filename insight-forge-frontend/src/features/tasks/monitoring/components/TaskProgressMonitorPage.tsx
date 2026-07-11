@@ -80,9 +80,9 @@ export const TaskProgressMonitorPage: React.FC = () => {
                 style={{
                   width: `${selectedTask.progress_pct}%`,
                   backgroundColor:
-                    selectedTask.status === 'Failed' ? '#f87171'
-                    : selectedTask.status === 'Completed' ? '#34d399'
-                    : '#38bdf8',
+                    selectedTask.status === 'Failed' ? 'var(--critical)'
+                    : selectedTask.status === 'Completed' ? 'var(--safe)'
+                    : 'var(--brand)',
                   transition: 'width 0.5s ease',
                 }}
                 role="progressbar"

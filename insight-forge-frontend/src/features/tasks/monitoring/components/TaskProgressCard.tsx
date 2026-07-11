@@ -47,8 +47,8 @@ export const TaskProgressCard: React.FC = () => {
               className={styles.progressBarFill}
               style={{
                 width: `${task.progress_pct}%`,
-                backgroundColor: task.status === 'Failed' ? '#f87171'
-                  : task.status === 'Completed' ? '#34d399' : '#38bdf8',
+                backgroundColor: task.status === 'Failed' ? 'var(--critical)'
+                  : task.status === 'Completed' ? 'var(--safe)' : 'var(--brand)',
               }}
               role="progressbar"
               aria-valuenow={task.progress_pct}

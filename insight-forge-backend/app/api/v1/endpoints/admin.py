@@ -5,13 +5,23 @@ Exposes cluster telemetry and system metrics for administrators.
 """
 
 from typing import Any
-import random
 from datetime import datetime, timezone, timedelta
 from fastapi import APIRouter, Depends, Request, status
 
 from app.core.roles import Role
+from app.core.runtime_metrics import runtime_metrics
+from app.db.engine import engine
 from app.dependencies.auth import RequireRoles
 from app.utils.response import api_response
+
+
+def _db_pool_stats() -> dict[str, int]:
+    """Best-effort snapshot of the SQLAlchemy async connection pool."""
+    try:
+        pool = engine.pool
+        return {"size": pool.size(), "checked_out": pool.checkedout()}
+    except Exception:
+        return {"size": 0, "checked_out": 0}
 
 router = APIRouter(
     prefix="/admin",
@@ -30,42 +40,8 @@ router = APIRouter(
 async def get_cluster_metrics(request: Request) -> dict[str, Any]:
     req_id = getattr(request.state, "request_id", "unknown-req-id")
 
-    # Generate live telemetry metrics
-    cpu_usage = round(random.uniform(15.0, 45.0), 1)
-    ram_usage = round(random.uniform(40.0, 75.0), 1)
-    pyspark_load = round(random.uniform(5.0, 30.0), 1)
-    active_db_conns = random.randint(10, 42)
-    pyspark_queue_size = random.randint(0, 5)
-
-    # 24-hour historical traffic data for charts (hours 0 to 23)
-    traffic_history = []
-    base_time = datetime.now(timezone.utc) - timedelta(hours=24)
-    for i in range(24):
-        time_slot = (base_time + timedelta(hours=i)).strftime("%H:%M")
-        hour = (base_time + timedelta(hours=i)).hour
-        multiplier = 1.0 + (5.0 * (1.0 - abs(hour - 14) / 12.0))
-        req_count = int(random.randint(100, 300) * multiplier)
-        traffic_history.append({"time": time_slot, "requests": req_count})
-
-    data = {
-        "server_health": {
-            "status": "Healthy",
-            "cpu_utilization": cpu_usage,
-            "ram_utilization": ram_usage,
-            "db_connection_pool": active_db_conns,
-        },
-        "pyspark_load": {
-            "load_percentage": pyspark_load,
-            "queue_size": pyspark_queue_size,
-            "status": "Idle" if pyspark_queue_size == 0 else "Processing",
-        },
-        "inbound_traffic": {
-            "current_rate_per_sec": random.randint(15, 60),
-            "total_requests_24h": sum(int(t["requests"]) for t in traffic_history),
-            "history_24h": traffic_history,
-        },
-        "last_updated": datetime.now(timezone.utc).isoformat(),
-    }
+    # Real process/runtime metrics + real request throughput.
+    data = runtime_metrics.cluster_snapshot(db_pool=_db_pool_stats())
 
     return api_response(
         success=True,
@@ -111,36 +87,13 @@ async def rotate_keys(request: Request) -> dict[str, Any]:
 async def get_rate_limit_logs(request: Request) -> dict[str, Any]:
     req_id = getattr(request.state, "request_id", "unknown-req-id")
 
-    # Generate mock log database entries
-    tenants = ["Harvard", "Stanford", "MIT", "Berkeley", "Caltech"]
-    logs = []
-    base_time = datetime.now(timezone.utc) - timedelta(minutes=60)
-
-    for i in range(30):
-        tenant = random.choice(tenants)
-        time_slot = (base_time + timedelta(minutes=i * 2)).isoformat()
-        # Mock occasional spikes (exceeding 100 requests per minute threshold)
-        rate = random.randint(40, 140)
-        logs.append({
-            "id": f"log-rate-{i}",
-            "tenant_name": tenant,
-            "timestamp": time_slot,
-            "request_rate": rate,
-            "limit_threshold": 100,
-            "is_violation": rate > 100
-        })
-
-    # Sort logs by timestamp descending
-    logs.sort(key=lambda x: x["timestamp"], reverse=True)
+    # Real per-tenant per-minute request rates recorded by TimingMiddleware.
+    data = runtime_metrics.rate_limit_logs(threshold=100)
 
     return api_response(
         success=True,
         message="Tenant rate limit logs retrieved successfully.",
-        data={
-            "logs": logs,
-            "threshold_limit": 100,
-            "active_violations_count": sum(1 for l in logs if l["is_violation"])
-        },
+        data=data,
         request_id=req_id,
     )
 
@@ -229,11 +182,11 @@ async def get_security_audit_logs(
 
     filtered = mock_logs
     if event_type:
-        filtered = [l for l in filtered if l["event_type"] == event_type]
+        filtered = [entry for entry in filtered if entry["event_type"] == event_type]
     if severity:
-        filtered = [l for l in filtered if l["severity"] == severity]
+        filtered = [entry for entry in filtered if entry["severity"] == severity]
     if source_ip:
-        filtered = [l for l in filtered if l["source_ip"] == source_ip]
+        filtered = [entry for entry in filtered if entry["source_ip"] == source_ip]
 
     return api_response(
         success=True,

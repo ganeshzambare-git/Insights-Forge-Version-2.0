@@ -120,7 +120,7 @@ export const PlanningSandboxPage: React.FC = () => {
 
           {!isDirty ? (
             <div className={styles.emptyHint}>
-              <div className={styles.hintIcon}>💡</div>
+              <div className={styles.hintIcon}></div>
               <h4>Planning Sandbox Ready</h4>
               <p>Adjust simulation parameters on the left to begin exploring hypothetical planning models.</p>
             </div>
@@ -130,7 +130,7 @@ export const PlanningSandboxPage: React.FC = () => {
 
               {error && (
                 <div className={styles.errorAlert}>
-                  <span>⚠️</span> {error}
+                  <span></span> {error}
                 </div>
               )}
 
@@ -153,13 +153,13 @@ export const PlanningSandboxPage: React.FC = () => {
                       <svg viewBox="0 0 400 120" width="100%" height="120px" style={{ overflow: 'visible' }}>
                         <defs>
                           <linearGradient id="sandboxGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#10b981" stopOpacity="0.4" />
-                            <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+                            <stop offset="0%" stopColor="var(--safe)" stopOpacity="0.4" />
+                            <stop offset="100%" stopColor="var(--safe)" stopOpacity="0" />
                           </linearGradient>
                         </defs>
-                        <line x1="10" y1="20" x2="390" y2="20" stroke="rgba(255,255,255,0.05)" />
-                        <line x1="10" y1="60" x2="390" y2="60" stroke="rgba(255,255,255,0.05)" />
-                        <line x1="10" y1="100" x2="390" y2="100" stroke="rgba(255,255,255,0.1)" />
+                        <line x1="10" y1="20" x2="390" y2="20" stroke="var(--border)" />
+                        <line x1="10" y1="60" x2="390" y2="60" stroke="var(--border)" />
+                        <line x1="10" y1="100" x2="390" y2="100" stroke="var(--border-strong)" />
 
                         <path
                           d={`M 10 ${100 - (trend[0].gpa - 1) * 30} 
@@ -168,7 +168,7 @@ export const PlanningSandboxPage: React.FC = () => {
                              L 295 ${100 - (trend[3].gpa - 1) * 30} 
                              L 390 ${100 - (trend[4].gpa - 1) * 30}`}
                           fill="none"
-                          stroke="#10b981"
+                          stroke="var(--safe)"
                           strokeWidth="3"
                           strokeLinecap="round"
                         />
@@ -183,11 +183,11 @@ export const PlanningSandboxPage: React.FC = () => {
                           fill="url(#sandboxGrad)"
                         />
 
-                        <circle cx="10" cy={100 - (trend[0].gpa - 1) * 30} r="4" fill="#020617" stroke="#10b981" strokeWidth="2" />
-                        <circle cx="105" cy={100 - (trend[1].gpa - 1) * 30} r="4" fill="#020617" stroke="#10b981" strokeWidth="2" />
-                        <circle cx="200" cy={100 - (trend[2].gpa - 1) * 30} r="4" fill="#020617" stroke="#10b981" strokeWidth="2" />
-                        <circle cx="295" cy={100 - (trend[3].gpa - 1) * 30} r="4" fill="#020617" stroke="#10b981" strokeWidth="2" />
-                        <circle cx="390" cy={100 - (trend[4].gpa - 1) * 30} r="4" fill="#020617" stroke="#10b981" strokeWidth="2" />
+                        <circle cx="10" cy={100 - (trend[0].gpa - 1) * 30} r="4" fill="var(--ink)" stroke="var(--safe)" strokeWidth="2" />
+                        <circle cx="105" cy={100 - (trend[1].gpa - 1) * 30} r="4" fill="var(--ink)" stroke="var(--safe)" strokeWidth="2" />
+                        <circle cx="200" cy={100 - (trend[2].gpa - 1) * 30} r="4" fill="var(--ink)" stroke="var(--safe)" strokeWidth="2" />
+                        <circle cx="295" cy={100 - (trend[3].gpa - 1) * 30} r="4" fill="var(--ink)" stroke="var(--safe)" strokeWidth="2" />
+                        <circle cx="390" cy={100 - (trend[4].gpa - 1) * 30} r="4" fill="var(--ink)" stroke="var(--safe)" strokeWidth="2" />
                       </svg>
                       <div className={styles.chartLabels}>
                         {trend.map((t) => (

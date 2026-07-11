@@ -40,8 +40,8 @@ export const TrafficChart: React.FC<TrafficChartProps> = ({ data }) => {
       <svg viewBox={`0 0 ${svgWidth} ${svgHeight}`} width="100%" height="auto" style={{ overflow: 'visible' }}>
         <defs>
           <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#4f46e5" stopOpacity="0.0" />
+            <stop offset="0%" stopColor="var(--violet)" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="var(--violet)" stopOpacity="0.0" />
           </linearGradient>
         </defs>
 
@@ -56,13 +56,13 @@ export const TrafficChart: React.FC<TrafficChartProps> = ({ data }) => {
                 y1={y} 
                 x2={svgWidth - paddingRight} 
                 y2={y} 
-                stroke="rgba(255, 255, 255, 0.05)" 
+                stroke="var(--border)" 
                 strokeDasharray="4"
               />
               <text 
                 x={paddingLeft - 12} 
                 y={y + 4} 
-                fill="#64748b" 
+                fill="var(--faint)" 
                 fontSize="11px" 
                 textAnchor="end"
               >
@@ -78,7 +78,7 @@ export const TrafficChart: React.FC<TrafficChartProps> = ({ data }) => {
           y1={svgHeight - paddingBottom} 
           x2={svgWidth - paddingRight} 
           y2={svgHeight - paddingBottom} 
-          stroke="rgba(255, 255, 255, 0.1)"
+          stroke="var(--border-strong)"
         />
 
         {/* X hour ticks */}
@@ -89,7 +89,7 @@ export const TrafficChart: React.FC<TrafficChartProps> = ({ data }) => {
               key={idx}
               x={p.x} 
               y={svgHeight - paddingBottom + 20} 
-              fill="#64748b" 
+              fill="var(--faint)" 
               fontSize="11px" 
               textAnchor="middle"
             >
@@ -102,7 +102,7 @@ export const TrafficChart: React.FC<TrafficChartProps> = ({ data }) => {
         <path d={fillPath} fill="url(#areaGradient)" />
 
         {/* Area border line */}
-        <path d={strokePath} fill="none" stroke="#6366f1" strokeWidth="3" />
+        <path d={strokePath} fill="none" stroke="var(--violet)" strokeWidth="3" />
 
         {/* Active crosshair projection */}
         {hoveredIdx !== null && (
@@ -120,8 +120,8 @@ export const TrafficChart: React.FC<TrafficChartProps> = ({ data }) => {
               cx={points[hoveredIdx].x} 
               cy={points[hoveredIdx].y} 
               r="6" 
-              fill="#6366f1" 
-              stroke="#ffffff" 
+              fill="var(--violet)" 
+              stroke="var(--ink)" 
               strokeWidth="2" 
             />
           </>
@@ -153,8 +153,8 @@ export const TrafficChart: React.FC<TrafficChartProps> = ({ data }) => {
           left: `${(points[hoveredIdx].x / svgWidth) * 100}%`,
           top: `${(points[hoveredIdx].y / svgHeight) * 75}%`,
           transform: 'translate(-50%, -110%)',
-          backgroundColor: '#1e293b',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
+          backgroundColor: 'var(--surface-2)',
+          border: '1px solid var(--border-strong)',
           borderRadius: '0.375rem',
           padding: '0.5rem 0.75rem',
           pointerEvents: 'none',
@@ -162,10 +162,10 @@ export const TrafficChart: React.FC<TrafficChartProps> = ({ data }) => {
           zIndex: 10,
           whiteSpace: 'nowrap',
         }}>
-          <div style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '2px' }}>
+          <div style={{ fontSize: '11px', color: 'var(--muted)', marginBottom: '2px' }}>
             Time: {points[hoveredIdx].item.time}
           </div>
-          <div style={{ fontSize: '13px', fontWeight: 600, color: '#38bdf8' }}>
+          <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--brand)' }}>
             Requests: {points[hoveredIdx].item.requests.toLocaleString()}
           </div>
         </div>

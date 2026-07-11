@@ -1,58 +1,66 @@
 .container {
-  padding: 1.5rem;
+  padding: 2rem 1.75rem;
   width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
+  align-items: flex-end;
+  margin-bottom: 1.75rem;
 }
 
 .dashboardTitle {
-  color: #ffffff;
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  color: var(--ink);
+  font-size: 1.9rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
 }
 
 .dashboardSubtitle {
-  color: #94a3b8;
-  font-size: 0.9rem;
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .actionsContainer {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .lastUpdated {
-  color: #64748b;
-  font-size: 0.85rem;
+  color: var(--faint);
+  font-size: 0.82rem;
 }
 
 .refreshButton {
-  padding: 0.625rem 1.25rem;
-  background: #334155;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 0.375rem;
+  padding: 0.6rem 1.15rem;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
   font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.16s var(--ease), border-color 0.16s var(--ease);
+  box-shadow: var(--shadow-sm);
 }
 
 .refreshButton:hover:not(:disabled) {
-  background: #475569;
+  background: var(--surface-2);
+  border-color: var(--muted);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 @media (max-width: 1024px) {
@@ -73,15 +81,19 @@
 }
 
 .card {
-  background: rgba(30, 41, 59, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0.75rem;
-  padding: 1.75rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.6rem;
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
+  transition: box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
 }
 
 .cardHeader {
@@ -92,47 +104,42 @@
 }
 
 .cardTitle {
-  color: #ffffff;
-  font-size: 1.1rem;
+  color: var(--ink);
+  font-size: 0.82rem;
   font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .badge {
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border: 1px solid transparent;
 }
 
 .badgeHealthy {
-  background-color: rgba(52, 211, 153, 0.15);
-  color: #34d399;
-  border: 1px solid rgba(52, 211, 153, 0.2);
+  background: var(--safe-wash);
+  color: var(--safe);
+  border-color: color-mix(in oklch, var(--safe) 24%, transparent);
 }
 
 .badgeIdle {
-  background-color: rgba(148, 163, 184, 0.15);
-  color: #94a3b8;
-  border: 1px solid rgba(148, 163, 184, 0.2);
-}
-
-.badgeHealthy,
-.badgeIdle,
-.badgeProcessing {
-  font-weight: 700;
-  text-transform: uppercase;
+  background: var(--surface-3);
+  color: var(--muted);
+  border-color: var(--border-strong);
 }
 
 .badgeProcessing {
-  background-color: rgba(167, 139, 250, 0.15);
-  color: #a78bfa;
-  border: 1px solid rgba(167, 139, 250, 0.2);
+  background: var(--violet-wash);
+  color: var(--violet);
+  border-color: color-mix(in oklch, var(--violet) 24%, transparent);
 }
 
 .trafficPulse {
-  font-size: 0.85rem;
-  color: #34d399;
+  font-size: 0.82rem;
+  color: var(--safe);
   animation: pulse 2s infinite;
 }
 
@@ -144,29 +151,29 @@
 }
 
 .metricLabel {
-  color: #94a3b8;
+  color: var(--muted);
   font-size: 0.9rem;
 }
 
 .metricValue {
-  color: #ffffff;
+  color: var(--ink);
   font-weight: 600;
   font-size: 0.95rem;
 }
 
 .progressBarBg {
   width: 100%;
-  height: 6px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 3px;
+  height: 7px;
+  background: var(--surface-3);
+  border-radius: 999px;
   margin-bottom: 1.25rem;
   overflow: hidden;
 }
 
 .progressBarFill {
   height: 100%;
-  border-radius: 3px;
-  transition: width 0.4s ease-out;
+  border-radius: 999px;
+  transition: width 0.5s var(--ease);
 }
 
 .bigMetric {
@@ -177,100 +184,99 @@
 }
 
 .bigValue {
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: #ffffff;
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-size: 3.2rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
   line-height: 1;
 }
 
 .bigLabel {
-  color: #64748b;
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin-top: 0.4rem;
   font-weight: 600;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
 .metaHelpText {
-  color: #475569;
-  font-size: 0.75rem;
+  color: var(--faint);
+  font-size: 0.76rem;
   margin-top: auto;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .chartContainer {
-  background: rgba(30, 41, 59, 0.4);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0.75rem;
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .chartTitle {
-  color: #ffffff;
-  font-size: 1.1rem;
+  color: var(--ink);
+  font-size: 0.82rem;
   font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   margin-bottom: 1.5rem;
 }
 
 .errorCard {
-  background: rgba(239, 68, 68, 0.05);
-  border: 1px solid rgba(239, 68, 68, 0.15);
-  border-radius: 0.75rem;
+  background: var(--surface);
+  border: 1px solid color-mix(in oklch, var(--critical) 18%, var(--border));
+  border-radius: var(--r);
   padding: 3rem;
   text-align: center;
   max-width: 500px;
   margin: 4rem auto;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow);
 }
 
 .errorIcon {
-  font-size: 3rem;
+  font-size: 2.5rem;
   display: block;
   margin-bottom: 1rem;
 }
 
 .retryButton {
   margin-top: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  background: #ef4444;
-  color: #ffffff;
+  padding: 0.7rem 1.4rem;
+  background: var(--critical);
+  color: oklch(0.99 0 0);
   border: none;
-  border-radius: 0.375rem;
+  border-radius: var(--r-sm);
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.18s var(--ease);
 }
 
 .retryButton:hover {
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
 .skeletonHeader {
   width: 250px;
   height: 2rem;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 0.25rem;
+  background: var(--surface-3);
+  border-radius: var(--r-xs);
   animation: pulse 1.5s infinite;
 }
 
 .skeletonCard {
   height: 220px;
-  background-color: rgba(30, 41, 59, 0.4);
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--surface-2);
+  border-radius: var(--r);
+  border: 1px solid var(--border);
   animation: pulse 1.5s infinite;
 }
 
 @keyframes pulse {
-  0% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0.6;
-  }
+  0% { opacity: 0.55; }
+  50% { opacity: 0.9; }
+  100% { opacity: 0.55; }
 }

@@ -46,7 +46,7 @@ export const RateLimitDashboard: React.FC = () => {
   if (error && logs.length === 0) {
     return (
       <div className={styles.errorContainer}>
-        <p className={styles.errorText}>⚠️ Failed to retrieve telemetry: {error}</p>
+        <p className={styles.errorText}>Failed to retrieve telemetry: {error}</p>
         <button onClick={fetchRateLimitLogs} className={styles.retryButton}>
           Retry Connection
         </button>
@@ -172,7 +172,7 @@ export const RateLimitDashboard: React.FC = () => {
                       <td style={{ fontWeight: 600 }}>{l.tenant_name}</td>
                       <td>{new Date(l.timestamp).toLocaleString()}</td>
                       <td>
-                        <span style={{ fontWeight: 700, color: l.is_violation ? '#f87171' : '#e2e8f0' }}>
+                        <span style={{ fontWeight: 700, color: l.is_violation ? 'var(--critical)' : 'var(--ink)' }}>
                           {l.request_rate} req/min
                         </span>
                       </td>
@@ -180,11 +180,11 @@ export const RateLimitDashboard: React.FC = () => {
                       <td>
                         {l.is_violation ? (
                           <span className={styles.alertCrimson} role="status">
-                            🚨 [CRITICAL VIOLATION]
+                            [CRITICAL VIOLATION]
                           </span>
                         ) : (
                           <span className={styles.statusSafe} role="status">
-                            ✓ Compliant
+                            Compliant
                           </span>
                         )}
                       </td>

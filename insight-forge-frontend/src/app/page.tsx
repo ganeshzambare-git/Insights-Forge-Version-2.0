@@ -85,7 +85,7 @@ export default function Home() {
 
   if (!isAuthenticated) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', color: '#94a3b8' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', color: 'var(--muted)' }}>
         Verifying session...
       </div>
     );
@@ -93,23 +93,39 @@ export default function Home() {
 
   return (
     <main className="dashboard-container">
-      <header className="header" style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div style={{ position: 'absolute', right: 0, top: 0, display: 'flex', gap: '1rem', alignItems: 'center' }}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        gap: '1rem',
+        flexWrap: 'wrap',
+        paddingBottom: '1.25rem',
+        marginBottom: '2.5rem',
+        borderBottom: '1px solid var(--border)',
+      }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', fontWeight: 600, letterSpacing: '0.02em', color: 'var(--ink)' }}>
+          <span style={{ width: '26px', height: '26px', borderRadius: '7px', background: 'var(--brand)', color: 'oklch(0.99 0 0)', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-serif)', fontSize: '0.95rem' }}>IF</span>
+          Insight Forge
+        </div>
+        <div style={{ display: 'flex', gap: '0.9rem', alignItems: 'center' }}>
+          <div style={{ textAlign: 'right', fontSize: '0.85rem', lineHeight: 1.3 }}>
+            <div style={{ color: 'var(--ink)', fontWeight: 600 }}>{currentUser?.email}</div>
+            <div style={{ color: 'var(--muted)' }}>{currentUser?.role} {tenant ? `· ${tenant.name}` : ''}</div>
+          </div>
           <RoleGuard allowedRoles={['Admin']}>
-            <button onClick={() => router.push('/admin')} className="btn" style={{ padding: '0.5rem 1rem', background: '#4f46e5', backgroundImage: 'none', border: 'none', cursor: 'pointer', borderRadius: '0.375rem', fontWeight: 600, color: '#ffffff' }}>
+            <button onClick={() => router.push('/admin')} className="btn">
               Admin Console
             </button>
           </RoleGuard>
-          <div style={{ textAlign: 'right', fontSize: '0.85rem' }}>
-            <div style={{ color: '#ffffff', fontWeight: 600 }}>{currentUser?.email}</div>
-            <div style={{ color: '#94a3b8' }}>{currentUser?.role} {tenant ? `(${tenant.name})` : ''}</div>
-          </div>
-          <button onClick={logout} className="btn" style={{ padding: '0.5rem 1rem', background: '#334155', backgroundImage: 'none' }}>
+          <button onClick={logout} className="btn btn-secondary">
             Sign Out
           </button>
         </div>
-        <h1 className="title">InsightForge AI</h1>
-        <p className="subtitle">Enterprise Decision Intelligence Platform & Multi-Agent Analytics</p>
+      </div>
+
+      <header className="header">
+        <h1 className="title">Decision Intelligence, distilled.</h1>
+        <p className="subtitle">Upload a dataset and let the multi-agent pipeline surface anomalies, findings, and prioritized recommendations.</p>
       </header>
 
       <section className="glass-card">
@@ -128,7 +144,7 @@ export default function Home() {
         </form>
 
         {error && (
-          <div style={{ marginTop: '1rem', color: '#f87171', fontWeight: 500 }}>
+          <div style={{ marginTop: '1rem', color: 'var(--critical)', fontWeight: 500 }}>
             Error: {error}
           </div>
         )}
@@ -148,7 +164,7 @@ export default function Home() {
 
             <article className="metric-card">
               <h3>Pipeline Telemetry Duration</h3>
-              <div className="metric-val" style={{ color: '#a78bfa' }}>
+              <div className="metric-val" style={{ color: 'var(--violet)' }}>
                 {result.metrics
                   ? `${result.metrics.reduce((acc: number, m: any) => acc + m.execution_time_ms, 0).toFixed(1)} ms`
                   : 'N/A'}
@@ -157,7 +173,7 @@ export default function Home() {
 
             <article className="metric-card">
               <h3>Findings Count</h3>
-              <div className="metric-val" style={{ color: '#34d399' }}>
+              <div className="metric-val" style={{ color: 'var(--safe)' }}>
                 {result.consolidated_report.key_findings ? result.consolidated_report.key_findings.length : 0}
               </div>
             </article>
@@ -165,8 +181,8 @@ export default function Home() {
 
           {result.consolidated_report.executive_summary && (
             <section className="glass-card">
-              <h3 style={{ marginBottom: '0.75rem', color: '#38bdf8', fontWeight: 600 }}>C-Suite Executive Summary</h3>
-              <p style={{ lineHeight: '1.6', fontSize: '1.05rem', color: '#cbd5e1' }}>
+              <h3 style={{ marginBottom: '0.75rem', color: 'var(--brand-ink)', fontWeight: 600 }}>C-Suite Executive Summary</h3>
+              <p style={{ lineHeight: '1.65', fontSize: '1.05rem', color: 'var(--ink-soft)' }}>
                 {result.consolidated_report.executive_summary}
               </p>
             </section>
@@ -218,7 +234,7 @@ export default function Home() {
                           {r.priority}
                         </span>
                       </td>
-                      <td style={{ color: '#34d399', fontWeight: 700 }}>{r.estimated_roi.toFixed(0)}%</td>
+                      <td style={{ color: 'var(--safe)', fontWeight: 700 }}>{r.estimated_roi.toFixed(0)}%</td>
                       <td>{r.timeline}</td>
                       <td>{r.owner}</td>
                     </tr>
@@ -233,9 +249,9 @@ export default function Home() {
               <h3 style={{ marginBottom: '1rem', fontWeight: 600 }}>Agent Execution Timings</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {result.metrics.map((m: any, idx: number) => (
-                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.6rem', borderBottom: '1px solid var(--border)' }}>
                     <span style={{ fontWeight: 600 }}>{m.agent_name}</span>
-                    <span style={{ color: '#a78bfa' }}>{m.execution_time_ms.toFixed(3)} ms ({m.status})</span>
+                    <span style={{ color: 'var(--violet)', fontWeight: 600 }}>{m.execution_time_ms.toFixed(3)} ms ({m.status})</span>
                   </div>
                 ))}
               </div>

@@ -89,7 +89,7 @@ export const FacultyRosterPage: React.FC = () => {
 
       {error && records.length === 0 && (
         <div className={styles.errorCard}>
-          <p>⚠️ Roster connection error: {error}</p>
+          <p>Roster connection error: {error}</p>
           <button onClick={() => fetchCohortRoster('88888888-8888-8888-8888-888888888888', query)} className={styles.retryBtn}>
             Retry Connection
           </button>
@@ -99,7 +99,7 @@ export const FacultyRosterPage: React.FC = () => {
       {/* Task 16: Empty search results state */}
       {!loading && records.length === 0 && query && (
         <div className={styles.emptyStatePanel} role="status">
-          <div className={styles.emptyIcon}>🔍</div>
+          <div className={styles.emptyIcon}></div>
           <h4>No Match Found</h4>
           <p>Roster search returned zero records. Broaden search keywords or clear queries to list all cohort items.</p>
           <button onClick={clearSearch} className={styles.resetSearchBtn}>
@@ -127,7 +127,7 @@ export const FacultyRosterPage: React.FC = () => {
           >
             <div style={{ height: `${totalHeight}px`, width: '100%', position: 'relative' }}>
               {visibleRecords.map(({ record, absoluteIndex }) => {
-                const bg = absoluteIndex % 2 === 0 ? '#FFFFFF' : '#F7FAFC';
+                const bg = absoluteIndex % 2 === 0 ? 'var(--surface)' : 'var(--surface-2)';
                 return (
                   <div 
                     key={record.id}

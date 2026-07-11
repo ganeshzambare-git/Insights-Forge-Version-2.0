@@ -32,13 +32,13 @@ export const DeadLetterPanel: React.FC = () => {
           disabled={loading}
           aria-label="Refresh ingestion diagnostics logs"
         >
-          {loading ? 'Refreshing...' : '🔄 Refresh Data'}
+          {loading ? 'Refreshing...' : 'Refresh Data'}
         </button>
       </header>
 
       {error && (
         <div className={styles.errorAlert} role="alert">
-          <span>⚠️</span> {error}
+          <span></span> {error}
         </div>
       )}
 
@@ -46,7 +46,7 @@ export const DeadLetterPanel: React.FC = () => {
         <div className={styles.loader}>Polling diagnostic records...</div>
       ) : logs.length === 0 ? (
         <div className={styles.emptyState}>
-          <span>✓</span> No ingestion failures present. Dead-letter queue is empty.
+          <span></span> No ingestion failures present. Dead-letter queue is empty.
         </div>
       ) : (
         <div className={styles.tableWrapper}>

@@ -5,10 +5,10 @@ import { useCourseList, useTotalCourses, type CourseEvaluationRecord } from '../
 import styles from './CourseAnalyticsPage.module.css';
 
 const KPI_COLORS: Record<string, string> = {
-  'Exceeding': '#34d399',
-  'On Track':  '#38bdf8',
-  'At Risk':   '#f59e0b',
-  'Critical':  '#f87171',
+  'Exceeding': 'var(--safe)',
+  'On Track':  'var(--brand)',
+  'At Risk':   'var(--warn)',
+  'Critical':  'var(--critical)',
 };
 
 const KPI_BG: Record<string, string> = {
@@ -65,7 +65,7 @@ export const CoursePerformanceTable: React.FC = () => {
                   <span
                     className={styles.kpiBadge}
                     style={{
-                      color: KPI_COLORS[course.kpi_status] ?? '#94a3b8',
+                      color: KPI_COLORS[course.kpi_status] ?? 'var(--muted)',
                       backgroundColor: KPI_BG[course.kpi_status] ?? 'rgba(148,163,184,0.1)',
                     }}
                     aria-label={`KPI status: ${course.kpi_status}`}

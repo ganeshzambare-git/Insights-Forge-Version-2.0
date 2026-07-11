@@ -139,7 +139,7 @@ export const DatasetUploadPage: React.FC = () => {
               className={styles.fileInput}
               disabled={uploadStatus === 'uploading'}
             />
-            <div className={styles.dropzoneIcon}>📥</div>
+            <div className={styles.dropzoneIcon}></div>
             <p className={styles.dropzoneText}>
               Drag and drop your dataset here, or <span className={styles.browseLink}>browse local files</span>
             </p>
@@ -176,7 +176,7 @@ export const DatasetUploadPage: React.FC = () => {
 
               {uploadStatus === 'completed' && (
                 <div className={styles.successBlock}>
-                  <h4>✓ Ingestion Complete</h4>
+                  <h4>Ingestion Complete</h4>
                   <p>Dataset streamed in 1MB chunks and validated on core server partitions.</p>
                   <button onClick={resetUpload} className={styles.resetBtn}>
                     Upload Another File
@@ -188,7 +188,7 @@ export const DatasetUploadPage: React.FC = () => {
 
           {error && (
             <div className={styles.errorAlert}>
-              <span>⚠️</span> {error}
+              <span></span> {error}
             </div>
           )}
         </div>
@@ -202,7 +202,7 @@ export const DatasetUploadPage: React.FC = () => {
                 <div className={styles.badgeLabel}>Quality Score</div>
                 <div className={styles.badgeVal}>{qualityScore}%</div>
                 <div className={styles.badgeStatus}>
-                  {qualityScore >= 70 ? '✓ INGRESS PASSED' : '🚨 BLOCKED - QUALITY UNDER 70%'}
+                  {qualityScore >= 70 ? 'INGRESS PASSED' : 'BLOCKED - QUALITY UNDER 70%'}
                 </div>
               </div>
 
