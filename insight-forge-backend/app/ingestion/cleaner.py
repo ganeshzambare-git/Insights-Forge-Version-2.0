@@ -27,6 +27,7 @@ from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 
 from sqlalchemy import select, text
+import pandas as pd
 
 from app.core.enums import DatasetStatus, TaskStatus
 from app.core.security import hash_password
@@ -36,6 +37,8 @@ from app.models.cohort import Cohort
 from app.models.dataset import Dataset
 from app.models.student_metric import StudentMetric
 from app.models.user import User
+from app.ingestion.quality_pipeline import run_cleaning_pipeline
+from app.pipelines.cleaning_pipeline import CleaningPipeline
 
 logger = logging.getLogger("app.ingestion.cleaner")
 
@@ -94,6 +97,8 @@ def _parse_records(raw: bytes, source_format: str) -> list[dict]:
         if isinstance(data, dict):
             data = data.get("records") or data.get("data") or [data]
         return [r for r in data if isinstance(r, dict)]
+    if source_format == "xlsx":
+        return CleaningPipeline().parse_file(raw, "upload.xlsx")
     # default: CSV
     reader = csv.DictReader(io.StringIO(text_data))
     return list(reader)
@@ -139,10 +144,13 @@ async def process_dataset(
             with open(storage_uri, "rb") as fh:
                 raw = fh.read()
             records = _parse_records(raw, (dataset.source_format or "csv").lower())
+            pipeline = run_cleaning_pipeline(pd.DataFrame(records), preserve_source_headers=False)
+            clean_records = pipeline.clean.drop(columns=[column for column in ("_record_id", "_reasons", "_confidence") if column in pipeline.clean], errors="ignore").to_dict("records")
 
             inserted, skipped = await _materialize(
-                session, tenant_id, records
+                session, tenant_id, clean_records
             )
+            skipped += len(pipeline.review) + len(pipeline.dead_letter)
             total = inserted + skipped
             health = round((inserted / total) * 100, 2) if total else 0.0
 
@@ -160,6 +168,9 @@ async def process_dataset(
                     "rows_inserted": inserted,
                     "rows_skipped": skipped,
                     "health_score": health,
+                    "review_rows": len(pipeline.review),
+                    "dead_letter_rows": len(pipeline.dead_letter),
+                    "cleaning_audit": [event.__dict__ for event in pipeline.audit],
                 }
                 task.timeline = list(task.timeline) + [
                     {"event": f"Inserted {inserted} metrics", "timestamp": done.isoformat()}
