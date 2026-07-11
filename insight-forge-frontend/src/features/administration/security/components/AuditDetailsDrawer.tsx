@@ -43,8 +43,7 @@ export const AuditDetailsDrawer: React.FC = () => {
             className={styles.drawerClose}
             aria-label="Close audit detail drawer"
           >
-            ✕
-          </button>
+                      </button>
         </div>
 
         <div className={styles.drawerBody}>
@@ -86,7 +85,7 @@ export const AuditDetailsDrawer: React.FC = () => {
               {isTracing ? (
                 <><span className={styles.spinner} aria-hidden="true" /> Tracing…</>
               ) : (
-                '🔍 Initiate Trace'
+                'Initiate Trace'
               )}
             </button>
             {traceResult && (

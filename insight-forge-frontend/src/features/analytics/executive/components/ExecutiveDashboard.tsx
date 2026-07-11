@@ -38,7 +38,7 @@ export const ExecutiveDashboard: React.FC = () => {
   if (error && !kpis) {
     return (
       <div className={styles.errorContainer}>
-        <p className={styles.errorText}>⚠️ Failed to load executive metrics: {error}</p>
+        <p className={styles.errorText}>Failed to load executive metrics: {error}</p>
         <button onClick={handleRefresh} className={styles.retryButton}>
           Retry Query
         </button>
@@ -58,7 +58,7 @@ export const ExecutiveDashboard: React.FC = () => {
           className={styles.refreshBtn}
           disabled={loading || isPending}
         >
-          {loading || isPending ? 'Refreshing...' : '🔄 Refresh Data'}
+          {loading || isPending ? 'Refreshing...' : 'Refresh Data'}
         </button>
       </header>
 
@@ -67,25 +67,25 @@ export const ExecutiveDashboard: React.FC = () => {
           <div className={styles.kpiCard}>
             <div className={styles.kpiLabel}>Total Student Enrollment</div>
             <div className={styles.kpiValue}>{kpis.total_students.toLocaleString()}</div>
-            <div className={styles.kpiMeta}>✓ Audited active accounts</div>
+            <div className={styles.kpiMeta}>Audited active accounts</div>
           </div>
           
           <div className={`${styles.kpiCard} ${styles.criticalCard}`}>
             <div className={styles.kpiLabel}>Critical Risk Cases</div>
             <div className={styles.kpiValue}>{kpis.critical_risk}</div>
-            <div className={styles.kpiMeta}>🚨 Requires coaching escalation</div>
+            <div className={styles.kpiMeta}>Requires coaching escalation</div>
           </div>
 
           <div className={styles.kpiCard}>
             <div className={styles.kpiLabel}>Active Interventions</div>
             <div className={styles.kpiValue}>{kpis.active_interventions}</div>
-            <div className={styles.kpiMeta}>💼 Cohorts coaching active</div>
+            <div className={styles.kpiMeta}>Cohorts coaching active</div>
           </div>
 
           <div className={styles.kpiCard}>
             <div className={styles.kpiLabel}>Projected Graduation Rate</div>
             <div className={styles.kpiValue}>{kpis.completion_rate}%</div>
-            <div className={styles.kpiMeta}>📈 +1.2% over target line</div>
+            <div className={styles.kpiMeta}>+1.2% over target line</div>
           </div>
         </section>
       )}
@@ -161,19 +161,19 @@ export const ExecutiveDashboard: React.FC = () => {
               <svg viewBox="0 0 400 160" width="100%" height="160px" style={{ overflow: 'visible' }}>
                 <defs>
                   <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.4" />
-                    <stop offset="100%" stopColor="#38bdf8" stopOpacity="0" />
+                    <stop offset="0%" stopColor="var(--brand)" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="var(--brand)" stopOpacity="0" />
                   </linearGradient>
                 </defs>
-                <line x1="10" y1="20" x2="390" y2="20" stroke="rgba(255,255,255,0.05)" />
-                <line x1="10" y1="60" x2="390" y2="60" stroke="rgba(255,255,255,0.05)" />
-                <line x1="10" y1="100" x2="390" y2="100" stroke="rgba(255,255,255,0.05)" />
-                <line x1="10" y1="140" x2="390" y2="140" stroke="rgba(255,255,255,0.1)" />
+                <line x1="10" y1="20" x2="390" y2="20" stroke="var(--border)" />
+                <line x1="10" y1="60" x2="390" y2="60" stroke="var(--border)" />
+                <line x1="10" y1="100" x2="390" y2="100" stroke="var(--border)" />
+                <line x1="10" y1="140" x2="390" y2="140" stroke="var(--border-strong)" />
 
                 <path
                   d="M 10 120 L 70 100 L 130 130 L 190 70 L 250 85 L 310 40 L 390 55"
                   fill="none"
-                  stroke="#38bdf8"
+                  stroke="var(--brand)"
                   strokeWidth="3"
                   strokeLinecap="round"
                 />
@@ -183,13 +183,13 @@ export const ExecutiveDashboard: React.FC = () => {
                   fill="url(#areaGrad)"
                 />
 
-                <circle cx="10" cy="120" r="4" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
-                <circle cx="70" cy="100" r="4" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
-                <circle cx="130" cy="130" r="4" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
-                <circle cx="190" cy="70" r="4" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
-                <circle cx="250" cy="85" r="4" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
-                <circle cx="310" cy="40" r="4" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
-                <circle cx="390" cy="55" r="4" fill="#020617" stroke="#38bdf8" strokeWidth="2" />
+                <circle cx="10" cy="120" r="4" fill="var(--ink)" stroke="var(--brand)" strokeWidth="2" />
+                <circle cx="70" cy="100" r="4" fill="var(--ink)" stroke="var(--brand)" strokeWidth="2" />
+                <circle cx="130" cy="130" r="4" fill="var(--ink)" stroke="var(--brand)" strokeWidth="2" />
+                <circle cx="190" cy="70" r="4" fill="var(--ink)" stroke="var(--brand)" strokeWidth="2" />
+                <circle cx="250" cy="85" r="4" fill="var(--ink)" stroke="var(--brand)" strokeWidth="2" />
+                <circle cx="310" cy="40" r="4" fill="var(--ink)" stroke="var(--brand)" strokeWidth="2" />
+                <circle cx="390" cy="55" r="4" fill="var(--ink)" stroke="var(--brand)" strokeWidth="2" />
               </svg>
               <div className={styles.chartLabels}>
                 <span>00:00</span>

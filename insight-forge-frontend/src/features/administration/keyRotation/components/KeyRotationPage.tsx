@@ -58,7 +58,7 @@ export const KeyRotationPage: React.FC = () => {
           </button>
           {invalidatedCount !== null && (
             <div className={styles.eventLog}>
-              🟢 Latest Security Event: Rotated keys and terminated {invalidatedCount} sessions.
+              Latest Security Event: Rotated keys and terminated {invalidatedCount} sessions.
             </div>
           )}
         </div>

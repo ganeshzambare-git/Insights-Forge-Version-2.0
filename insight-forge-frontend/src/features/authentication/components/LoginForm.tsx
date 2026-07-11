@@ -103,7 +103,7 @@ export const LoginForm: React.FC = () => {
 
           {error && (
             <div className={styles.securityBadge} role="alert">
-              <span className={styles.securityBadgeIcon}>🔒</span>
+              <span className={styles.securityBadgeIcon}></span>
               <span className={styles.securityBadgeText}>{error}</span>
             </div>
           )}

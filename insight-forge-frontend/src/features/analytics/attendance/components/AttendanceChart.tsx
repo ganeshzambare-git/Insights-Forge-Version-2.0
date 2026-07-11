@@ -48,7 +48,7 @@ export const AttendanceChart: React.FC = () => {
 
   if (!trend.length) {
     return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 220, color: '#64748b', fontSize: '0.9rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 220, color: 'var(--faint)', fontSize: '0.9rem' }}>
         No attendance trend data for the selected filters.
       </div>
     );
@@ -65,8 +65,8 @@ export const AttendanceChart: React.FC = () => {
       >
         <defs>
           <linearGradient id="attendGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.02" />
+            <stop offset="0%" stopColor="var(--brand)" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="var(--brand)" stopOpacity="0.02" />
           </linearGradient>
         </defs>
 
@@ -78,10 +78,10 @@ export const AttendanceChart: React.FC = () => {
               y1={tick.y}
               x2={CHART_WIDTH - PADDING.right}
               y2={tick.y}
-              stroke="rgba(255,255,255,0.06)"
+              stroke="var(--border)"
               strokeWidth="1"
             />
-            <text x={PADDING.left - 8} y={tick.y + 4} textAnchor="end" fontSize="11" fill="#64748b">
+            <text x={PADDING.left - 8} y={tick.y + 4} textAnchor="end" fontSize="11" fill="var(--faint)">
               {tick.value}%
             </text>
           </g>
@@ -89,7 +89,7 @@ export const AttendanceChart: React.FC = () => {
 
         {/* X-axis labels */}
         {points.map((p) => (
-          <text key={p.label} x={p.x} y={CHART_HEIGHT - 8} textAnchor="middle" fontSize="11" fill="#64748b">
+          <text key={p.label} x={p.x} y={CHART_HEIGHT - 8} textAnchor="middle" fontSize="11" fill="var(--faint)">
             {p.label}
           </text>
         ))}
@@ -98,12 +98,12 @@ export const AttendanceChart: React.FC = () => {
         <path d={areaD} fill="url(#attendGrad)" />
 
         {/* Line stroke */}
-        <path d={pathD} fill="none" stroke="#38bdf8" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
+        <path d={pathD} fill="none" stroke="var(--brand)" strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
 
         {/* Data points with tooltips */}
         {points.map((p) => (
           <g key={`pt-${p.label}`}>
-            <circle cx={p.x} cy={p.y} r={5} fill="#0f172a" stroke="#38bdf8" strokeWidth="2" />
+            <circle cx={p.x} cy={p.y} r={5} fill="var(--ink)" stroke="var(--brand)" strokeWidth="2" />
             <title>{`${p.label}: ${p.rate.toFixed(1)}%`}</title>
           </g>
         ))}
@@ -111,8 +111,8 @@ export const AttendanceChart: React.FC = () => {
 
       {/* Legend */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem', paddingLeft: `${PADDING.left}px` }}>
-        <span style={{ display: 'inline-block', width: 28, height: 3, backgroundColor: '#38bdf8', borderRadius: 2 }} />
-        <span style={{ color: '#94a3b8', fontSize: '0.8rem' }}>Monthly Attendance Rate (%)</span>
+        <span style={{ display: 'inline-block', width: 28, height: 3, backgroundColor: 'var(--brand)', borderRadius: 2 }} />
+        <span style={{ color: 'var(--muted)', fontSize: '0.8rem' }}>Monthly Attendance Rate (%)</span>
       </div>
       <figcaption style={{ position: 'absolute', left: '-9999px' }}>
         Monthly attendance trend showing rates from {trend[0]?.month} to {trend[trend.length - 1]?.month}.

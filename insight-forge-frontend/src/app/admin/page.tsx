@@ -25,28 +25,17 @@ export default function AdminPage() {
       justifyContent: 'center',
       alignItems: 'center',
       minHeight: '100vh',
-      backgroundColor: '#020617',
-      color: '#ffffff',
+      background: 'var(--bg)',
+      color: 'var(--ink)',
       padding: '2rem',
       textAlign: 'center'
     }}>
-      <div style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>🔒</div>
-      <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.75rem' }}>Access Denied</h2>
-      <p style={{ color: '#94a3b8', maxWidth: '440px', marginBottom: '2rem', fontSize: '0.95rem', lineHeight: '1.5' }}>
+      <div style={{ fontSize: '2.5rem', marginBottom: '1.25rem' }}></div>
+      <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: '1.7rem', marginBottom: '0.75rem' }}>Access Denied</h2>
+      <p style={{ color: 'var(--muted)', maxWidth: '440px', marginBottom: '2rem', fontSize: '0.95rem', lineHeight: '1.55' }}>
         You do not have the required administrative clearance to view this console. A security exception event has been logged.
       </p>
-      <button 
-        onClick={handleReturn}
-        style={{
-          padding: '0.75rem 1.5rem',
-          backgroundColor: '#334155',
-          color: '#ffffff',
-          border: 'none',
-          borderRadius: '0.375rem',
-          fontWeight: 600,
-          cursor: 'pointer'
-        }}
-      >
+      <button onClick={handleReturn} className="btn btn-secondary">
         Return to Home
       </button>
     </div>
@@ -54,34 +43,42 @@ export default function AdminPage() {
 
   return (
     <RoleGuard allowedRoles={['Admin']} fallback={MismatchFallback}>
-      <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc' }}>
+      <main style={{ minHeight: '100vh', background: 'var(--bg)', color: 'var(--ink)' }}>
         <div style={{
-          borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+          borderBottom: '1px solid var(--border)',
           padding: '1rem 2rem',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          backgroundColor: '#0f172a'
+          backgroundColor: 'var(--surface)',
+          position: 'sticky',
+          top: 0,
+          zIndex: 'var(--z-sticky)',
+          backdropFilter: 'saturate(1.1)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <span style={{ fontWeight: 800, color: '#38bdf8' }}>InsightForge Console</span>
-            <span style={{ fontSize: '0.75rem', color: '#64748b', border: '1px solid #475569', borderRadius: '0.25rem', padding: '0.125rem 0.375rem', textTransform: 'uppercase', fontWeight: 700 }}>
-              Admin Partition
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.55rem', fontWeight: 600, color: 'var(--ink)' }}>
+              <span style={{ width: '24px', height: '24px', borderRadius: '6px', background: 'var(--brand)', color: 'oklch(0.99 0 0)', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-serif)', fontSize: '0.85rem' }}>IF</span>
+              Insight Forge
+            </span>
+            <span style={{ fontSize: '0.68rem', color: 'var(--brand-ink)', background: 'var(--brand-wash)', border: '1px solid color-mix(in oklch, var(--brand) 22%, transparent)', borderRadius: '999px', padding: '0.15rem 0.55rem', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.06em' }}>
+              Admin
             </span>
           </div>
-          <button 
+          <button
             onClick={handleReturn}
             style={{
               padding: '0.5rem 1rem',
               backgroundColor: 'transparent',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '0.375rem',
-              color: '#94a3b8',
+              border: '1px solid var(--border-strong)',
+              borderRadius: 'var(--r-sm)',
+              color: 'var(--ink-soft)',
               cursor: 'pointer',
-              fontSize: '0.85rem'
+              fontSize: '0.85rem',
+              fontWeight: 600
             }}
           >
-            ← Return to Dashboard
+            ← Back to Home
           </button>
         </div>
 
@@ -95,182 +92,202 @@ export default function AdminPage() {
           <button 
             onClick={() => router.push('/admin/keys')}
             style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: 'rgba(30, 41, 59, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '0.5rem',
-              color: '#ffffff',
+              padding: '0.85rem 1.3rem',
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-sm)',
+              color: 'var(--ink)',
               fontWeight: 600,
+              fontSize: '0.9rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              minHeight: '44px'
+              gap: '0.55rem',
+              minHeight: '46px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
-            🔑 SSO Key Manager
+            SSO Key Manager
           </button>
           <button 
             onClick={() => router.push('/admin/limits')}
             style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: 'rgba(30, 41, 59, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '0.5rem',
-              color: '#ffffff',
+              padding: '0.85rem 1.3rem',
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-sm)',
+              color: 'var(--ink)',
               fontWeight: 600,
+              fontSize: '0.9rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              minHeight: '44px'
+              gap: '0.55rem',
+              minHeight: '46px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
-            🚨 Rate Limit Observabilities
+            Rate Limit Observabilities
           </button>
           <button 
             onClick={() => router.push('/admin/ingest')}
             style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: 'rgba(30, 41, 59, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '0.5rem',
-              color: '#ffffff',
+              padding: '0.85rem 1.3rem',
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-sm)',
+              color: 'var(--ink)',
               fontWeight: 600,
+              fontSize: '0.9rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              minHeight: '44px'
+              gap: '0.55rem',
+              minHeight: '46px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
-            📥 High-Scale Dataset Ingest
+            High-Scale Dataset Ingest
           </button>
           <button 
             onClick={() => router.push('/admin/executive')}
             style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: 'rgba(30, 41, 59, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '0.5rem',
-              color: '#ffffff',
+              padding: '0.85rem 1.3rem',
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-sm)',
+              color: 'var(--ink)',
               fontWeight: 600,
+              fontSize: '0.9rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              minHeight: '44px'
+              gap: '0.55rem',
+              minHeight: '46px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
-            📊 Executive KPI Canvas
+            Executive KPI Canvas
           </button>
           <button 
             onClick={() => router.push('/admin/sandbox')}
             style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: 'rgba(30, 41, 59, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '0.5rem',
-              color: '#ffffff',
+              padding: '0.85rem 1.3rem',
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-sm)',
+              color: 'var(--ink)',
               fontWeight: 600,
+              fontSize: '0.9rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              minHeight: '44px'
+              gap: '0.55rem',
+              minHeight: '46px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
-            🧪 Simulation Sandbox Workspace
+            Simulation Sandbox Workspace
           </button>
           <button
             onClick={() => router.push('/admin/attendance')}
             style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: 'rgba(30, 41, 59, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '0.5rem',
-              color: '#ffffff',
+              padding: '0.85rem 1.3rem',
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-sm)',
+              color: 'var(--ink)',
               fontWeight: 600,
+              fontSize: '0.9rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              minHeight: '44px'
+              gap: '0.55rem',
+              minHeight: '46px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
-            📅 Attendance Analytics
+            Attendance Analytics
           </button>
           <button
             onClick={() => router.push('/admin/courses')}
             style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: 'rgba(30, 41, 59, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '0.5rem',
-              color: '#ffffff',
+              padding: '0.85rem 1.3rem',
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-sm)',
+              color: 'var(--ink)',
               fontWeight: 600,
+              fontSize: '0.9rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              minHeight: '44px'
+              gap: '0.55rem',
+              minHeight: '46px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
-            📚 Course Performance
+            Course Performance
           </button>
           <button
             onClick={() => router.push('/admin/finance')}
             style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: 'rgba(30, 41, 59, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '0.5rem',
-              color: '#ffffff',
+              padding: '0.85rem 1.3rem',
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-sm)',
+              color: 'var(--ink)',
               fontWeight: 600,
+              fontSize: '0.9rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              minHeight: '44px'
+              gap: '0.55rem',
+              minHeight: '46px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
-            💰 Financial Dashboard
+            Financial Dashboard
           </button>
           <button
             onClick={() => router.push('/admin/tasks')}
             style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: 'rgba(30, 41, 59, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '0.5rem',
-              color: '#ffffff',
+              padding: '0.85rem 1.3rem',
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-sm)',
+              color: 'var(--ink)',
               fontWeight: 600,
+              fontSize: '0.9rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              minHeight: '44px'
+              gap: '0.55rem',
+              minHeight: '46px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
-            ⚙️ Background Task Monitor
+            Background Task Monitor
           </button>
           <button
             onClick={() => router.push('/admin/security')}
             style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: 'rgba(30, 41, 59, 0.4)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              borderRadius: '0.5rem',
-              color: '#ffffff',
+              padding: '0.85rem 1.3rem',
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-sm)',
+              color: 'var(--ink)',
               fontWeight: 600,
+              fontSize: '0.9rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              minHeight: '44px'
+              gap: '0.55rem',
+              minHeight: '46px',
+              boxShadow: 'var(--shadow-sm)'
             }}
           >
-            🔐 Security Audit Log
+            Security Audit Log
           </button>
         </div>
 
@@ -287,30 +304,30 @@ export default function AdminPage() {
 
           {/* Task 24: Referential Integrity Delete Guard Trigger */}
           <div style={{
-            background: 'rgba(30, 41, 59, 0.4)',
-            backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            borderRadius: '0.75rem',
-            padding: '1.5rem'
+            background: 'var(--surface)',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--r)',
+            padding: '1.75rem',
+            boxShadow: 'var(--shadow-sm)'
           }}>
-            <h3 style={{ color: '#ffffff', fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.25rem' }}>Cohort Management</h3>
-            <p style={{ color: '#94a3b8', fontSize: '0.85rem', marginBottom: '1.25rem' }}>
+            <h3 style={{ color: 'var(--ink)', fontSize: '1.05rem', fontWeight: 600, marginBottom: '0.3rem' }}>Cohort Management</h3>
+            <p style={{ color: 'var(--muted)', fontSize: '0.88rem', marginBottom: '1.25rem', maxWidth: '60ch' }}>
               Expunge inactive cohort partitions. Referential integrity conflicts are surfaced before removal.
             </p>
             <button
               onClick={() => { startDeleteCohort(); setShowDeleteDialog(true); }}
               style={{
-                padding: '0.625rem 1.25rem',
-                backgroundColor: 'rgba(239, 68, 68, 0.15)',
-                color: '#f87171',
-                border: '1px solid rgba(239, 68, 68, 0.25)',
-                borderRadius: '0.375rem',
-                fontWeight: 700,
+                padding: '0.65rem 1.2rem',
+                backgroundColor: 'var(--critical-wash)',
+                color: 'var(--critical)',
+                border: '1px solid color-mix(in oklch, var(--critical) 24%, transparent)',
+                borderRadius: 'var(--r-sm)',
+                fontWeight: 600,
                 cursor: 'pointer',
                 minHeight: '44px'
               }}
             >
-              🗑️ Delete Demo Cohort
+              Delete Demo Cohort
             </button>
           </div>
         </div>

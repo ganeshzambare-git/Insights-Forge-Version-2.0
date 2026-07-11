@@ -50,13 +50,13 @@ export const GradeEditor: React.FC = () => {
 
           {error && (
             <div id="grade-error-desc" className={styles.validationBadge} role="alert">
-              ⚠️ {error}
+              {error}
             </div>
           )}
 
           {success && (
             <div className={styles.successBadge} role="status">
-              ✓ Term grade recorded successfully in local state ledger.
+              Term grade recorded successfully in local state ledger.
             </div>
           )}
         </div>

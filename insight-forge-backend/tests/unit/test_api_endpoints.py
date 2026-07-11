@@ -22,7 +22,10 @@ from app.dependencies.services import (
     get_cohort_service,
     get_student_metric_service,
     get_coaching_intervention_service,
+    get_task_service,
+    get_finance_service,
 )
+from app.models.background_task import BackgroundTask
 from app.models.user import User
 from app.models.tenant import Tenant
 from app.models.cohort import Cohort
@@ -526,10 +529,35 @@ async def test_analytics_export_audit_packet_authorized(test_client, mock_user) 
 
 @pytest.mark.anyio
 async def test_cohort_roster_authorized(test_client, mock_user) -> None:
-    """Verifies GET /api/v1/cohorts/{cohort_id}/roster succeeds for Faculty."""
+    """Verifies GET /api/v1/cohorts/{cohort_id}/roster returns the real roster."""
     mock_user.assigned_role = "Faculty"
     app.dependency_overrides[get_current_user] = lambda: mock_user
     cohort_uuid = uuid.uuid4()
+
+    cohort = Cohort(
+        cohort_id=cohort_uuid,
+        tenant_id=mock_user.tenant_id,
+        cohort_code="CS-2026",
+        department_scope="Computer Science",
+    )
+    cohort_service = MagicMock()
+    cohort_service.get_cohort = AsyncMock(return_value=cohort)
+    app.dependency_overrides[get_cohort_service] = lambda: cohort_service
+
+    metric_service = MagicMock()
+    metric_service.cohort_roster = AsyncMock(
+        return_value=[
+            {
+                "id": str(uuid.uuid4()),
+                "name": "Jane Doe",
+                "email": "jane.doe@edu",
+                "gpa": 3.2,
+                "status": "Enrolled",
+                "risk_level": "Low",
+            }
+        ]
+    )
+    app.dependency_overrides[get_student_metric_service] = lambda: metric_service
 
     response = test_client.get(f"/api/v1/cohorts/{cohort_uuid}/roster")
 
@@ -537,22 +565,49 @@ async def test_cohort_roster_authorized(test_client, mock_user) -> None:
     json_data = response.json()
     assert json_data["success"] is True
     assert "records" in json_data["data"]
-    assert json_data["data"]["total_count"] == 200
+    assert json_data["data"]["total_count"] == 1
 
 
 @pytest.mark.anyio
 async def test_cohort_roster_search_filter(test_client, mock_user) -> None:
-    """Verifies GET /api/v1/cohorts/{cohort_id}/roster filters results by search query."""
+    """Verifies GET /api/v1/cohorts/{cohort_id}/roster passes the search filter through."""
     mock_user.assigned_role = "Faculty"
     app.dependency_overrides[get_current_user] = lambda: mock_user
     cohort_uuid = uuid.uuid4()
 
-    # Search query "john"
+    cohort = Cohort(
+        cohort_id=cohort_uuid,
+        tenant_id=mock_user.tenant_id,
+        cohort_code="CS-2026",
+        department_scope="Computer Science",
+    )
+    cohort_service = MagicMock()
+    cohort_service.get_cohort = AsyncMock(return_value=cohort)
+    app.dependency_overrides[get_cohort_service] = lambda: cohort_service
+
+    metric_service = MagicMock()
+    metric_service.cohort_roster = AsyncMock(
+        return_value=[
+            {
+                "id": str(uuid.uuid4()),
+                "name": "John Smith",
+                "email": "john.smith@edu",
+                "gpa": 3.0,
+                "status": "Enrolled",
+                "risk_level": "Low",
+            }
+        ]
+    )
+    app.dependency_overrides[get_student_metric_service] = lambda: metric_service
+
     response = test_client.get(f"/api/v1/cohorts/{cohort_uuid}/roster?search=john")
 
     assert response.status_code == status.HTTP_200_OK
     json_data = response.json()
     assert json_data["success"] is True
+    # The endpoint delegates search to the service.
+    metric_service.cohort_roster.assert_awaited_once()
+    assert metric_service.cohort_roster.await_args.kwargs["search"] == "john"
     for item in json_data["data"]["records"]:
         assert "john" in item["name"].lower() or "john" in item["email"].lower()
 
@@ -601,9 +656,23 @@ async def test_record_coaching_intervention_authorized(test_client, mock_user) -
 
 @pytest.mark.anyio
 async def test_student_progress_summary_authorized(test_client, mock_user) -> None:
-    """Verifies GET /api/v1/student/progress-summary succeeds for Student role."""
+    """Verifies GET /api/v1/student/progress-summary maps the service result."""
     mock_user.assigned_role = "Student"
     app.dependency_overrides[get_current_user] = lambda: mock_user
+
+    metric_service = MagicMock()
+    metric_service.student_progress = AsyncMock(
+        return_value={
+            "gpa": 3.65,
+            "attendance_rate": 96,
+            "ledger_empty": False,
+            "records": [],
+            "attendance_history": [],
+            "study_modules": [],
+            "term": "Fall 2026",
+        }
+    )
+    app.dependency_overrides[get_student_metric_service] = lambda: metric_service
 
     response = test_client.get("/api/v1/student/progress-summary?term=Fall%202026")
 
@@ -670,6 +739,29 @@ async def test_get_attendance_summary(test_client, mock_user) -> None:
     mock_user.assigned_role = "Admin"
     app.dependency_overrides[get_current_user] = lambda: mock_user
 
+    trend = [
+        {
+            "month": f"P{i}",
+            "attendance_rate": 90.0,
+            "cohort": "CS-2026",
+            "semester": "Spring 2026",
+        }
+        for i in range(12)
+    ]
+    metric_service = MagicMock()
+    metric_service.attendance_trend = AsyncMock(
+        return_value={
+            "trend": trend,
+            "summary": {
+                "average_attendance_rate": 90.0,
+                "peak_attendance_rate": 90.0,
+                "trough_attendance_rate": 90.0,
+                "total_months": 12,
+            },
+        }
+    )
+    app.dependency_overrides[get_student_metric_service] = lambda: metric_service
+
     response = test_client.get("/api/v1/analytics/attendance/summary")
 
     assert response.status_code == status.HTTP_200_OK
@@ -684,15 +776,40 @@ async def test_get_attendance_summary(test_client, mock_user) -> None:
 
 @pytest.mark.anyio
 async def test_get_attendance_summary_with_semester_filter(test_client, mock_user) -> None:
-    """Verifies attendance summary respects semester query filter."""
+    """Verifies attendance summary passes the semester filter to the service."""
     mock_user.assigned_role = "Admin"
     app.dependency_overrides[get_current_user] = lambda: mock_user
+
+    trend = [
+        {
+            "month": f"P{i}",
+            "attendance_rate": 88.0,
+            "cohort": "CS-2026",
+            "semester": "Spring 2026",
+        }
+        for i in range(6)
+    ]
+    metric_service = MagicMock()
+    metric_service.attendance_trend = AsyncMock(
+        return_value={
+            "trend": trend,
+            "summary": {
+                "average_attendance_rate": 88.0,
+                "peak_attendance_rate": 88.0,
+                "trough_attendance_rate": 88.0,
+                "total_months": 6,
+            },
+        }
+    )
+    app.dependency_overrides[get_student_metric_service] = lambda: metric_service
 
     response = test_client.get("/api/v1/analytics/attendance/summary?semester=Spring+2026")
 
     assert response.status_code == status.HTTP_200_OK
     json_data = response.json()
     assert json_data["success"] is True
+    metric_service.attendance_trend.assert_awaited_once()
+    assert metric_service.attendance_trend.await_args.kwargs["semester"] == "Spring 2026"
     trend = json_data["data"]["trend"]
     assert all(t["semester"] == "Spring 2026" for t in trend)
     assert json_data["data"]["summary"]["total_months"] == 6
@@ -703,6 +820,30 @@ async def test_get_course_evaluation(test_client, mock_user) -> None:
     """Verifies GET /api/v1/analytics/courses/evaluation returns course metrics."""
     mock_user.assigned_role = "Admin"
     app.dependency_overrides[get_current_user] = lambda: mock_user
+
+    def _course(cid: str, dept: str) -> dict:
+        return {
+            "course_id": cid,
+            "course_name": f"{dept} Programme",
+            "department": dept,
+            "cohort_code": cid,
+            "avg_score": 80.0,
+            "pass_rate": 90.0,
+            "enrollment": 10,
+            "evaluations_submitted": 10,
+            "kpi_status": "On Track",
+        }
+
+    metric_service = MagicMock()
+    metric_service.course_evaluation = AsyncMock(
+        return_value=[
+            _course("CS-2026", "Computer Science"),
+            _course("MTH-2026", "Mathematics"),
+            _course("ENG-2026", "Engineering"),
+            _course("BIO-2026", "Biology"),
+        ]
+    )
+    app.dependency_overrides[get_student_metric_service] = lambda: metric_service
 
     response = test_client.get("/api/v1/analytics/courses/evaluation")
 
@@ -719,15 +860,32 @@ async def test_get_course_evaluation(test_client, mock_user) -> None:
 
 @pytest.mark.anyio
 async def test_get_course_evaluation_with_department_filter(test_client, mock_user) -> None:
-    """Verifies course evaluation respects department query filter."""
+    """Verifies course evaluation passes the department filter to the service."""
     mock_user.assigned_role = "Admin"
     app.dependency_overrides[get_current_user] = lambda: mock_user
+
+    cs_course = {
+        "course_id": "CS-2026",
+        "course_name": "Computer Science Programme",
+        "department": "Computer Science",
+        "cohort_code": "CS-2026",
+        "avg_score": 80.0,
+        "pass_rate": 90.0,
+        "enrollment": 10,
+        "evaluations_submitted": 10,
+        "kpi_status": "On Track",
+    }
+    metric_service = MagicMock()
+    metric_service.course_evaluation = AsyncMock(return_value=[cs_course, cs_course])
+    app.dependency_overrides[get_student_metric_service] = lambda: metric_service
 
     response = test_client.get("/api/v1/analytics/courses/evaluation?department=Computer+Science")
 
     assert response.status_code == status.HTTP_200_OK
     json_data = response.json()
     assert json_data["success"] is True
+    metric_service.course_evaluation.assert_awaited_once()
+    assert metric_service.course_evaluation.await_args.kwargs["department"] == "Computer Science"
     courses = json_data["data"]["courses"]
     assert all(c["department"] == "Computer Science" for c in courses)
     assert json_data["data"]["total_courses"] == 2
@@ -738,6 +896,42 @@ async def test_get_resource_allocation(test_client, mock_user) -> None:
     """Verifies GET /api/v1/finance/resource-allocation returns budget ledger and utilization."""
     mock_user.assigned_role = "Admin"
     app.dependency_overrides[get_current_user] = lambda: mock_user
+
+    def _ledger_row(category: str, dimension: str) -> dict:
+        return {
+            "allocation_id": str(uuid.uuid4()),
+            "category": category,
+            "description": f"{category} budget",
+            "allocated_budget": 100000.0,
+            "current_balance": 60000.0,
+            "utilization_pct": 40.0,
+            "fiscal_year": "FY-2026",
+            "dimension": dimension,
+        }
+
+    finance_service = MagicMock()
+    finance_service.resource_allocation = AsyncMock(
+        return_value={
+            "budget_ledger": [
+                _ledger_row("Infrastructure", "Technology"),
+                _ledger_row("Faculty", "Academic"),
+                _ledger_row("Services", "Student Affairs"),
+                _ledger_row("Research", "Research"),
+            ],
+            "utilization_cards": [{"label": f"card{i}"} for i in range(4)],
+            "financial_summary": {
+                "total_allocated": 400000.0,
+                "total_balance": 240000.0,
+                "total_spent": 160000.0,
+                "overall_utilization_pct": 40.0,
+                "fiscal_year": "FY-2026",
+                "tenant_id": str(mock_user.tenant_id),
+                "generated_at": "2026-07-11T00:00:00Z",
+            },
+            "filters_applied": {"dimension": None},
+        }
+    )
+    app.dependency_overrides[get_finance_service] = lambda: finance_service
 
     response = test_client.get("/api/v1/finance/resource-allocation")
 
@@ -756,15 +950,39 @@ async def test_get_resource_allocation(test_client, mock_user) -> None:
 
 @pytest.mark.anyio
 async def test_get_resource_allocation_with_dimension_filter(test_client, mock_user) -> None:
-    """Verifies resource allocation respects dimension query filter."""
+    """Verifies resource allocation passes the dimension filter to the service."""
     mock_user.assigned_role = "Admin"
     app.dependency_overrides[get_current_user] = lambda: mock_user
+
+    finance_service = MagicMock()
+    finance_service.resource_allocation = AsyncMock(
+        return_value={
+            "budget_ledger": [
+                {
+                    "allocation_id": str(uuid.uuid4()),
+                    "category": "Infrastructure",
+                    "description": "Cloud",
+                    "allocated_budget": 100000.0,
+                    "current_balance": 60000.0,
+                    "utilization_pct": 40.0,
+                    "fiscal_year": "FY-2026",
+                    "dimension": "Technology",
+                }
+            ],
+            "utilization_cards": [],
+            "financial_summary": {},
+            "filters_applied": {"dimension": "Technology"},
+        }
+    )
+    app.dependency_overrides[get_finance_service] = lambda: finance_service
 
     response = test_client.get("/api/v1/finance/resource-allocation?dimension=Technology")
 
     assert response.status_code == status.HTTP_200_OK
     json_data = response.json()
     assert json_data["success"] is True
+    finance_service.resource_allocation.assert_awaited_once()
+    assert finance_service.resource_allocation.await_args.kwargs["dimension"] == "Technology"
     ledger = json_data["data"]["budget_ledger"]
     assert all(b["dimension"] == "Technology" for b in ledger)
     assert len(ledger) == 1
@@ -781,7 +999,24 @@ async def test_get_task_status_running(test_client, mock_user) -> None:
     mock_user.assigned_role = "Admin"
     app.dependency_overrides[get_current_user] = lambda: mock_user
 
-    response = test_client.get("/api/v1/tasks/status/task-running-001")
+    tid = uuid.uuid4()
+    task = BackgroundTask(
+        task_id=tid,
+        tenant_id=mock_user.tenant_id,
+        task_type="ML_RISK_PIPELINE",
+        status="Running",
+        progress_pct=62,
+        timeline=[{"event": "Queued"}, {"event": "Started"}, {"event": "Processing"}],
+        result=None,
+        error=None,
+        started_at=None,
+        completed_at=None,
+    )
+    task_service = MagicMock()
+    task_service.get_task = AsyncMock(return_value=task)
+    app.dependency_overrides[get_task_service] = lambda: task_service
+
+    response = test_client.get(f"/api/v1/tasks/status/{tid}")
 
     assert response.status_code == status.HTTP_200_OK
     json_data = response.json()
@@ -798,7 +1033,24 @@ async def test_get_task_status_completed(test_client, mock_user) -> None:
     mock_user.assigned_role = "Admin"
     app.dependency_overrides[get_current_user] = lambda: mock_user
 
-    response = test_client.get("/api/v1/tasks/status/task-completed-002")
+    tid = uuid.uuid4()
+    task = BackgroundTask(
+        task_id=tid,
+        tenant_id=mock_user.tenant_id,
+        task_type="AUDIT_EXPORT",
+        status="Completed",
+        progress_pct=100,
+        timeline=[{"event": "Completed"}],
+        result={"record_count": 1840, "file_size_kb": 214},
+        error=None,
+        started_at=None,
+        completed_at=None,
+    )
+    task_service = MagicMock()
+    task_service.get_task = AsyncMock(return_value=task)
+    app.dependency_overrides[get_task_service] = lambda: task_service
+
+    response = test_client.get(f"/api/v1/tasks/status/{tid}")
 
     assert response.status_code == status.HTTP_200_OK
     json_data = response.json()
@@ -815,7 +1067,28 @@ async def test_get_task_status_failed(test_client, mock_user) -> None:
     mock_user.assigned_role = "Admin"
     app.dependency_overrides[get_current_user] = lambda: mock_user
 
-    response = test_client.get("/api/v1/tasks/status/task-failed-003")
+    tid = uuid.uuid4()
+    task = BackgroundTask(
+        task_id=tid,
+        tenant_id=mock_user.tenant_id,
+        task_type="DATA_INGESTION",
+        status="Failed",
+        progress_pct=38,
+        timeline=[{"event": "Failed"}],
+        result=None,
+        error={
+            "code": "CSV_SCHEMA_MISMATCH",
+            "message": "Headers do not match expected schema.",
+            "recovery": "Re-upload using the validated template.",
+        },
+        started_at=None,
+        completed_at=None,
+    )
+    task_service = MagicMock()
+    task_service.get_task = AsyncMock(return_value=task)
+    app.dependency_overrides[get_task_service] = lambda: task_service
+
+    response = test_client.get(f"/api/v1/tasks/status/{tid}")
 
     assert response.status_code == status.HTTP_200_OK
     json_data = response.json()
@@ -846,6 +1119,22 @@ async def test_list_tasks(test_client, mock_user) -> None:
     """Verifies GET /api/v1/tasks/list returns all task summaries."""
     mock_user.assigned_role = "Admin"
     app.dependency_overrides[get_current_user] = lambda: mock_user
+
+    tasks = [
+        BackgroundTask(
+            task_id=uuid.uuid4(),
+            tenant_id=mock_user.tenant_id,
+            task_type="DATA_INGESTION",
+            status="Running",
+            progress_pct=10 * i,
+            timeline=[],
+            started_at=None,
+        )
+        for i in range(3)
+    ]
+    task_service = MagicMock()
+    task_service.list_tasks = AsyncMock(return_value=tasks)
+    app.dependency_overrides[get_task_service] = lambda: task_service
 
     response = test_client.get("/api/v1/tasks/list")
 

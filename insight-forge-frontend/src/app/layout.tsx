@@ -1,11 +1,24 @@
 import './globals.css';
 import { Suspense } from 'react';
+import { Inter, Fraunces } from 'next/font/google';
 import { SessionLifecycleProvider } from '../features/authentication/components/SessionLifecycleProvider';
 import { ConnectivityProvider } from '../features/connectivity/components/ConnectivityProvider';
 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
+});
+
 export const metadata = {
-  title: 'InsightForge AI',
-  description: 'Enterprise Decision Intelligence Platform',
+  title: 'Insight Forge',
+  description: 'Educational Decision Intelligence Platform',
 };
 
 export default function RootLayout({
@@ -14,9 +27,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-slate-950 text-slate-100 min-h-screen">
-        <Suspense fallback={<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', color: '#64748b' }}>Loading context...</div>}>
+    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
+      <body>
+        <Suspense
+          fallback={
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', color: 'var(--muted)' }}>
+              Loading workspace…
+            </div>
+          }
+        >
           <ConnectivityProvider>
             <SessionLifecycleProvider>
               {children}

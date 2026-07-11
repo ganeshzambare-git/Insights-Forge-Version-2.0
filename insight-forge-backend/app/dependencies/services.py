@@ -23,6 +23,11 @@ from app.services.student_metric import StudentMetricService
 from app.services.coaching_intervention import CoachingInterventionService
 from app.services.auth import AuthService
 from app.services.analytics import AnalyticsService
+from app.services.dataset import DatasetService
+from app.services.ingestion import IngestionService
+from app.services.task_service import TaskService
+from app.services.finance_service import FinanceService
+from app.storage.factory import get_storage_provider
 
 
 def get_service_context(request: Request) -> ServiceContext:
@@ -164,6 +169,63 @@ def get_analytics_service(
 ) -> AnalyticsService:
     """Construct and inject an AnalyticsService."""
     return AnalyticsService(
+        uow=uow,
+        context=context,
+        audit_logger=DefaultAuditLogger(),
+        clock=SystemClockProvider(),
+        uuid_provider=SystemUUIDProvider(),
+    )
+
+
+def get_dataset_service(
+    uow: UnitOfWork = Depends(get_uow),
+    context: ServiceContext = Depends(get_service_context),
+) -> DatasetService:
+    """Construct and inject a DatasetService."""
+    return DatasetService(
+        uow=uow,
+        context=context,
+        audit_logger=DefaultAuditLogger(),
+        clock=SystemClockProvider(),
+        uuid_provider=SystemUUIDProvider(),
+    )
+
+
+def get_ingestion_service(
+    uow: UnitOfWork = Depends(get_uow),
+    context: ServiceContext = Depends(get_service_context),
+) -> IngestionService:
+    """Construct and inject an IngestionService with the configured storage backend."""
+    return IngestionService(
+        uow=uow,
+        context=context,
+        audit_logger=DefaultAuditLogger(),
+        clock=SystemClockProvider(),
+        uuid_provider=SystemUUIDProvider(),
+        storage=get_storage_provider(),
+    )
+
+
+def get_task_service(
+    uow: UnitOfWork = Depends(get_uow),
+    context: ServiceContext = Depends(get_service_context),
+) -> TaskService:
+    """Construct and inject a TaskService."""
+    return TaskService(
+        uow=uow,
+        context=context,
+        audit_logger=DefaultAuditLogger(),
+        clock=SystemClockProvider(),
+        uuid_provider=SystemUUIDProvider(),
+    )
+
+
+def get_finance_service(
+    uow: UnitOfWork = Depends(get_uow),
+    context: ServiceContext = Depends(get_service_context),
+) -> FinanceService:
+    """Construct and inject a FinanceService."""
+    return FinanceService(
         uow=uow,
         context=context,
         audit_logger=DefaultAuditLogger(),

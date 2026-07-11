@@ -62,7 +62,7 @@ export const StudentDashboard: React.FC = () => {
 
       {error && (
         <div className={styles.errorAlert} role="alert">
-          <span>⚠️</span> {error}
+          <span></span> {error}
         </div>
       )}
 
@@ -107,7 +107,7 @@ export const StudentDashboard: React.FC = () => {
                     {records.map((r, i) => (
                       <tr key={i}>
                         <td style={{ textAlign: 'left', fontWeight: 600 }}>{r.subject}</td>
-                        <td style={{ fontFamily: 'monospace', fontWeight: 700, color: '#10b981' }}>{r.grade}</td>
+                        <td style={{ fontFamily: 'monospace', fontWeight: 700, color: 'var(--safe)' }}>{r.grade}</td>
                         <td style={{ fontFamily: 'monospace' }}>{r.score}</td>
                       </tr>
                     ))}
@@ -154,15 +154,15 @@ export const StudentDashboard: React.FC = () => {
                 <svg viewBox="0 0 420 220" width="100%" height="220px" style={{ overflow: 'visible' }}>
                   <defs>
                     <linearGradient id="personalCurveGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.15" />
-                      <stop offset="100%" stopColor="#4f46e5" stopOpacity="0" />
+                      <stop offset="0%" stopColor="var(--violet)" stopOpacity="0.15" />
+                      <stop offset="100%" stopColor="var(--violet)" stopOpacity="0" />
                     </linearGradient>
                   </defs>
 
-                  <line x1="20" y1="30" x2="400" y2="30" stroke="#f1f5f9" strokeWidth="1" />
-                  <line x1="20" y1="80" x2="400" y2="80" stroke="#f1f5f9" strokeWidth="1" />
-                  <line x1="20" y1="130" x2="400" y2="130" stroke="#f1f5f9" strokeWidth="1" />
-                  <line x1="20" y1="180" x2="400" y2="180" stroke="#cbd5e1" strokeWidth="1.5" />
+                  <line x1="20" y1="30" x2="400" y2="30" stroke="var(--ink)" strokeWidth="1" />
+                  <line x1="20" y1="80" x2="400" y2="80" stroke="var(--ink)" strokeWidth="1" />
+                  <line x1="20" y1="130" x2="400" y2="130" stroke="var(--ink)" strokeWidth="1" />
+                  <line x1="20" y1="180" x2="400" y2="180" stroke="var(--ink-soft)" strokeWidth="1.5" />
 
                   <path
                     d={`M 20 ${180 - (cohortGpaHistory[0].val - 1) * 50} 
@@ -170,7 +170,7 @@ export const StudentDashboard: React.FC = () => {
                        L 272 ${180 - (cohortGpaHistory[2].val - 1) * 50} 
                        L 400 ${180 - (cohortGpaHistory[3].val - 1) * 50}`}
                     fill="none"
-                    stroke="#10b981"
+                    stroke="var(--safe)"
                     strokeWidth="2.5"
                     strokeDasharray="4 4"
                   />
@@ -181,7 +181,7 @@ export const StudentDashboard: React.FC = () => {
                        L 272 ${180 - (studentGpaHistory[2].val - 1) * 50} 
                        L 400 ${180 - (studentGpaHistory[3].val - 1) * 50}`}
                     fill="none"
-                    stroke="#4f46e5"
+                    stroke="var(--violet)"
                     strokeWidth="3.5"
                     strokeLinecap="round"
                   />
@@ -199,17 +199,17 @@ export const StudentDashboard: React.FC = () => {
                     const cx = 20 + idx * 126.6;
                     const cy = 180 - (pt.val - 1) * 50;
                     return (
-                      <circle key={idx} cx={cx} cy={cy} r="4.5" fill="#ffffff" stroke="#4f46e5" strokeWidth="2.5" />
+                      <circle key={idx} cx={cx} cy={cy} r="4.5" fill="var(--ink)" stroke="var(--violet)" strokeWidth="2.5" />
                     );
                   })}
 
-                  <text x="20" y="200" fill="#64748b" fontSize="9px" fontWeight="600">W1</text>
-                  <text x="146" y="200" fill="#64748b" fontSize="9px" fontWeight="600">W4</text>
-                  <text x="272" y="200" fill="#64748b" fontSize="9px" fontWeight="600">W8</text>
-                  <text x="390" y="200" fill="#64748b" fontSize="9px" fontWeight="600">W12</text>
+                  <text x="20" y="200" fill="var(--faint)" fontSize="9px" fontWeight="600">W1</text>
+                  <text x="146" y="200" fill="var(--faint)" fontSize="9px" fontWeight="600">W4</text>
+                  <text x="272" y="200" fill="var(--faint)" fontSize="9px" fontWeight="600">W8</text>
+                  <text x="390" y="200" fill="var(--faint)" fontSize="9px" fontWeight="600">W12</text>
                 </svg>
               ) : (
-                <div style={{ padding: '2rem', textAlign: 'center', color: '#64748b' }}>No comparative distribution data available.</div>
+                <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--faint)' }}>No comparative distribution data available.</div>
               )}
             </div>
 

@@ -57,7 +57,7 @@ export const WorkspacePortal: React.FC = () => {
             </div>
             {isInputInvalid && (
               <span id="workspace-error" className={styles.errorText} role="alert">
-                <span className={styles.errorIcon}>⚠️</span> {error}
+                <span className={styles.errorIcon}></span> {error}
               </span>
             )}
           </div>

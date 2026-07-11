@@ -29,18 +29,18 @@ function StudentWorkspaceContent() {
 
   return (
     <ProtectedRoute allowedRoles={['Student']}>
-      <main style={{ minHeight: '100vh', backgroundColor: '#020617', color: '#f8fafc', paddingBottom: '4rem' }}>
+      <main style={{ minHeight: '100vh', backgroundColor: 'var(--bg)', color: 'var(--ink)', paddingBottom: '4rem' }}>
         <div style={{
-          borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+          borderBottom: '1px solid var(--border)',
           padding: '1rem 2rem',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          backgroundColor: '#0f172a'
+          backgroundColor: 'var(--surface)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <span style={{ fontWeight: 800, color: '#10b981' }}>Student Personal Workspace</span>
-            <span style={{ fontSize: '0.75rem', color: '#38bdf8', border: '1px solid #0284c7', borderRadius: '0.25rem', padding: '0.125rem 0.375rem', textTransform: 'uppercase', fontWeight: 700 }}>
+            <span style={{ fontWeight: 800, color: 'var(--safe)' }}>Student Personal Workspace</span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--brand)', border: '1px solid var(--brand)', borderRadius: '0.25rem', padding: '0.125rem 0.375rem', textTransform: 'uppercase', fontWeight: 700 }}>
               Learner Profile
             </span>
           </div>
@@ -49,9 +49,9 @@ function StudentWorkspaceContent() {
             style={{
               padding: '0.5rem 1rem',
               backgroundColor: 'transparent',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
+              border: '1px solid var(--border-strong)',
               borderRadius: '0.375rem',
-              color: '#f87171',
+              color: 'var(--critical)',
               cursor: 'pointer',
               fontSize: '0.85rem'
             }}
@@ -65,10 +65,10 @@ function StudentWorkspaceContent() {
             style={{
               margin: '1.5rem',
               backgroundColor: 'rgba(239, 68, 68, 0.15)',
-              border: '2px solid #ef4444',
+              border: '2px solid var(--critical)',
               borderRadius: '0.5rem',
               padding: '1rem',
-              color: '#f87171',
+              color: 'var(--critical)',
               fontWeight: 700,
               fontSize: '0.9rem',
               display: 'flex',
@@ -89,7 +89,7 @@ function StudentWorkspaceContent() {
 
 export default function StudentWorkspacePage() {
   return (
-    <Suspense fallback={<div style={{ padding: '2rem', color: '#ffffff' }}>Loading workspace session...</div>}>
+    <Suspense fallback={<div style={{ padding: '2rem', color: 'var(--ink)' }}>Loading workspace session...</div>}>
       <StudentWorkspaceContent />
     </Suspense>
   );

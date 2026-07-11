@@ -2,22 +2,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  align-items: stretch;
   width: 100%;
-  padding: 2rem;
+  max-width: 400px;
 }
 
 .card {
   width: 100%;
-  max-width: 480px;
-  background: rgba(30, 41, 59, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1rem;
-  padding: 3rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background: transparent;
   text-align: left;
 }
 
@@ -28,38 +20,41 @@
 }
 
 .logo {
-  max-height: 48px;
-  max-width: 180px;
+  max-height: 44px;
+  max-width: 170px;
   object-fit: contain;
   margin-bottom: 1rem;
 }
 
 .title {
-  color: #ffffff;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  color: var(--ink);
+  font-size: 1.65rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
 }
 
 .changeTenantButton {
   background: transparent;
   border: none;
-  color: #38bdf8;
+  color: var(--brand-ink);
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   padding: 0;
   align-self: flex-start;
-  transition: opacity 0.2s ease;
+  transition: color 0.18s var(--ease);
 }
 
 .changeTenantButton:hover {
-  opacity: 0.8;
+  color: var(--brand-strong);
   text-decoration: underline;
 }
 
 .changeTenantButton:disabled {
-  color: #64748b;
+  color: var(--faint);
   cursor: not-allowed;
   text-decoration: none;
 }
@@ -72,96 +67,110 @@
 .inputGroup {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.35rem;
 }
 
 .label {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: #94a3b8;
+  color: var(--muted);
   margin-bottom: 0.5rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
 .input {
-  background-color: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
-  padding: 0.75rem 1rem;
-  color: #ffffff;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  padding: 0.8rem 0.95rem;
+  color: var(--ink);
   font-size: 1rem;
-  transition: all 0.2s ease-in-out;
+  font-family: var(--font-sans);
+  transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease);
+}
+
+.input::placeholder {
+  color: var(--faint);
 }
 
 .input:focus {
   outline: none;
-  border-color: #38bdf8;
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-wash);
 }
 
 .input:disabled {
-  opacity: 0.6;
+  background: var(--surface-2);
+  color: var(--muted);
   cursor: not-allowed;
 }
 
 .securityBadge {
   display: flex;
   align-items: flex-start;
-  background-color: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  border-radius: 0.5rem;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-  color: #f87171;
+  background: var(--critical-wash);
+  border: 1px solid color-mix(in oklch, var(--critical) 20%, transparent);
+  border-radius: var(--r-sm);
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.35rem;
+  color: var(--critical);
 }
 
 .securityBadgeIcon {
-  font-size: 1.1rem;
-  margin-right: 0.75rem;
+  font-size: 1.05rem;
+  margin-right: 0.65rem;
   line-height: 1.2;
 }
 
 .securityBadgeText {
   font-size: 0.85rem;
-  line-height: 1.4;
+  line-height: 1.45;
   font-weight: 500;
 }
 
 .submitButton {
   width: 100%;
-  padding: 0.875rem;
-  background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
-  color: #ffffff;
+  padding: 0.9rem;
+  background: var(--brand);
+  color: oklch(0.99 0 0);
   border: none;
-  border-radius: 0.5rem;
+  border-radius: var(--r-sm);
   font-weight: 600;
+  font-size: 0.98rem;
+  font-family: var(--font-sans);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.18s var(--ease), transform 0.18s var(--ease), box-shadow 0.18s var(--ease);
+  box-shadow: var(--shadow-sm);
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 0.35rem;
 }
 
 .submitButton:hover:not(:disabled) {
-  opacity: 0.95;
+  background: var(--brand-strong);
   transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .submitButton:disabled {
-  background: #475569;
-  color: #94a3b8;
+  background: var(--surface-3);
+  color: var(--faint);
   cursor: not-allowed;
-  transform: none;
-  opacity: 0.6;
+  box-shadow: none;
 }
 
 .spinner {
   width: 1.25rem;
   height: 1.25rem;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid oklch(1 0 0 / 0.45);
   border-radius: 50%;
-  border-top-color: #ffffff;
+  border-top-color: oklch(1 0 0);
   animation: spin 0.8s linear infinite;
 }
 

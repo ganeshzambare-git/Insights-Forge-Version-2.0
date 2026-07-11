@@ -11,9 +11,10 @@ from fastapi import APIRouter, Depends, Request, Query, status
 
 from app.core.roles import Role
 from app.dependencies.auth import get_current_user, RequireRoles
-from app.dependencies.services import get_analytics_service
+from app.dependencies.services import get_analytics_service, get_student_metric_service
 from app.models.user import User
 from app.services.analytics import AnalyticsService
+from app.services.student_metric import StudentMetricService
 from app.utils.response import api_response
 from app.services.exceptions import AuthorizationError
 
@@ -387,34 +388,15 @@ async def get_executive_summary(request: Request) -> dict[str, Any]:
 )
 async def get_department_records(
     request: Request,
-    scope: str = Query(default="Engineering", description="Filter department scope name.")
+    scope: str = Query(default="Engineering", description="Filter department scope name."),
+    current_user: User = Depends(get_current_user),
+    service: StudentMetricService = Depends(get_student_metric_service),
 ) -> dict[str, Any]:
     req_id = getattr(request.state, "request_id", "unknown-req-id")
 
-    # Generate mock student records
-    student_templates = [
-        {"name": "John Doe", "term_gpa": 3.12, "risk_level": "Medium", "credits": 15},
-        {"name": "Jane Smith", "term_gpa": 3.65, "risk_level": "Low", "credits": 16},
-        {"name": "Bob Johnson", "term_gpa": 2.85, "risk_level": "High", "credits": 12},
-        {"name": "Alice Williams", "term_gpa": 3.90, "risk_level": "Low", "credits": 15},
-        {"name": "Charlie Brown", "term_gpa": 3.42, "risk_level": "Low", "credits": 14},
-        {"name": "Diana Ross", "term_gpa": 2.95, "risk_level": "Medium", "credits": 12},
-        {"name": "Evan Wright", "term_gpa": 3.78, "risk_level": "Low", "credits": 15},
-        {"name": "Fiona Gallagher", "term_gpa": 2.45, "risk_level": "High", "credits": 9}
-    ]
-
-    records = []
-    # Adjust results based on scope filter
-    for i, t in enumerate(student_templates):
-        records.append({
-            "id": f"student-id-{scope.lower()}-{i}",
-            "name": t["name"],
-            "department": scope,
-            "term_gpa": t["term_gpa"],
-            "risk_level": t["risk_level"],
-            "term_credits": t["credits"],
-            "status": "Enrolled"
-        })
+    records = await service.department_records(
+        tenant_id=current_user.tenant_id, scope=scope
+    )
 
     return api_response(
         success=True,
@@ -422,7 +404,7 @@ async def get_department_records(
         data={
             "scope": scope,
             "records": records,
-            "total_records_count": len(records)
+            "total_records_count": len(records),
         },
         request_id=req_id,
     )
@@ -469,43 +451,22 @@ async def get_attendance_summary(
     semester: str | None = Query(default=None, description="Semester label filter."),
     cohort_code: str | None = Query(default=None, description="Cohort code filter."),
     current_user: User = Depends(get_current_user),
+    service: StudentMetricService = Depends(get_student_metric_service),
 ) -> dict[str, Any]:
     req_id = getattr(request.state, "request_id", "unknown-req-id")
 
-    mock_trend = [
-        {"month": "Jan", "attendance_rate": 91.2, "cohort": "CS-2026", "semester": "Spring 2026"},
-        {"month": "Feb", "attendance_rate": 88.7, "cohort": "CS-2026", "semester": "Spring 2026"},
-        {"month": "Mar", "attendance_rate": 93.4, "cohort": "CS-2026", "semester": "Spring 2026"},
-        {"month": "Apr", "attendance_rate": 85.1, "cohort": "CS-2026", "semester": "Spring 2026"},
-        {"month": "May", "attendance_rate": 87.6, "cohort": "CS-2026", "semester": "Spring 2026"},
-        {"month": "Jun", "attendance_rate": 90.0, "cohort": "CS-2026", "semester": "Spring 2026"},
-        {"month": "Jul", "attendance_rate": 78.3, "cohort": "CS-2026", "semester": "Summer 2026"},
-        {"month": "Aug", "attendance_rate": 82.9, "cohort": "CS-2026", "semester": "Summer 2026"},
-        {"month": "Sep", "attendance_rate": 94.5, "cohort": "CS-2026", "semester": "Fall 2026"},
-        {"month": "Oct", "attendance_rate": 92.1, "cohort": "CS-2026", "semester": "Fall 2026"},
-        {"month": "Nov", "attendance_rate": 89.8, "cohort": "CS-2026", "semester": "Fall 2026"},
-        {"month": "Dec", "attendance_rate": 86.4, "cohort": "CS-2026", "semester": "Fall 2026"},
-    ]
-
-    if semester:
-        mock_trend = [t for t in mock_trend if t["semester"] == semester]
-    if cohort_code:
-        mock_trend = [t for t in mock_trend if t["cohort"] == cohort_code]
-
-    values = [t["attendance_rate"] for t in mock_trend]
-    avg_rate = round(sum(values) / len(values), 2) if values else 0.0
+    result = await service.attendance_trend(
+        tenant_id=current_user.tenant_id,
+        semester=semester,
+        cohort_code=cohort_code,
+    )
 
     return api_response(
         success=True,
         message="Attendance trend summary retrieved successfully.",
         data={
-            "trend": mock_trend,
-            "summary": {
-                "average_attendance_rate": avg_rate,
-                "peak_attendance_rate": max(values) if values else 0.0,
-                "trough_attendance_rate": min(values) if values else 0.0,
-                "total_months": len(mock_trend),
-            },
+            "trend": result["trend"],
+            "summary": result["summary"],
             "filters_applied": {"semester": semester, "cohort_code": cohort_code},
         },
         request_id=req_id,
@@ -529,67 +490,22 @@ async def get_course_evaluation(
     department: str | None = Query(default=None, description="Department scope filter."),
     cohort_code: str | None = Query(default=None, description="Cohort code filter."),
     current_user: User = Depends(get_current_user),
+    service: StudentMetricService = Depends(get_student_metric_service),
 ) -> dict[str, Any]:
     req_id = getattr(request.state, "request_id", "unknown-req-id")
 
-    mock_courses = [
-        {
-            "course_id": "CSC-401",
-            "course_name": "Advanced Algorithms",
-            "department": "Computer Science",
-            "cohort_code": "CS-2026",
-            "avg_score": 78.4,
-            "pass_rate": 84.2,
-            "enrollment": 52,
-            "evaluations_submitted": 48,
-            "kpi_status": "On Track",
-        },
-        {
-            "course_id": "CSC-302",
-            "course_name": "Operating Systems",
-            "department": "Computer Science",
-            "cohort_code": "CS-2026",
-            "avg_score": 72.1,
-            "pass_rate": 77.5,
-            "enrollment": 61,
-            "evaluations_submitted": 58,
-            "kpi_status": "At Risk",
-        },
-        {
-            "course_id": "MTH-201",
-            "course_name": "Linear Algebra",
-            "department": "Mathematics",
-            "cohort_code": "MTH-2026",
-            "avg_score": 81.9,
-            "pass_rate": 91.0,
-            "enrollment": 44,
-            "evaluations_submitted": 43,
-            "kpi_status": "Exceeding",
-        },
-        {
-            "course_id": "ENG-110",
-            "course_name": "Technical Writing",
-            "department": "Engineering",
-            "cohort_code": "ENG-2026",
-            "avg_score": 88.5,
-            "pass_rate": 95.3,
-            "enrollment": 38,
-            "evaluations_submitted": 37,
-            "kpi_status": "Exceeding",
-        },
-    ]
-
-    if department:
-        mock_courses = [c for c in mock_courses if c["department"] == department]
-    if cohort_code:
-        mock_courses = [c for c in mock_courses if c["cohort_code"] == cohort_code]
+    courses = await service.course_evaluation(
+        tenant_id=current_user.tenant_id,
+        department=department,
+        cohort_code=cohort_code,
+    )
 
     return api_response(
         success=True,
         message="Course evaluation metrics retrieved successfully.",
         data={
-            "courses": mock_courses,
-            "total_courses": len(mock_courses),
+            "courses": courses,
+            "total_courses": len(courses),
             "filters_applied": {"department": department, "cohort_code": cohort_code},
         },
         request_id=req_id,

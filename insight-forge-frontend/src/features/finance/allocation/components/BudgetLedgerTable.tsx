@@ -6,7 +6,7 @@ import styles from './ResourceAllocationPage.module.css';
 
 function UtilizationBar({ pct }: { pct: number }) {
   const capped = Math.min(100, Math.max(0, pct));
-  const color = capped > 70 ? '#f87171' : capped > 45 ? '#f59e0b' : '#34d399';
+  const color = capped > 70 ? 'var(--critical)' : capped > 45 ? 'var(--warn)' : 'var(--safe)';
   return (
     <div className={styles.utilBar} aria-label={`${capped.toFixed(1)}% utilization`}>
       <div className={styles.utilBarFill} style={{ width: `${capped}%`, backgroundColor: color }} />
@@ -49,7 +49,7 @@ export const BudgetLedgerTable: React.FC = () => {
                 <td className={styles.td}>{entry.description}</td>
                 <td className={`${styles.td} ${styles.codeCell}`}>{entry.dimension}</td>
                 <td className={styles.td}>${entry.allocated_budget.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                <td className={styles.td} style={{ color: '#34d399' }}>
+                <td className={styles.td} style={{ color: 'var(--safe)' }}>
                   ${entry.current_balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </td>
                 <td className={styles.td}>{entry.fiscal_year}</td>
