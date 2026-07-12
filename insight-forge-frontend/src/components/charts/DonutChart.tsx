@@ -15,7 +15,7 @@ type DonutChartProps = {
   ariaLabel?: string;
 };
 
-// Donut whose segments sweep in clockwise via strokeDashoffset.
+// Donut chart with animated SVG segments.
 export function DonutChart({
   data,
   size = 200,
@@ -27,11 +27,14 @@ export function DonutChart({
   ariaLabel,
 }: DonutChartProps) {
   const reduce = useReducedMotion();
+
+  // Calculate total value and SVG dimensions.
   const total = data.reduce((s, d) => s + d.value, 0) || 1;
   const r = (size - thickness) / 2;
   const c = 2 * Math.PI * r;
   const cx = size / 2;
 
+  // Convert each data item into a drawable donut segment.
   let offset = 0;
   const segments = data.map((d) => {
     const frac = d.value / total;
@@ -43,7 +46,11 @@ export function DonutChart({
   return (
     <div style={{ display: 'flex', gap: 22, alignItems: 'center', flexWrap: 'wrap' }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label={ariaLabel || 'Donut chart'}>
+
+        {/* Background ring */}
         <circle cx={cx} cy={cx} r={r} fill="none" stroke="var(--paper)" strokeWidth={thickness} />
+
+        {/* Rotate chart so drawing starts from the top */}
         <g transform={`rotate(-90 ${cx} ${cx})`}>
           {segments.map((s, i) => (
             <motion.circle
@@ -64,6 +71,8 @@ export function DonutChart({
             />
           ))}
         </g>
+
+        {/* Optional center text */}
         {(centerValue || centerLabel) && (
           <>
             <text x={cx} y={cx - 2} textAnchor="middle" fontSize="26" fontFamily="var(--font-display)" fontWeight="600" fill="var(--graphite)">
@@ -76,6 +85,7 @@ export function DonutChart({
         )}
       </svg>
 
+      {/* Optional legend with percentage values */}
       {showLegend && (
       <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gap: 10, minWidth: 140 }}>
         {segments.map((s, i) => (
@@ -83,6 +93,7 @@ export function DonutChart({
             <span style={{ width: 10, height: 10, borderRadius: 3, background: s.color, flexShrink: 0 }} />
             <span style={{ color: 'var(--graphite)', fontWeight: 500 }}>{s.label}</span>
             <span style={{ marginLeft: 'auto', color: 'var(--slate)', fontVariantNumeric: 'tabular-nums' }}>
+              {/* Display percentage contribution of each slice */}
               {Math.round(s.frac * 100)}%
             </span>
           </li>
