@@ -10,19 +10,16 @@ import zipfile
 import xml.etree.ElementTree as ET
 from typing import Any
 
-import pandas as pd
-
 from app.ai.schemas.cleaning import CleaningLogEntry, TrustedDatasetSummary
 from app.ai.utils.cleaning import generate_trusted_dataset
 from app.services.exceptions import ValidationError
-from app.ingestion.quality_pipeline import PipelineResult, run_cleaning_pipeline
 
 
 class CleaningPipeline:
     """Staged data cleaning execution pipeline."""
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
-        self.last_result: PipelineResult | None = None
+        pass
 
     async def execute(
         self, file_content: bytes, filename: str
@@ -52,35 +49,10 @@ class CleaningPipeline:
         else:
             columns = list(df_dict[0].keys())
 
-        # 4. Run the canonical ten-stage cleaner.  ``last_result`` exposes the
-        # partitions to background ingestion; this API remains backwards
-        # compatible by returning the established summary/log contract.
-        self.last_result = run_cleaning_pipeline(pd.DataFrame(df_dict))
-
-        # 5. Generate the existing certification summary, then append the
-        # stage audit so older API clients retain their response shape.
+        # 4. Generate trusted dataset and audit logging
         dataset_name = filename.rsplit(".", 1)[0]
         summary, log_entries = generate_trusted_dataset(df_dict, columns, dataset_name)
-        log_entries.extend(
-            CleaningLogEntry(
-                issue=f"Stage {event.stage}: {event.action}",
-                recommendation=event.detail or event.action,
-                confidence=event.confidence,
-                evidence=f"Affected records: {event.count}",
-                status="APPLIED",
-            )
-            for event in self.last_result.audit
-        )
         return summary, log_entries
-
-    def parse_file(self, file_content: bytes, filename: str) -> list[dict[str, Any]]:
-        """Parse a supported upload for the async ingestion worker."""
-        fn_lower = filename.lower()
-        if fn_lower.endswith(".csv"):
-            return self._parse_csv(file_content)
-        if fn_lower.endswith(".xlsx"):
-            return self._parse_xlsx(file_content)
-        raise ValidationError("Unsupported file format. Only CSV and XLSX are allowed.", error_code="unsupported_format")
 
     def _parse_csv(self, content: bytes) -> list[dict[str, Any]]:
         """Parse CSV byte content into list of dictionaries."""

@@ -7,7 +7,6 @@ Exposes REST CRUD endpoints governing Coaching Interventions, tenant-isolated.
 from typing import Any
 import uuid
 from fastapi import APIRouter, Depends, Request, Query, status
-from pydantic import BaseModel
 
 from app.core.roles import Role
 from app.dependencies.auth import get_current_user, RequireRoles
@@ -292,59 +291,6 @@ async def list_interventions(
         meta=meta,
         request_id=req_id,
     )
-
-
-class CoachingInterventionRecordRequest(BaseModel):
-    tenant_id: str
-    student_user_id: str
-    intervention_notes: str
-
-
-@router.post(
-    "/record",
-    status_code=status.HTTP_201_CREATED,
-    response_model=dict[str, Any],
-    summary="Record Faculty Coaching Intervention",
-    description="Establish an academic coaching notes entry securely. Accessible to Faculty, Dean, or Admin.",
-)
-async def record_coaching_intervention(
-    request: Request,
-    payload: CoachingInterventionRecordRequest,
-    current_user: User = Depends(get_current_user),
-    service: CoachingInterventionService = Depends(get_coaching_intervention_service),
-) -> dict[str, Any]:
-    req_id = getattr(request.state, "request_id", "unknown-req-id")
-
-    try:
-        student_uuid = uuid.UUID(payload.student_user_id)
-    except ValueError:
-        # Determine deterministic UUID if student ID is non-standard
-        student_uuid = uuid.uuid5(uuid.NAMESPACE_DNS, payload.student_user_id)
-
-    target_tenant_id = current_user.tenant_id
-
-    result = await service.create_intervention(
-        tenant_id=target_tenant_id,
-        student_user_id=student_uuid,
-        faculty_user_id=current_user.user_id,
-        intervention_notes=payload.intervention_notes,
-    )
-
-    db_obj = result.data
-    data = {
-        "intervention_id": str(db_obj.intervention_id),
-        "student_user_id": payload.student_user_id,
-        "logged_at": db_obj.recorded_timestamp.isoformat(),
-        "notes": db_obj.intervention_notes,
-    }
-
-    return api_response(
-        success=True,
-        message="Academic intervention action recorded securely.",
-        data=data,
-        request_id=req_id,
-    )
-
 
 
 # ============================================================

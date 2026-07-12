@@ -1,66 +1,84 @@
 """
-Insight Forge V2 — Dataset Repository.
+Insight Forge V2 — Dataset Repositories.
 
-Handles data-access operations for uploaded datasets. Tenant scoping is
-enforced by PostgreSQL RLS; explicit tenant filters are defense-in-depth.
+Data access for uploaded datasets and their generically-stored JSONB rows.
 """
 
 import uuid
-from typing import Sequence
+from typing import Any, Sequence
 
+from sqlalchemy import select
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.models.dataset import Dataset
+from app.models.dataset import Dataset, DatasetRecord
 from app.repositories.base import BaseRepository
+from app.repositories.exceptions import RepositoryError
 
 
 class DatasetRepository(BaseRepository[Dataset]):
     """Repository managing data operations for the Dataset entity."""
 
     def __init__(self, session: AsyncSession) -> None:
-        """Initialize the dataset repository.
-
-        Args:
-            session: Injected AsyncSession database session.
-        """
         super().__init__(model=Dataset, session=session)
 
-    async def get_by_tenant(
+    async def list_by_tenant(
         self, tenant_id: uuid.UUID, limit: int = 100, offset: int = 0
     ) -> Sequence[Dataset]:
-        """Fetch datasets for a tenant, newest first.
+        """Return datasets for a tenant, newest first."""
+        try:
+            stmt = (
+                select(Dataset)
+                .where(Dataset.tenant_id == tenant_id)
+                .order_by(Dataset.created_at.desc())
+                .limit(limit)
+                .offset(offset)
+            )
+            result = await self.session.execute(stmt)
+            return result.scalars().all()
+        except SQLAlchemyError as e:
+            raise RepositoryError(f"Database error during list_by_tenant: {str(e)}") from e
 
-        Args:
-            tenant_id: The UUID of the tenant scope.
-            limit: Maximum number of records to return.
-            offset: Number of records to skip.
 
-        Returns:
-            A sequence of Dataset records ordered by creation time (descending).
-        """
-        return await self.get_all(
-            tenant_id=tenant_id,
-            limit=limit,
-            offset=offset,
-            order_by=Dataset.created_at.desc(),
-        )
+class DatasetRecordRepository(BaseRepository[DatasetRecord]):
+    """Repository managing data operations for stored dataset rows."""
 
-    async def paginate_by_tenant(
-        self, tenant_id: uuid.UUID, limit: int = 20, offset: int = 0
-    ) -> tuple[Sequence[Dataset], int]:
-        """Fetch a paginated page of a tenant's datasets plus the total count.
+    def __init__(self, session: AsyncSession) -> None:
+        super().__init__(model=DatasetRecord, session=session)
 
-        Args:
-            tenant_id: The UUID of the tenant scope.
-            limit: Maximum number of records to return.
-            offset: Number of records to skip.
+    async def bulk_add(self, records: list[DatasetRecord]) -> None:
+        """Insert many dataset rows in a single flush."""
+        try:
+            self.session.add_all(records)
+        except SQLAlchemyError as e:
+            raise RepositoryError(f"Database error during bulk_add: {str(e)}") from e
 
-        Returns:
-            A tuple of (datasets page, total matching count).
-        """
-        return await self.paginate(
-            limit=limit,
-            offset=offset,
-            order_by=Dataset.created_at.desc(),
-            tenant_id=tenant_id,
-        )
+    async def list_by_dataset(
+        self, dataset_id: uuid.UUID, limit: int = 100, offset: int = 0
+    ) -> Sequence[DatasetRecord]:
+        """Return the stored rows of a dataset in original order."""
+        try:
+            stmt = (
+                select(DatasetRecord)
+                .where(DatasetRecord.dataset_id == dataset_id)
+                .order_by(DatasetRecord.row_index.asc())
+                .limit(limit)
+                .offset(offset)
+            )
+            result = await self.session.execute(stmt)
+            return result.scalars().all()
+        except SQLAlchemyError as e:
+            raise RepositoryError(f"Database error during list_by_dataset: {str(e)}") from e
+
+    async def all_payloads(self, dataset_id: uuid.UUID) -> list[dict[str, Any]]:
+        """Return every stored row payload for a dataset, ordered by row index."""
+        try:
+            stmt = (
+                select(DatasetRecord.payload)
+                .where(DatasetRecord.dataset_id == dataset_id)
+                .order_by(DatasetRecord.row_index.asc())
+            )
+            result = await self.session.execute(stmt)
+            return [row for row in result.scalars().all()]
+        except SQLAlchemyError as e:
+            raise RepositoryError(f"Database error during all_payloads: {str(e)}") from e

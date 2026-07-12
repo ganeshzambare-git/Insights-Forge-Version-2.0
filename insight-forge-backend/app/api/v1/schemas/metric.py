@@ -6,7 +6,7 @@ Defines Pydantic request and response models for StudentMetric operations.
 
 from decimal import Decimal
 import uuid
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_serializer, field_validator
 
 
 class StudentMetricCreate(BaseModel):
@@ -94,6 +94,9 @@ class StudentMetricResponse(BaseModel):
     attendance_rate: Decimal = Field(..., description="Attendance percentage.")
     status_indicator: str = Field(..., description="Status indicator flag.")
 
-    class Config:
-        from_attributes = True
-        json_encoders = {Decimal: float}
+    model_config = ConfigDict(from_attributes=True)
+
+    @field_serializer("gpa", "attendance_rate")
+    def serialize_decimal(self, value: Decimal) -> float:
+        """Serialize Decimal fields as JSON floats for frontend consumption."""
+        return float(value)

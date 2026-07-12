@@ -16,16 +16,14 @@ if sys.platform == "win32":
 
 from datetime import datetime, timezone
 import logging
-from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, Request, Response, status
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.core.config import settings
@@ -51,10 +49,6 @@ from app.middleware.tenant import TenantMiddleware
 from app.utils.response import api_response
 
 logger = logging.getLogger("app.main")
-
-BACKEND_DIR = Path(__file__).resolve().parents[1]
-FRONTEND_DIST = BACKEND_DIR.parent / "insight-forge-frontend" / "out"
-FRONTEND_INDEX = FRONTEND_DIST / "index.html"
 
 # Initialize the main FastAPI application instance
 app = FastAPI(
@@ -177,7 +171,7 @@ async def service_validation_exception_handler(
     """Handle service layer input syntax/validation issues (422)."""
     logger.info("ValidationError on path %s: %s", request.url.path, exc.message)
     return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
         content=api_response(
             success=False,
             message=exc.message,
@@ -255,7 +249,7 @@ async def validation_exception_handler(
         for error in exc.errors()
     ]
     return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
         content=api_response(
             success=False,
             message="Input validation failed.",
@@ -309,12 +303,9 @@ async def generic_exception_handler(request: Request, exc: Exception) -> JSONRes
 # ============================================================
 
 
-@app.get("/", status_code=status.HTTP_200_OK, response_model=None)
-async def root() -> FileResponse | dict[str, str]:
-    """Serve the frontend shell when available, otherwise return API metadata."""
-    if FRONTEND_INDEX.is_file():
-        return FileResponse(FRONTEND_INDEX)
-
+@app.get("/", status_code=status.HTTP_200_OK)
+async def root() -> dict[str, str]:
+    """App root welcome endpoint."""
     return {
         "app": settings.APP_NAME,
         "version": settings.VERSION,
@@ -387,49 +378,6 @@ async def get_root_health(request: Request, response: Response) -> dict[str, Any
 
 # Register the primary consolidated API router under /api/v1 prefix
 app.include_router(api_router, prefix="/api/v1")
-
-if (FRONTEND_DIST / "_next").is_dir():
-    app.mount(
-        "/_next",
-        StaticFiles(directory=FRONTEND_DIST / "_next"),
-        name="next-static",
-    )
-
-
-def _frontend_file_for_path(path: str) -> Path | None:
-    """Resolve a static-export frontend path without escaping the export directory."""
-    candidates = [
-        FRONTEND_DIST / path,
-        FRONTEND_DIST / f"{path}.html",
-        FRONTEND_DIST / path / "index.html",
-    ]
-
-    dist_root = FRONTEND_DIST.resolve()
-    for candidate in candidates:
-        resolved = candidate.resolve()
-        if dist_root in resolved.parents or resolved == dist_root:
-            if resolved.is_file():
-                return resolved
-    return None
-
-
-@app.get("/{full_path:path}", include_in_schema=False, response_model=None)
-async def serve_frontend(full_path: str) -> FileResponse:
-    """Serve exported frontend routes from the same Uvicorn process."""
-    if full_path.startswith("api/"):
-        raise StarletteHTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Not Found")
-
-    if not FRONTEND_INDEX.is_file():
-        raise StarletteHTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Frontend build not found. Run `npm run build` in insight-forge-frontend.",
-        )
-
-    frontend_file = _frontend_file_for_path(full_path)
-    if frontend_file:
-        return FileResponse(frontend_file)
-
-    return FileResponse(FRONTEND_INDEX)
 
 
 # This application is intentionally structured to support future integration of:

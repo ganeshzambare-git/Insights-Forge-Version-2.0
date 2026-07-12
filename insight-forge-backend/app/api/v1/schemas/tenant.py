@@ -6,7 +6,7 @@ Defines Pydantic request and response models for Tenant operations.
 
 from datetime import datetime
 import uuid
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class TenantCreate(BaseModel):
@@ -57,5 +57,4 @@ class TenantResponse(BaseModel):
     tenant_name: str = Field(..., description="Institutional human-readable name.")
     created_at: datetime = Field(..., description="Tenant creation timestamp.")
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

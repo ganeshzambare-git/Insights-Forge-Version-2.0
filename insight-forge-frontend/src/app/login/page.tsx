@@ -1,151 +1,93 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useWorkspaceTenant } from '../../features/workspace/store/workspaceStore';
-import { useIsAuthenticated, useAuthActions } from '../../features/authentication/store/authStore';
-import { WorkspacePortal } from '../../features/workspace/components/WorkspacePortal';
-import { LoginForm } from '../../features/authentication/components/LoginForm';
+import { useState } from 'react';
+import { AuthShell } from '@/components/AuthShell';
+import { api, setSession, ApiError } from '@/lib/api';
 
 export default function LoginPage() {
   const router = useRouter();
-  const tenant = useWorkspaceTenant();
-  const isAuthenticated = useIsAuthenticated();
-  const { initializeSession } = useAuthActions();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Recover session from sessionStorage on reload
-  useEffect(() => {
-    initializeSession();
-  }, [initializeSession]);
-
-  // If authenticated, redirect to dashboard root
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push('/');
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+    try {
+      const result = await api.login(email, password);
+      setSession(result);
+      router.push('/dashboard');
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : 'Something went wrong. Try again.');
+      setLoading(false);
     }
-  }, [isAuthenticated, router]);
-
-  if (isAuthenticated) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', color: 'var(--muted)' }}>
-        Redirecting to dashboard...
-      </div>
-    );
   }
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg)' }}>
-      {/* Brand panel — a single committed brand surface (auth hero) */}
-      <aside
-        style={{
-          width: '42%',
-          maxWidth: '520px',
-          position: 'relative',
-          overflow: 'hidden',
-          background:
-            'linear-gradient(160deg, oklch(0.42 0.10 222) 0%, oklch(0.32 0.075 235) 100%)',
-          color: 'oklch(0.97 0.01 220)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: '3.5rem 3rem',
-          boxSizing: 'border-box',
-        }}
-        className="authBrandPanel"
-      >
-        {/* soft light bloom */}
-        <div
-          aria-hidden
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              'radial-gradient(600px 300px at 85% 5%, oklch(0.9 0.08 210 / 0.28), transparent 60%)',
-            pointerEvents: 'none',
-          }}
-        />
-        <div style={{ position: 'relative' }}>
+    <AuthShell
+      title="Welcome back"
+      subtitle="Log in to your institution’s workspace."
+      footer={
+        <>
+          New to Insight Forge?{' '}
+          <Link href="/signup" style={{ color: 'var(--action-blue-ink)', fontWeight: 500 }}>
+            Create a workspace
+          </Link>
+        </>
+      }
+    >
+      <form onSubmit={onSubmit} style={{ display: 'grid', gap: 16 }} noValidate>
+        <div className="field">
+          <label htmlFor="email">Work email</label>
+          <input
+            id="email"
+            className="input"
+            type="email"
+            placeholder="admin@springfield.edu"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            autoComplete="email"
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            className="input"
+            type="password"
+            placeholder="Your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            autoComplete="current-password"
+          />
+        </div>
+
+        {error && (
           <div
+            role="alert"
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.55rem',
-              fontSize: '0.78rem',
-              fontWeight: 600,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              color: 'oklch(0.86 0.03 210)',
+              background: '#fdf0ef',
+              color: '#b23b30',
+              borderRadius: 'var(--r-input)',
+              padding: '10px 12px',
+              fontSize: 'var(--text-body-sm)',
             }}
           >
-            <span
-              style={{
-                width: '22px',
-                height: '22px',
-                borderRadius: '6px',
-                background: 'oklch(0.97 0.01 220)',
-                color: 'oklch(0.38 0.09 222)',
-                display: 'grid',
-                placeItems: 'center',
-                fontFamily: 'var(--font-serif)',
-                fontWeight: 600,
-                fontSize: '0.9rem',
-              }}
-            >
-              IF
-            </span>
-            Insight Forge
+            {error}
           </div>
-        </div>
+        )}
 
-        <div style={{ position: 'relative' }}>
-          <h1
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontWeight: 500,
-              fontSize: 'clamp(2.2rem, 3.4vw, 3.1rem)',
-              lineHeight: 1.05,
-              letterSpacing: '-0.02em',
-              marginBottom: '1rem',
-              textWrap: 'balance',
-            }}
-          >
-            Clearer decisions for every cohort.
-          </h1>
-          <p
-            style={{
-              color: 'oklch(0.86 0.025 215)',
-              fontSize: '1rem',
-              lineHeight: 1.6,
-              maxWidth: '38ch',
-            }}
-          >
-            An institutional intelligence workspace — attendance, performance,
-            risk and resources, read at a glance.
-          </p>
-        </div>
-
-        <div
-          style={{
-            position: 'relative',
-            fontSize: '0.8rem',
-            color: 'oklch(0.78 0.03 215)',
-          }}
-        >
-          © 2026 ReadyNest Partners
-        </div>
-      </aside>
-
-      <main
-        style={{
-          flex: 1,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: '2rem',
-        }}
-      >
-        {!tenant ? <WorkspacePortal /> : <LoginForm />}
-      </main>
-    </div>
+        <button type="submit" className="btn btn--lg btn--block" disabled={loading}>
+          {loading ? 'Logging in…' : 'Log in'}
+        </button>
+      </form>
+    </AuthShell>
   );
 }

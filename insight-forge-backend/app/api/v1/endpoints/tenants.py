@@ -149,39 +149,3 @@ async def list_tenants(
         meta=meta,
         request_id=req_id,
     )
-
-
-public_router = APIRouter(
-    prefix="/tenants",
-    tags=["tenants"],
-)
-
-
-@public_router.get(
-    "/verify/{slug}",
-    status_code=status.HTTP_200_OK,
-    response_model=dict[str, Any],
-    summary="Verify Tenant Slug",
-    description="Verify if a tenant exists by slug without authentication.",
-)
-async def verify_tenant(
-    request: Request,
-    slug: str,
-    service: TenantService = Depends(get_tenant_service),
-) -> dict[str, Any]:
-    req_id = getattr(request.state, "request_id", "unknown-req-id")
-    tenant = await service.get_tenant_by_slug(slug)
-    if not tenant:
-        raise NotFoundError(
-            f"Tenant with active slug '{slug}' was not found.",
-            error_code="tenant_not_found",
-        )
-
-    data = TenantResponse.model_validate(tenant).model_dump()
-    return api_response(
-        success=True,
-        message="Tenant verified successfully.",
-        data=data,
-        request_id=req_id,
-    )
-

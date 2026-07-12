@@ -1,66 +1,50 @@
 """
 Insight Forge V2 — Ingestion Router.
 
-Receives raw dataset uploads, streams them into storage, registers a dataset
-record, and hands off to the cleaning worker. This layer stores the file only;
-it never parses or cleans the data.
+Receives a raw tabular upload (CSV/JSON), stores it as a per-tenant dataset with
+its rows, and returns the new dataset identifier plus a data-quality score.
 """
 
-import uuid
 from typing import Any
+import uuid
 
-from fastapi import (
-    APIRouter,
-    BackgroundTasks,
-    Depends,
-    File,
-    Query,
-    Request,
-    UploadFile,
-    status,
-)
+from fastapi import APIRouter, Depends, File, Query, Request, UploadFile, status
 
-from app.api.v1.schemas.dataset import DatasetResponse
 from app.core.roles import Role
-from app.dependencies.auth import RequireRoles, get_current_user
-from app.dependencies.services import get_ingestion_service
-from app.ingestion.cleaner import process_dataset
+from app.dependencies.auth import get_current_user, RequireRoles
+from app.dependencies.services import get_dataset_service
 from app.models.user import User
+from app.services.dataset import DatasetService
 from app.services.exceptions import AuthorizationError, ValidationError
-from app.services.ingestion import IngestionService
+from app.api.v1.schemas.dataset import IngestionResponse
 from app.utils.response import api_response
 
 router = APIRouter(
     prefix="/ingestion",
     tags=["ingestion"],
-    dependencies=[Depends(RequireRoles(Role.ADMIN, Role.DEAN))],
+    dependencies=[Depends(RequireRoles(Role.ADMIN, Role.DEAN, Role.FACULTY))],
 )
 
 
 @router.post(
-    "/upload",
+    "",
     status_code=status.HTTP_201_CREATED,
     response_model=dict[str, Any],
-    summary="Upload Dataset",
-    description=(
-        "Stream a raw dataset file into storage, register it, and trigger the "
-        "cleaning worker. Returns the created dataset_id and its status. "
-        "Requires Admin or Dean."
-    ),
+    summary="Ingest Dataset",
+    description="Upload a CSV or JSON file; its rows are parsed and stored per tenant.",
 )
-async def upload_dataset(
+async def ingest_dataset(
     request: Request,
-    background_tasks: BackgroundTasks,
-    file: UploadFile = File(..., description="Raw dataset file (csv, xlsx, xls, json)."),
+    file: UploadFile = File(..., description="The CSV or JSON dataset file to store."),
     tenant_id: uuid.UUID | None = Query(
-        default=None, description="Scope tenant UUID (Admin only)."
+        default=None, description="Scope tenant UUID (Admin override only)."
     ),
     current_user: User = Depends(get_current_user),
-    service: IngestionService = Depends(get_ingestion_service),
+    service: DatasetService = Depends(get_dataset_service),
 ) -> dict[str, Any]:
     req_id = getattr(request.state, "request_id", "unknown-req-id")
 
-    # Enforce tenant isolation (Admins may target another tenant).
+    # Enforce tenant isolation.
     target_tenant_id = current_user.tenant_id
     if current_user.assigned_role == Role.ADMIN.value:
         if tenant_id:
@@ -71,28 +55,33 @@ async def upload_dataset(
             error_code="tenant_forbidden",
         )
 
-    if not file.filename:
+    filename = file.filename or "upload.csv"
+    if not filename.lower().endswith((".csv", ".json")):
         raise ValidationError(
-            "No file was provided in the upload.",
-            error_code="file_required",
+            "Only .csv and .json uploads are supported.",
+            error_code="unsupported_format",
         )
 
-    result = await service.ingest_file(
-        tenant_id=target_tenant_id,
-        filename=file.filename,
-        source=file,
+    content = await file.read()
+    result = await service.ingest(
+        tenant_id=target_tenant_id, filename=filename, content=content
     )
-    dataset = result.data
+    outcome = result.data
+    dataset = outcome.dataset
 
-    # Clean the file into student_metrics after the response is sent.
-    background_tasks.add_task(
-        process_dataset, dataset.dataset_id, target_tenant_id, dataset.storage_uri
-    )
+    data = IngestionResponse(
+        dataset_id=dataset.dataset_id,
+        dataset_name=dataset.dataset_name,
+        row_count=dataset.row_count or 0,
+        column_count=len(outcome.columns),
+        columns=outcome.columns,
+        processing_status=dataset.processing_status,
+        health_score=dataset.health_score,
+    ).model_dump()
 
-    data = DatasetResponse.model_validate(dataset).model_dump(mode="json")
     return api_response(
         success=True,
-        message=result.message or "Dataset uploaded successfully.",
+        message=result.message or "Dataset ingested successfully.",
         data=data,
         request_id=req_id,
     )

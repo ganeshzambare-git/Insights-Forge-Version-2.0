@@ -10,10 +10,9 @@ from fastapi import APIRouter, Depends, Request, Query, status
 
 from app.core.roles import Role
 from app.dependencies.auth import get_current_user, RequireRoles
-from app.dependencies.services import get_cohort_service, get_student_metric_service
+from app.dependencies.services import get_cohort_service
 from app.models.user import User
 from app.services.cohort import CohortService
-from app.services.student_metric import StudentMetricService
 from app.api.v1.schemas.cohort import CohortCreate, CohortUpdate, CohortResponse
 from app.utils.response import api_response
 from app.services.exceptions import NotFoundError, AuthorizationError
@@ -168,33 +167,7 @@ async def delete_cohort(
     cohort_id: uuid.UUID,
     current_user: User = Depends(get_current_user),
     service: CohortService = Depends(get_cohort_service),
-):
-    if str(cohort_id) == "88888888-8888-8888-8888-888888888888":
-        from fastapi.responses import JSONResponse
-        from fastapi import status as fastapi_status
-        return JSONResponse(
-            status_code=fastapi_status.HTTP_409_CONFLICT,
-            content={
-                "success": False,
-                "message": "An active institutional space or cohort tracking structure cannot be expunged while underlying operational records remain active.",
-                "data": {
-                    "dependencies": [
-                        {
-                            "type": "Student Profile",
-                            "id": "student-101",
-                            "summary": "Active student account linked to cohort"
-                        },
-                        {
-                            "type": "Grade Ledger",
-                            "id": "ledger-202",
-                            "summary": "Operational marks tracked in class"
-                        }
-                    ]
-                },
-                "request_id": "mock-req-id"
-            }
-        )
-
+) -> None:
     # Fetch cohort first to verify isolation
     cohort = await service.get_cohort(cohort_id)
     if not cohort:
@@ -264,55 +237,3 @@ async def list_cohorts(
         meta=meta,
         request_id=req_id,
     )
-
-
-@router.get(
-    "/{cohort_id}/roster",
-    status_code=status.HTTP_200_OK,
-    response_model=dict[str, Any],
-    summary="Get Cohort Roster List",
-    description="Retrieve high-scale virtualized student roster items for a given cohort. Requires Admin, Dean, or Faculty.",
-)
-async def get_cohort_roster(
-    request: Request,
-    cohort_id: uuid.UUID,
-    search: str | None = Query(default=None, description="Dynamic search query filter."),
-    current_user: User = Depends(get_current_user),
-    cohort_service: CohortService = Depends(get_cohort_service),
-    metric_service: StudentMetricService = Depends(get_student_metric_service),
-) -> dict[str, Any]:
-    req_id = getattr(request.state, "request_id", "unknown-req-id")
-
-    # Verify the cohort exists and belongs to the caller's tenant.
-    cohort = await cohort_service.get_cohort(cohort_id)
-    if not cohort:
-        raise NotFoundError(
-            f"Cohort with ID '{cohort_id}' not found.",
-            error_code="cohort_not_found",
-        )
-    if (
-        current_user.assigned_role != Role.ADMIN.value
-        and cohort.tenant_id != current_user.tenant_id
-    ):
-        raise AuthorizationError(
-            "Access denied to target tenant partition.",
-            error_code="tenant_forbidden",
-        )
-
-    # Real roster built from each student's latest metric in this cohort.
-    students = await metric_service.cohort_roster(
-        tenant_id=cohort.tenant_id, cohort_id=cohort_id, search=search
-    )
-
-    return api_response(
-        success=True,
-        message="Cohort roster retrieved successfully.",
-        data={
-            "cohort_id": str(cohort_id),
-            "records": students,
-            "total_count": len(students),
-        },
-        request_id=req_id,
-    )
-
-

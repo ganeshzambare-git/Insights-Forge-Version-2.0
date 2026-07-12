@@ -37,10 +37,6 @@ from app.services.cohort import CohortService
 from app.services.student_metric import StudentMetricService
 from app.services.coaching_intervention import CoachingInterventionService
 from app.services.auth import AuthService
-from app.services.dataset import DatasetService
-from app.services.ingestion import IngestionService
-from app.services.task_service import TaskService
-from app.services.finance_service import FinanceService
 
 __all__ = [
     "AuthenticationError",
@@ -69,8 +65,4 @@ __all__ = [
     "StudentMetricService",
     "CoachingInterventionService",
     "AuthService",
-    "DatasetService",
-    "IngestionService",
-    "TaskService",
-    "FinanceService",
 ]

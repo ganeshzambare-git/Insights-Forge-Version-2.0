@@ -1,24 +1,25 @@
+import type { Metadata } from 'next';
+import { Inter, Poppins } from 'next/font/google';
 import './globals.css';
-import { Suspense } from 'react';
-import { Inter, Fraunces } from 'next/font/google';
-import { SessionLifecycleProvider } from '../features/authentication/components/SessionLifecycleProvider';
-import { ConnectivityProvider } from '../features/connectivity/components/ConnectivityProvider';
 
 const inter = Inter({
   subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
   variable: '--font-inter',
   display: 'swap',
 });
 
-const fraunces = Fraunces({
+const poppins = Poppins({
   subsets: ['latin'],
-  variable: '--font-fraunces',
+  weight: ['500', '600'],
+  variable: '--font-poppins',
   display: 'swap',
 });
 
-export const metadata = {
-  title: 'Insight Forge',
-  description: 'Educational Decision Intelligence Platform',
+export const metadata: Metadata = {
+  title: 'Insight Forge — Turn educational data into decisions',
+  description:
+    'Upload a dataset and get real KPIs, insights, risk cohorts, and recommended actions from a deterministic multi-agent pipeline.',
 };
 
 export default function RootLayout({
@@ -27,22 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
-      <body>
-        <Suspense
-          fallback={
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', color: 'var(--muted)' }}>
-              Loading workspace…
-            </div>
-          }
-        >
-          <ConnectivityProvider>
-            <SessionLifecycleProvider>
-              {children}
-            </SessionLifecycleProvider>
-          </ConnectivityProvider>
-        </Suspense>
-      </body>
+    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

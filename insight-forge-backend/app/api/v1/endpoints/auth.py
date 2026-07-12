@@ -35,6 +35,26 @@ class LoginRequest(BaseModel):
     remember_me: bool = Field(default=False, json_schema_extra={"example": False})
 
 
+class SignupRequest(BaseModel):
+    """Schema representing new-organization signup details."""
+
+    organization_name: str = Field(
+        ...,
+        min_length=2,
+        max_length=255,
+        json_schema_extra={"example": "Springfield College"},
+    )
+    corporate_email: EmailStr = Field(
+        ..., json_schema_extra={"example": "admin@springfield.edu"}
+    )
+    password: str = Field(
+        ...,
+        min_length=8,
+        max_length=128,
+        json_schema_extra={"example": "StrongPass123!"},
+    )
+
+
 class RefreshRequest(BaseModel):
     """Schema representing JWT token rotation criteria."""
 
@@ -44,6 +64,33 @@ class RefreshRequest(BaseModel):
 
 
 # Controller routes
+@router.post("/signup", status_code=status.HTTP_201_CREATED)
+async def signup(
+    request: Request,
+    payload: SignupRequest,
+    auth_service: AuthService = Depends(get_auth_service),
+) -> dict[str, Any]:
+    """Register a new organization and its first Admin user, returning tokens.
+
+    Enforces password complexity before creating the tenant + Admin account.
+    """
+    validate_password_strength(payload.password)
+
+    client_ip = request.client.host if request.client else "127.0.0.1"
+
+    result = await auth_service.signup(
+        org_name=payload.organization_name,
+        email=payload.corporate_email,
+        password=payload.password,
+        client_ip=client_ip,
+    )
+    return api_response(
+        success=True,
+        message=result.message or "Account created successfully",
+        data=result.data,
+    )
+
+
 @router.post("/login", status_code=status.HTTP_200_OK)
 async def login(
     request: Request,

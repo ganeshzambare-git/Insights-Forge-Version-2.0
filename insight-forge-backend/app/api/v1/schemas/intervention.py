@@ -6,7 +6,7 @@ Defines Pydantic request and response models for CoachingIntervention operations
 
 from datetime import datetime
 import uuid
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class CoachingInterventionCreate(BaseModel):
@@ -51,5 +51,4 @@ class CoachingInterventionResponse(BaseModel):
     intervention_notes: str = Field(..., description="Intervention notes.")
     logged_at: datetime = Field(..., description="Intervention logging timestamp.")
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

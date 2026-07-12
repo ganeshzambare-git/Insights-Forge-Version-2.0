@@ -5,7 +5,7 @@ Defines Pydantic request and response models for User operations.
 """
 
 import uuid
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 from app.core.roles import Role
 
@@ -58,5 +58,4 @@ class UserResponse(BaseModel):
     assigned_role: str = Field(..., description="Assigned role string.")
     is_mfa_enabled: bool = Field(..., description="True if MFA is enabled.")
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

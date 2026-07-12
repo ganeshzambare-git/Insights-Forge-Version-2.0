@@ -5,7 +5,7 @@ Defines Pydantic request and response models for Cohort operations.
 """
 
 import uuid
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class CohortCreate(BaseModel):
@@ -58,5 +58,4 @@ class CohortResponse(BaseModel):
     cohort_code: str = Field(..., description="Unique cohort code.")
     department_scope: str = Field(..., description="Department scope or program name.")
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

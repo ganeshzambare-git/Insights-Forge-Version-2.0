@@ -10,14 +10,17 @@ import uuid
 from typing import Any
 
 from app.core.config import settings
+from app.core.roles import Role
 from app.core.token_types import TokenType
 from app.models.session import Session
+from app.models.tenant import Tenant
+from app.models.user import User
 from app.repositories.session import SessionRepository
 from app.repositories.user import UserRepository
 from app.repositories.tenant import TenantRepository
 from app.services.base import BaseService
 from app.services.result import ServiceResult
-from app.services.exceptions import AuthenticationError, NotFoundError
+from app.services.exceptions import AuthenticationError, ConflictError, NotFoundError
 from app.services.uow import UnitOfWork
 from app.services.context import ServiceContext
 from app.services.audit import AuditLoggerProtocol
@@ -40,6 +43,134 @@ class AuthService(BaseService):
         self.user_repo = UserRepository(session=uow.session)
         self.session_repo = SessionRepository(session=uow.session)
         self.tenant_repo = TenantRepository(session=uow.session)
+
+    async def signup(
+        self, org_name: str, email: str, password: str, client_ip: str
+    ) -> ServiceResult[dict[str, Any]]:
+        """Register a brand-new organization and its first Admin user, atomically.
+
+        Creates the tenant, the Admin user, and a login session in a single
+        transaction, then issues access + refresh tokens so the caller is
+        immediately authenticated.
+
+        Args:
+            org_name: Institution/organization display name.
+            email: Corporate email for the Admin account.
+            password: Raw password (already strength-validated at the edge).
+            client_ip: Client ingress IP.
+
+        Returns:
+            A ServiceResult wrapping the tokens, user, and tenant.
+        """
+        import re
+
+        from app.core.security import (
+            hash_password,
+            create_access_token,
+            create_refresh_token,
+        )
+
+        start_time = time.perf_counter()
+        normalized_email = email.strip().lower()
+        organization = org_name.strip()
+
+        async def action() -> dict[str, Any]:
+            # Reject duplicate accounts up front.
+            if await self.user_repo.email_exists(normalized_email):
+                raise ConflictError(
+                    "An account with this email already exists.",
+                    error_code="email_taken",
+                )
+
+            # Derive a URL-safe, unique tenant slug from the org name.
+            base_slug = re.sub(r"[^a-z0-9]+", "-", organization.lower()).strip("-") or "org"
+            slug = base_slug
+            if await self.tenant_repo.slug_exists(slug):
+                slug = f"{base_slug}-{str(self.uuid_provider.generate())[:8]}"
+
+            tenant = Tenant(
+                tenant_id=self.uuid_provider.generate(),
+                tenant_slug=slug,
+                tenant_name=organization,
+                created_at=self.clock.now(),
+            )
+            await self.tenant_repo.create(tenant)
+            # Flush so the tenant row exists before FK-dependent inserts below.
+            await self.uow.flush()
+
+            user = User(
+                user_id=self.uuid_provider.generate(),
+                tenant_id=tenant.tenant_id,
+                corporate_email=normalized_email,
+                password_hash=hash_password(password),
+                assigned_role=Role.ADMIN.value,
+                is_mfa_enabled=False,
+            )
+            await self.user_repo.create(user)
+            await self.uow.flush()
+
+            jti = str(self.uuid_provider.generate())
+            refresh_expiry = self.clock.now() + timedelta(
+                days=settings.REFRESH_TOKEN_EXPIRE_DAYS
+            )
+            session_record = Session(
+                session_id=self.uuid_provider.generate(),
+                user_id=user.user_id,
+                tenant_id=tenant.tenant_id,
+                jwt_jti=jti,
+                expires_at=refresh_expiry,
+                ingress_ip=client_ip,
+            )
+            await self.session_repo.create(session_record)
+
+            access_token = create_access_token(
+                subject=str(user.user_id),
+                tenant_id=str(tenant.tenant_id),
+                role=user.assigned_role,
+                jti=jti,
+            )
+            refresh_token = create_refresh_token(
+                subject=str(user.user_id),
+                tenant_id=str(tenant.tenant_id),
+                role=user.assigned_role,
+                jti=jti,
+            )
+
+            duration_ms = (time.perf_counter() - start_time) * 1000.0
+            signup_context = ServiceContext(
+                tenant_id=tenant.tenant_id,
+                user_id=user.user_id,
+                role=user.assigned_role,
+                request_id=self.context.request_id,
+            )
+            self.audit_logger.security_event(
+                "SIGNUP_SUCCESS",
+                signup_context,
+                duration_ms=duration_ms,
+                detail=f"IP: {client_ip}",
+            )
+
+            return {
+                "access_token": access_token,
+                "refresh_token": refresh_token,
+                "token_type": "bearer",
+                "expires_in": settings.ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+                "user": {
+                    "user_id": str(user.user_id),
+                    "tenant_id": str(tenant.tenant_id),
+                    "corporate_email": user.corporate_email,
+                    "assigned_role": user.assigned_role,
+                },
+                "tenant": {
+                    "tenant_id": str(tenant.tenant_id),
+                    "tenant_slug": tenant.tenant_slug,
+                    "tenant_name": tenant.tenant_name,
+                },
+            }
+
+        return await self.execute_command(
+            "signup", action, success_msg="Account created successfully."
+        )
 
     async def login(
         self, email: str, password: str, remember_me: bool, client_ip: str

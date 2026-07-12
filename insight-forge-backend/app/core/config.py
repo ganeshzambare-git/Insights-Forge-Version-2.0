@@ -76,16 +76,6 @@ class Settings(BaseSettings):
     ALLOWED_HOSTS: CommaSeparatedList = Field(default=["*"])
     CORS_ORIGINS: CommaSeparatedList = Field(default=["*"])
 
-    # ---- File storage / ingestion ----
-    # Storage backend for uploaded (raw) datasets. "local" writes to the
-    # filesystem; the abstraction allows swapping to "s3"/"minio" later.
-    STORAGE_BACKEND: str = "local"
-    STORAGE_LOCAL_PATH: str = "storage/uploads"
-    MAX_UPLOAD_SIZE_MB: int = Field(default=50, gt=0)
-    ALLOWED_UPLOAD_EXTENSIONS: CommaSeparatedList = Field(
-        default=["csv", "xlsx", "xls", "json"]
-    )
-
     LOG_LEVEL: str = "INFO"
 
     @model_validator(mode="after")

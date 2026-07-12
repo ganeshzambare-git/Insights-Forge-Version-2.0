@@ -4,7 +4,7 @@ Insight Forge V2 — Data Cleaning Schemas.
 Defines Pydantic models for data quality issues, cleaning recommendations, and certification summaries.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from pydantic import BaseModel, Field
 
 
@@ -80,7 +80,7 @@ class CleaningLogEntry(BaseModel):
     """Audit log tracking proposal and state metrics for cleaning actions."""
 
     timestamp: datetime = Field(
-        default_factory=datetime.utcnow,
+        default_factory=lambda: datetime.now(timezone.utc),
         description="Timestamps audit check execution.",
     )
     issue: str = Field(..., description="Short summary of the data quality issue.")

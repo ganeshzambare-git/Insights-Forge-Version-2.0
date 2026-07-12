@@ -32,3 +32,9 @@ Thumbs.db
 
 # Uploaded datasets
 storage/
+
+# Agent / design tooling — never publish
+.claude/
+.gemini/
+.impeccable/
+tsconfig.tsbuildinfo

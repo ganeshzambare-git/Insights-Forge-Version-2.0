@@ -1,264 +1,291 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useIsAuthenticated, useCurrentUser, useAuthActions } from '../features/authentication/store/authStore';
-import { useWorkspaceTenant } from '../features/workspace/store/workspaceStore';
-import { getAccessToken } from '../core/api/apiClient';
-import { RoleGuard } from '../features/authentication/components/RoleGuard';
+import Link from 'next/link';
+import { motion, useReducedMotion } from 'framer-motion';
+import { SiteNav } from '@/components/SiteNav';
+import { Reveal } from '@/components/Reveal';
+import { CountUp } from '@/components/CountUp';
+import { LineChart } from '@/components/charts/LineChart';
+import { BarChart } from '@/components/charts/BarChart';
+import { DonutChart } from '@/components/charts/DonutChart';
 
-export default function Home() {
-  const router = useRouter();
-  const isAuthenticated = useIsAuthenticated();
-  const currentUser = useCurrentUser();
-  const { logout, initializeSession } = useAuthActions();
-  const tenant = useWorkspaceTenant();
+const trend = [
+  { label: 'Wk 1', value: 71 },
+  { label: 'Wk 2', value: 68 },
+  { label: 'Wk 3', value: 74 },
+  { label: 'Wk 4', value: 70 },
+  { label: 'Wk 5', value: 78 },
+  { label: 'Wk 6', value: 83 },
+  { label: 'Wk 7', value: 81 },
+  { label: 'Wk 8', value: 88 },
+];
 
-  const [file, setFile] = useState<File | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
+const cohorts = [
+  { label: 'Safe', value: 61, color: 'var(--c-safe)' },
+  { label: 'Amber', value: 27, color: 'var(--c-amber)' },
+  { label: 'Critical', value: 12, color: 'var(--c-critical)' },
+];
 
-  // Initialize session on mount
-  useEffect(() => {
-    initializeSession();
-  }, [initializeSession]);
+const recs = [
+  { label: 'Targeted tutoring · Physics', value: 42, sub: 'est. lift' },
+  { label: 'Attendance outreach', value: 31, sub: 'est. lift' },
+  { label: 'Cohort re-balancing', value: 18, sub: 'est. lift' },
+];
 
-  // Redirect guard
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/login');
-      return;
-    }
-    if (currentUser?.role === 'Student') {
-      router.push('/student');
-    }
-  }, [isAuthenticated, currentUser, router]);
+const pipeline = [
+  { n: '01', title: 'Data Engineer', body: 'Profiles every column, classifies types, and scores data quality — deterministically.' },
+  { n: '02', title: 'Data Analyst', body: 'Runs real statistics: trends, correlations, outliers. Rejects findings the data can’t support.' },
+  { n: '03', title: 'Business Analyst', body: 'Traces anomalies to root causes and weighs hypotheses into concrete opportunities.' },
+  { n: '04', title: 'Executive Report', body: 'Ranks recommendations by impact and writes the summary a dean can act on.' },
+];
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
+const heroStagger = { hidden: {}, show: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } } };
+const heroItem = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } },
+};
 
-  const handleAnalyze = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!file) return;
-
-    setLoading(true);
-    setError(null);
-    setResult(null);
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
-      const token = getAccessToken();
-      const tenantId = typeof window !== 'undefined' ? sessionStorage.getItem('__tenant_context_id') : '';
-
-      const response = await fetch(`${apiUrl}/api/v1/ai/analyze`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'X-Tenant-ID': tenantId || '',
-        },
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error(`API analysis failed with status: ${response.status}`);
-      }
-
-      const envelope = await response.json();
-      if (!envelope.success) {
-        throw new Error(envelope.message || 'Pipeline orchestration failed.');
-      }
-
-      setResult(envelope.data);
-    } catch (err: any) {
-      setError(err.message || 'An unexpected connection error occurred.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (!isAuthenticated) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', color: 'var(--muted)' }}>
-        Verifying session...
-      </div>
-    );
-  }
+export default function LandingPage() {
+  const reduce = useReducedMotion();
 
   return (
-    <main className="dashboard-container">
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        gap: '1rem',
-        flexWrap: 'wrap',
-        paddingBottom: '1.25rem',
-        marginBottom: '2.5rem',
-        borderBottom: '1px solid var(--border)',
-      }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', fontWeight: 600, letterSpacing: '0.02em', color: 'var(--ink)' }}>
-          <span style={{ width: '26px', height: '26px', borderRadius: '7px', background: 'var(--brand)', color: 'oklch(0.99 0 0)', display: 'grid', placeItems: 'center', fontFamily: 'var(--font-serif)', fontSize: '0.95rem' }}>IF</span>
-          Insight Forge
-        </div>
-        <div style={{ display: 'flex', gap: '0.9rem', alignItems: 'center' }}>
-          <div style={{ textAlign: 'right', fontSize: '0.85rem', lineHeight: 1.3 }}>
-            <div style={{ color: 'var(--ink)', fontWeight: 600 }}>{currentUser?.email}</div>
-            <div style={{ color: 'var(--muted)' }}>{currentUser?.role} {tenant ? `· ${tenant.name}` : ''}</div>
+    <>
+      <SiteNav />
+
+      <main>
+        {/* Hero */}
+        <section className="shell" style={{ paddingTop: 'clamp(48px, 8vw, 96px)', paddingBottom: 'var(--section-gap)' }}>
+          <div className="hero-grid">
+            <motion.div
+              variants={reduce ? undefined : heroStagger}
+              initial={reduce ? undefined : 'hidden'}
+              animate={reduce ? undefined : 'show'}
+              style={{ maxWidth: 560 }}
+            >
+              <motion.span variants={heroItem} className="tag" style={{ marginBottom: 20 }}>
+                <span style={{ width: 6, height: 6, borderRadius: 999, background: 'var(--action-blue)' }} />
+                Decision intelligence for education
+              </motion.span>
+
+              <motion.h1 variants={heroItem} style={{ fontSize: 'var(--text-display)', letterSpacing: '-0.03em', marginBottom: 18 }}>
+                Turn educational data into decisions.
+              </motion.h1>
+
+              <motion.p variants={heroItem} style={{ fontSize: 'var(--text-subheading)', color: 'var(--slate)', lineHeight: 1.5, maxWidth: 480, marginBottom: 28 }}>
+                Upload a CSV. A deterministic multi-agent pipeline profiles it, computes real
+                statistics, and hands back KPIs, risk cohorts, and ranked actions — no spreadsheets,
+                no waiting on a data team.
+              </motion.p>
+
+              <motion.div variants={heroItem} style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <Link href="/signup" className="btn btn--lg">Start for free</Link>
+                <Link href="#how" className="btn btn--ghost btn--lg">See how it works</Link>
+              </motion.div>
+
+              <motion.p variants={heroItem} style={{ marginTop: 16, fontSize: 'var(--text-body-sm)', color: 'var(--stone)' }}>
+                No credit card · Your data stays in your tenant.
+              </motion.p>
+            </motion.div>
+
+            <HeroVisual />
           </div>
-          <RoleGuard allowedRoles={['Admin']}>
-            <button onClick={() => router.push('/admin')} className="btn">
-              Admin Console
-            </button>
-          </RoleGuard>
-          <button onClick={logout} className="btn btn-secondary">
-            Sign Out
-          </button>
+        </section>
+
+        {/* Capability strip */}
+        <section className="shell" style={{ paddingBottom: 'var(--section-gap)' }}>
+          <Reveal>
+            <div className="strip">
+              <StripStat value={<CountUp value={4} />} label="specialist agents, run in sequence" />
+              <StripStat value={<CountUp value={100} suffix="%" />} label="deterministic — same data, same answer" />
+              <StripStat value={<>~<CountUp value={2} suffix="s" /></>} label="from upload to full report" />
+            </div>
+          </Reveal>
+        </section>
+
+        {/* How it works */}
+        <section id="how" className="shell" style={{ paddingBottom: 'var(--section-gap)' }}>
+          <Reveal>
+            <div style={{ maxWidth: 620, marginBottom: 44 }}>
+              <h2 style={{ fontSize: 'var(--text-heading-lg)', marginBottom: 14 }}>One pipeline, four specialists.</h2>
+              <p style={{ fontSize: 'var(--text-subheading)', color: 'var(--slate)' }}>
+                Not a black box. Each stage does one job on your real data and passes its findings
+                to the next — so every number on the report is traceable.
+              </p>
+            </div>
+          </Reveal>
+
+          <ol className="pipeline">
+            {pipeline.map((step, i) => (
+              <Reveal key={step.n} delay={i * 0.06}>
+                <li className="card pipeline__card">
+                  <span className="pipeline__n">{step.n}</span>
+                  <h3 style={{ fontSize: 'var(--text-heading-sm)', margin: '14px 0 8px' }}>{step.title}</h3>
+                  <p style={{ color: 'var(--slate)', fontSize: 'var(--text-body-sm)' }}>{step.body}</p>
+                </li>
+              </Reveal>
+            ))}
+          </ol>
+        </section>
+
+        {/* Capabilities with live charts */}
+        <section className="shell" style={{ paddingBottom: 'var(--section-gap)' }}>
+          <FeatureBlock
+            kicker="Trends"
+            title="Watch performance move over time."
+            body="Every numeric measure becomes a trend line the moment it lands — attendance, GPA, completion — with the direction called out for you."
+            visual={
+              <div className="card" style={{ padding: 20 }}>
+                <ChartHeader title="Average attendance" delta="+17 pts" />
+                <LineChart data={trend} ariaLabel="Attendance trending upward over eight weeks" />
+              </div>
+            }
+          />
+
+          <FeatureBlock
+            reverse
+            kicker="Risk cohorts"
+            title="See who needs attention, at a glance."
+            body="Students are grouped Safe / Amber / Critical from their real indicators, so an intervention list writes itself."
+            visual={
+              <div className="card" style={{ padding: 24 }}>
+                <ChartHeader title="Cohort risk mix" delta="892 students" />
+                <div style={{ marginTop: 12 }}>
+                  <DonutChart data={cohorts} centerValue="61%" centerLabel="on track" ariaLabel="Risk cohort distribution donut" />
+                </div>
+              </div>
+            }
+          />
+
+          <FeatureBlock
+            kicker="Recommendations"
+            title="Ranked actions, not just charts."
+            body="The pipeline weighs opportunities and hands back a prioritized list with estimated lift — the decision, made explicit."
+            visual={
+              <div className="card" style={{ padding: 24 }}>
+                <ChartHeader title="Recommended actions" delta="by est. lift" />
+                <div style={{ marginTop: 16 }}>
+                  <BarChart data={recs} unit="%" ariaLabel="Recommended actions ranked by estimated lift" />
+                </div>
+              </div>
+            }
+          />
+        </section>
+
+        {/* Final CTA */}
+        <section className="shell" style={{ paddingBottom: 'var(--section-gap)' }}>
+          <Reveal>
+            <div className="cta">
+              <h2 style={{ fontSize: 'var(--text-heading-lg)', color: 'var(--white)', marginBottom: 12 }}>
+                Your next decision is one upload away.
+              </h2>
+              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 'var(--text-subheading)', maxWidth: 460, margin: '0 auto 26px' }}>
+                Create your institution’s workspace and analyze your first dataset in minutes.
+              </p>
+              <Link href="/signup" className="btn btn--lg" style={{ background: 'var(--white)', color: 'var(--ink)' }}>
+                Create your workspace
+              </Link>
+            </div>
+          </Reveal>
+        </section>
+      </main>
+
+      <footer style={{ borderTop: '1px solid var(--silver)' }}>
+        <div className="shell" style={{ minHeight: 72, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, paddingBlock: 16 }}>
+          <span style={{ fontSize: 'var(--text-body-sm)', color: 'var(--slate)' }}>
+            Insight Forge — decision intelligence for education
+          </span>
+          <span style={{ fontSize: 'var(--text-caption)', color: 'var(--stone)' }}>
+            Built on a deterministic, tenant-isolated backend.
+          </span>
         </div>
+      </footer>
+    </>
+  );
+}
+
+function StripStat({ value, label }: { value: React.ReactNode; label: string }) {
+  return (
+    <div>
+      <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 30, color: 'var(--graphite)', letterSpacing: '-0.02em' }}>
+        {value}
+      </div>
+      <div style={{ fontSize: 'var(--text-body-sm)', color: 'var(--slate)', marginTop: 4 }}>{label}</div>
+    </div>
+  );
+}
+
+function ChartHeader({ title, delta }: { title: string; delta: string }) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
+      <span style={{ fontSize: 'var(--text-body-sm)', fontWeight: 500, color: 'var(--graphite)' }}>{title}</span>
+      <span style={{ fontSize: 'var(--text-caption)', color: 'var(--action-blue-ink)', fontWeight: 500 }}>{delta}</span>
+    </div>
+  );
+}
+
+function FeatureBlock({
+  kicker,
+  title,
+  body,
+  visual,
+  reverse,
+}: {
+  kicker: string;
+  title: string;
+  body: string;
+  visual: React.ReactNode;
+  reverse?: boolean;
+}) {
+  return (
+    <div className={`feature${reverse ? ' feature--reverse' : ''}`}>
+      <Reveal className="feature__text">
+        <span className="eyebrow" style={{ marginBottom: 12 }}>{kicker}</span>
+        <h3 style={{ fontSize: 'var(--text-heading)', margin: '4px 0 12px', maxWidth: 420 }}>{title}</h3>
+        <p style={{ color: 'var(--slate)', maxWidth: 420 }}>{body}</p>
+      </Reveal>
+      <Reveal className="feature__visual" delay={0.08}>{visual}</Reveal>
+    </div>
+  );
+}
+
+function HeroVisual() {
+  const reduce = useReducedMotion();
+  return (
+    <motion.div
+      initial={reduce ? undefined : { opacity: 0, y: 24, scale: 0.98 }}
+      animate={reduce ? undefined : { opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+      className="card"
+      style={{ padding: 20 }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <div>
+          <div style={{ fontSize: 'var(--text-caption)', color: 'var(--slate)' }}>students_fall.csv</div>
+          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 18 }}>Analysis report</div>
+        </div>
+        <span className="tag" style={{ background: 'var(--info-bg)', color: 'var(--action-blue-ink)' }}>Ready</span>
       </div>
 
-      <header className="header">
-        <h1 className="title">Decision Intelligence, distilled.</h1>
-        <p className="subtitle">Upload a dataset and let the multi-agent pipeline surface anomalies, findings, and prioritized recommendations.</p>
-      </header>
+      <div style={{ background: 'var(--paper)', borderRadius: 10, padding: 14, marginBottom: 12 }}>
+        <ChartHeader title="Average GPA" delta="+0.4" />
+        <LineChart data={trend} height={150} ariaLabel="GPA trend preview" />
+      </div>
 
-      <section className="glass-card">
-        <h2 style={{ marginBottom: '1rem', fontWeight: 600 }}>Analyze New Dataset</h2>
-        <form onSubmit={handleAnalyze}>
-          <input
-            type="file"
-            accept=".csv,.json"
-            onChange={handleFileChange}
-            className="input-file"
-            required
-          />
-          <button type="submit" className="btn" disabled={loading || !file}>
-            {loading ? 'Executing Multi-Agent Workflow...' : 'Run Decision Audit Pipeline'}
-          </button>
-        </form>
-
-        {error && (
-          <div style={{ marginTop: '1rem', color: 'var(--critical)', fontWeight: 500 }}>
-            Error: {error}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <div style={{ background: 'var(--paper)', borderRadius: 10, padding: 14 }}>
+          <div style={{ fontSize: 'var(--text-caption)', color: 'var(--slate)', marginBottom: 8 }}>Health score</div>
+          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 34, color: 'var(--graphite)' }}>
+            <CountUp value={94} suffix="%" />
           </div>
-        )}
-      </section>
-
-      {result && (
-        <>
-          <section className="metrics-grid">
-            <article className="metric-card">
-              <h3>Corporate Health Index</h3>
-              <div className="metric-val">
-                {result.consolidated_report.business_health_score !== undefined
-                  ? `${result.consolidated_report.business_health_score.toFixed(1)}%`
-                  : 'N/A'}
-              </div>
-            </article>
-
-            <article className="metric-card">
-              <h3>Pipeline Telemetry Duration</h3>
-              <div className="metric-val" style={{ color: 'var(--violet)' }}>
-                {result.metrics
-                  ? `${result.metrics.reduce((acc: number, m: any) => acc + m.execution_time_ms, 0).toFixed(1)} ms`
-                  : 'N/A'}
-              </div>
-            </article>
-
-            <article className="metric-card">
-              <h3>Findings Count</h3>
-              <div className="metric-val" style={{ color: 'var(--safe)' }}>
-                {result.consolidated_report.key_findings ? result.consolidated_report.key_findings.length : 0}
-              </div>
-            </article>
-          </section>
-
-          {result.consolidated_report.executive_summary && (
-            <section className="glass-card">
-              <h3 style={{ marginBottom: '0.75rem', color: 'var(--brand-ink)', fontWeight: 600 }}>C-Suite Executive Summary</h3>
-              <p style={{ lineHeight: '1.65', fontSize: '1.05rem', color: 'var(--ink-soft)' }}>
-                {result.consolidated_report.executive_summary}
-              </p>
-            </section>
-          )}
-
-          {result.consolidated_report.key_findings && result.consolidated_report.key_findings.length > 0 && (
-            <section className="glass-card">
-              <h3 style={{ marginBottom: '1rem', fontWeight: 600 }}>Key Findings & Quality Warnings</h3>
-              <table className="tbl">
-                <thead>
-                  <tr>
-                    <th>Finding / Title</th>
-                    <th>Analytical Evidence</th>
-                    <th>Business Impact</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {result.consolidated_report.key_findings.map((f: any, idx: number) => (
-                    <tr key={idx}>
-                      <td style={{ fontWeight: 600 }}>{f.title}</td>
-                      <td><code>{f.evidence || 'N/A'}</code></td>
-                      <td>{f.business_impact}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </section>
-          )}
-
-          {result.consolidated_report.strategic_recommendations && result.consolidated_report.strategic_recommendations.length > 0 && (
-            <section className="glass-card">
-              <h3 style={{ marginBottom: '1rem', fontWeight: 600 }}>Prioritized Strategic Recommendations</h3>
-              <table className="tbl">
-                <thead>
-                  <tr>
-                    <th>Recommendation</th>
-                    <th>Priority</th>
-                    <th>Est. ROI</th>
-                    <th>Timeline</th>
-                    <th>Owner</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {result.consolidated_report.strategic_recommendations.map((r: any, idx: number) => (
-                    <tr key={idx}>
-                      <td style={{ fontWeight: 600 }}>{r.title}</td>
-                      <td>
-                        <span className={`badge badge-${r.priority.toLowerCase()}`}>
-                          {r.priority}
-                        </span>
-                      </td>
-                      <td style={{ color: 'var(--safe)', fontWeight: 700 }}>{r.estimated_roi.toFixed(0)}%</td>
-                      <td>{r.timeline}</td>
-                      <td>{r.owner}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </section>
-          )}
-
-          {result.metrics && (
-            <section className="glass-card">
-              <h3 style={{ marginBottom: '1rem', fontWeight: 600 }}>Agent Execution Timings</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                {result.metrics.map((m: any, idx: number) => (
-                  <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.6rem', borderBottom: '1px solid var(--border)' }}>
-                    <span style={{ fontWeight: 600 }}>{m.agent_name}</span>
-                    <span style={{ color: 'var(--violet)', fontWeight: 600 }}>{m.execution_time_ms.toFixed(3)} ms ({m.status})</span>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-        </>
-      )}
-    </main>
+          <div style={{ fontSize: 'var(--text-caption)', color: 'var(--action-blue-ink)', marginTop: 2 }}>Certified clean</div>
+        </div>
+        <div style={{ background: 'var(--paper)', borderRadius: 10, padding: 14, display: 'flex', flexDirection: 'column' }}>
+          <div style={{ fontSize: 'var(--text-caption)', color: 'var(--slate)', marginBottom: 8 }}>Cohorts</div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <DonutChart data={cohorts} size={92} thickness={13} showLegend={false} ariaLabel="Cohort mix preview" />
+          </div>
+        </div>
+      </div>
+    </motion.div>
   );
 }

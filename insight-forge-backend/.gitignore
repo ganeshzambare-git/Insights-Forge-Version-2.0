@@ -5,8 +5,3 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-
-# Uploaded raw datasets (local storage backend)
-storage/
-!app/storage/
-!app/storage/*.py

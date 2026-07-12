@@ -217,7 +217,7 @@ async def test_cleaning_invalid_format(test_client, mock_user) -> None:
 
     files = {"file": ("image.png", b"fake-png-content", "image/png")}
     response = test_client.post("/api/v1/cleaning/analyze", files=files)
-    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
 
     json_data = response.json()
     assert json_data["success"] is False
