@@ -7,7 +7,7 @@ Loads environment variables using Pydantic Settings.
 from functools import lru_cache
 from typing import Any
 from pydantic import Field, model_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 from typing_extensions import Annotated, Self
 from pydantic import BeforeValidator
 
@@ -30,7 +30,11 @@ def parse_comma_separated_list(v: Any) -> list[str]:
     return []
 
 
-CommaSeparatedList = Annotated[list[str], BeforeValidator(parse_comma_separated_list)]
+# NoDecode stops pydantic-settings from JSON-decoding the env value, so plain
+# comma-separated strings (e.g. "https://a.com,https://b.com") reach the validator.
+CommaSeparatedList = Annotated[
+    list[str], NoDecode, BeforeValidator(parse_comma_separated_list)
+]
 
 
 class Settings(BaseSettings):
