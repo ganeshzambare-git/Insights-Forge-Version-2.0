@@ -13,11 +13,13 @@ type LineChartProps = {
   ariaLabel?: string;
 };
 
+// Default chart dimensions and spacing.
 const W = 640;
 const PAD_X = 12;
 const PAD_TOP = 16;
 const PAD_BOTTOM = 26;
 
+// Animated SVG line chart for visualizing trends over time.
 export function LineChart({
   data,
   height = 240,
@@ -31,7 +33,8 @@ export function LineChart({
   const values = data.map((d) => d.value);
   const dataMin = Math.min(...values);
   const dataMax = Math.max(...values);
-  // Pad around the actual range so real variation is visible (not squashed to a 0 baseline).
+
+  // Add padding around the data range so the graph doesn't touch the edges.
   const pad = (dataMax - dataMin) * 0.18 || Math.max(Math.abs(dataMax) * 0.1, 1);
   const min = dataMin - pad;
   const max = dataMax + pad;
@@ -39,15 +42,18 @@ export function LineChart({
   const innerH = height - PAD_TOP - PAD_BOTTOM;
   const stepX = data.length > 1 ? (W - PAD_X * 2) / (data.length - 1) : 0;
 
+  // Convert data values into SVG coordinates.
   const pts = data.map((d, i) => {
     const x = PAD_X + i * stepX;
     const y = PAD_TOP + innerH - ((d.value - min) / range) * innerH;
     return [x, y] as const;
   });
 
+  // Generate SVG paths for the line and filled area.
   const linePath = pts.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' ');
   const areaPath = `${linePath} L${pts[pts.length - 1][0].toFixed(1)} ${PAD_TOP + innerH} L${pts[0][0].toFixed(1)} ${PAD_TOP + innerH} Z`;
 
+  // Grid lines and label spacing.
   const gridY = [0, 0.5, 1].map((t) => PAD_TOP + innerH * t);
   const labelEvery = Math.ceil(data.length / 6);
 
@@ -59,12 +65,14 @@ export function LineChart({
       aria-label={ariaLabel || 'Line chart'}
       style={{ display: 'block' }}
     >
+      {/* Clip animation within the chart area */}
       <defs>
         <clipPath id={clipId}>
           <rect x="0" y="0" width={W} height={PAD_TOP + innerH} />
         </clipPath>
       </defs>
 
+      {/* Background reference grid */}
       {gridY.map((y, i) => (
         <line
           key={i}
@@ -78,6 +86,7 @@ export function LineChart({
         />
       ))}
 
+      {/* Animated area below the line */}
       <motion.path
         d={areaPath}
         fill={color}
@@ -89,6 +98,7 @@ export function LineChart({
         transition={{ duration: 0.8, delay: 0.2 }}
       />
 
+      {/* Main trend line */}
       <motion.path
         d={linePath}
         fill="none"
@@ -103,6 +113,7 @@ export function LineChart({
         transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
       />
 
+      {/* Data point markers */}
       {pts.map(([x, y], i) => (
         <motion.circle
           key={i}
@@ -121,6 +132,7 @@ export function LineChart({
         />
       ))}
 
+      {/* X-axis labels */}
       {data.map((d, i) =>
         i % labelEvery === 0 ? (
           <text
