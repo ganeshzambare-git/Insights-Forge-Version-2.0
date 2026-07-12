@@ -1,5 +1,13 @@
 fastapi
-python-dotenv
-psycopg-binary
-sqlalchemy
-httpx
+uvicorn[standard]
+sqlalchemy[asyncio]>=2.0,<2.1
+psycopg[binary,pool]>=3.3,<4.0
+alembic>=1.16,<2.0
+pydantic>=2.11,<3.0
+pydantic-settings>=2.10,<3.0
+python-dotenv>=1.1,<2.0
+email-validator
+python-multipart
+bcrypt
+python-jose[cryptography]
+cryptography
