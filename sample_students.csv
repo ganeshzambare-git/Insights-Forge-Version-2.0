@@ -1,0 +1,461 @@
+student_id,full_name,gender,age,department,course,semester,enrollment_date,cgpa,attendance_rate,assignments_completed,study_hours_per_week,backlogs,credits_earned,status
+STU0001,Arjun Chopra,Male,18,Mathematics,Calculus,Fall 2023,2023-08-18,7.06,74.1,72.5,13,0,25,Amber
+STU0002,Ananya Sinha,Female,23,Business Admin,Marketing,Spring 2025,2025-01-21,7.71,76.5,76.1,15,0,76,Safe
+STU0003,Parth Nair,Male,22,Mechanical,Manufacturing,Fall 2023,2023-08-04,7.0,76.4,75.7,11,0,32,Safe
+STU0004,Avni Verma,Female,21,Business Admin,Finance,Fall 2024,2024-08-18,5.72,66.1,71.6,11,1,43,Amber
+STU0005,Anika Gupta,Female,23,Business Admin,Operations,Fall 2024,2024-08-11,6.4,59.1,60.8,12,2,53,Critical
+STU0006,Rahul Gupta,Male,20,Physics,Thermal Physics,Fall 2024,2024-08-11,7.9,85.1,80.1,15,0,60,Safe
+STU0007,Prisha Chauhan,Female,20,Mathematics,Calculus,Fall 2023,2023-08-23,5.0,38,41.6,6,2,23,Critical
+STU0008,Karan Iyer,Male,19,Civil,Structural Analysis,Spring 2024,2024-01-10,8.36,90.2,98.8,16,0,48,Safe
+STU0009,Yash Shah,Male,23,Electronics,Microprocessors,Spring 2025,2025-01-09,7.7,66.7,50.4,13,0,76,Amber
+STU0010,Aadhya Menon,Female,18,Physics,Thermal Physics,Spring 2024,2024-01-10,9.05,88.1,78.2,15,0,52,Safe
+STU0011,Siya Deshpande,Female,24,Mathematics,Calculus,Fall 2024,2024-08-25,6.23,60.9,72.7,10,1,46,Amber
+STU0012,Tanish Reddy,Other,18,Computer Science,Databases,Fall 2024,2024-08-04,7.42,71.0,88.2,14,0,56,Amber
+STU0013,Pari Chopra,Female,20,Electronics,Signals,Spring 2025,2025-01-20,4.94,69.2,70.3,11,3,46,Critical
+STU0014,Sneha Shah,Female,22,Civil,Geotechnics,Fall 2024,2024-08-07,8.58,71.7,89.2,12,0,68,Amber
+STU0015,Ritika Gupta,Female,20,Mathematics,Statistics,Fall 2024,2024-08-06,7.97,71.2,71.5,16,0,62,Amber
+STU0016,Anjali Chopra,Female,20,Mathematics,Linear Algebra,Spring 2024,2024-01-16,7.8,96.8,100,16,0,45,Safe
+STU0017,Meera Das,Female,18,Physics,Quantum Physics,Spring 2025,2025-01-12,7.95,82.2,83.1,11,0,75,Safe
+STU0018,Nikhil Malhotra,Male,21,Physics,Mechanics,Spring 2025,2025-01-04,4.19,55.4,48.4,10,4,38,Critical
+STU0019,Sneha Chopra,Female,23,Civil,Hydraulics,Spring 2025,2025-01-03,10.0,100,100,15,0,103,Safe
+STU0020,Meera Nair,Female,24,Business Admin,Economics,Fall 2023,2023-08-01,7.89,89.3,62.4,14,0,33,Safe
+STU0021,Dhruv Sinha,Other,20,Physics,Electromagnetism,Fall 2023,2023-08-07,4.65,50.4,59.4,10,4,21,Critical
+STU0022,Anjali Pandey,Female,19,Business Admin,Strategy,Spring 2025,2025-01-17,6.97,64.2,80.0,14,0,67,Amber
+STU0023,Kavya Khan,Female,23,Electronics,Digital Systems,Fall 2023,2023-08-20,7.63,81.4,70.9,10,0,34,Safe
+STU0024,Reyansh Shah,Male,18,Computer Science,Data Structures,Fall 2024,2024-08-18,6.34,79.7,68.5,17,1,50,Safe
+STU0025,Yash Khan,Male,22,Civil,Construction Mgmt,Spring 2025,2025-01-23,9.85,89.0,100,25,0,96,Safe
+STU0026,Dhruv Das,Male,18,Mechanical,Thermodynamics,Fall 2024,2024-08-14,7.18,67.2,75.9,16,0,58,Amber
+STU0027,Tanish Nair,Male,21,Civil,Geotechnics,Spring 2025,2025-01-04,8.02,80.3,77.8,13,0,82,Safe
+STU0028,Reyansh Malhotra,Male,20,Mechanical,Thermodynamics,Spring 2025,2025-01-01,3.5,38,36.9,6,4,39,Critical
+STU0029,Ira Agarwal,Female,18,Physics,Electromagnetism,Spring 2025,2025-01-04,7.66,77.3,69.3,17,0,76,Safe
+STU0030,Yash Agarwal,Male,18,Business Admin,Economics,Fall 2024,2024-08-11,9.98,85.5,94.3,23,0,79,Safe
+STU0031,Aisha Gupta,Female,18,Physics,Quantum Physics,Fall 2023,2023-08-08,9.78,78.4,77.2,9,0,37,Safe
+STU0032,Aman Patel,Male,19,Computer Science,Algorithms,Spring 2024,2024-01-06,8.84,100,87.1,18,0,56,Safe
+STU0033,Sai Shah,Male,18,Mechanical,Thermodynamics,Spring 2025,2025-01-02,10.0,94.5,92.4,18,0,102,Safe
+STU0034,Zara Sinha,Female,19,Civil,Construction Mgmt,Spring 2024,2024-01-07,10.0,86.1,89.3,14,0,62,Safe
+STU0035,Vihaan Sinha,Other,20,Electronics,Circuit Theory,Fall 2023,2023-08-24,6.79,72.3,64.7,6,0,26,Amber
+STU0036,Ananya Das,Female,20,Electronics,Digital Systems,Spring 2024,2024-01-01,7.92,71.0,81.6,14,0,43,Amber
+STU0037,Kiara Rao,Female,18,Mechanical,Fluid Mechanics,Fall 2023,2023-08-13,6.1,59.6,67.5,14,0,22,Critical
+STU0038,Vivaan Chopra,Male,18,Computer Science,Databases,Spring 2024,2024-01-08,7.2,70.0,76.4,10,0,45,Amber
+STU0039,Sneha Menon,Female,19,Electronics,Signals,Spring 2025,2025-01-21,10.0,100,91.9,19,0,98,Safe
+STU0040,Kavya Pillai,Female,24,Business Admin,Marketing,Spring 2025,2025-01-19,4.21,55.8,46.7,7,2,38,Critical
+STU0041,Ayaan Iyer,Male,18,Civil,Hydraulics,Fall 2024,2024-08-21,5.95,53.6,60.1,13,0,51,Critical
+STU0042,Dev Menon,Male,23,Mechanical,Thermodynamics,Spring 2025,2025-01-08,4.71,52.4,47.0,7,5,44,Critical
+STU0043,Rahul Mehta,Male,19,Physics,Mechanics,Fall 2024,2024-08-21,8.32,85.1,96.7,15,0,62,Safe
+STU0044,Rudra Shah,Male,21,Mathematics,Calculus,Fall 2024,2024-08-22,10.0,92.5,85.6,19,0,77,Safe
+STU0045,Sara Rao,Other,20,Mechanical,Thermodynamics,Spring 2025,2025-01-01,5.66,52.0,47.4,9,1,53,Critical
+STU0046,Myra Yadav,Female,22,Business Admin,Operations,Spring 2025,2025-01-05,7.87,89.3,95.7,14,0,77,Safe
+STU0047,Tanish Menon,Male,23,Civil,Structural Analysis,Fall 2023,2023-08-16,6.8,65.4,69.6,10,0,23,Amber
+STU0048,Kabir Sinha,Male,23,Civil,Structural Analysis,Spring 2025,2025-01-07,9.98,100,98.9,20,0,101,Safe
+STU0049,Anika Gupta,Other,20,Mechanical,Manufacturing,Spring 2025,2025-01-02,9.52,100,100,19,0,99,Safe
+STU0050,Harsh Malhotra,Male,24,Physics,Optics,Spring 2025,2025-01-26,7.64,78.8,97.2,16,0,73,Safe
+STU0051,Dev Bose,Male,24,Civil,Construction Mgmt,Spring 2025,2025-01-21,7.82,76.8,73.1,12,0,78,Safe
+STU0052,Dev Bhat,Male,21,Mechanical,Manufacturing,Fall 2024,2024-08-10,7.59,72.8,80.8,17,0,59,Amber
+STU0053,Manav Menon,Male,24,Business Admin,Finance,Fall 2024,2024-08-11,6.93,69.2,71.4,12,0,54,Amber
+STU0054,Manav Kulkarni,Male,21,Electronics,Circuit Theory,Spring 2025,2025-01-14,8.59,75.2,76.3,18,0,81,Safe
+STU0055,Arnav Malhotra,Male,24,Electronics,VLSI Design,Fall 2024,2024-08-26,8.53,77.7,75.1,14,0,68,Safe
+STU0056,Ritika Sharma,Female,24,Electronics,Circuit Theory,Fall 2024,2024-08-25,6.49,55.5,71.3,12,2,54,Critical
+STU0057,Vihaan Patel,Male,18,Electronics,Digital Systems,Fall 2024,2024-08-22,9.12,94.9,87.5,16,0,68,Safe
+STU0058,Arjun Patel,Male,19,Business Admin,Marketing,Fall 2024,2024-08-10,7.49,75.9,68.5,18,0,56,Safe
+STU0059,Veer Kulkarni,Male,22,Electronics,Microprocessors,Spring 2024,2024-01-26,10.0,94.7,94.5,16,0,59,Safe
+STU0060,Krishna Joshi,Male,23,Electronics,Circuit Theory,Spring 2025,2025-01-23,10.0,98.6,87.0,19,0,102,Safe
+STU0061,Krishna Naidu,Male,23,Civil,Surveying,Spring 2024,2024-01-02,6.59,73.1,62.9,14,0,43,Amber
+STU0062,Rudra Rao,Male,20,Mechanical,Fluid Mechanics,Spring 2024,2024-01-08,4.66,52.8,61.4,9,3,26,Critical
+STU0063,Laksh Naidu,Male,18,Computer Science,Machine Learning,Fall 2023,2023-08-13,8.68,100,87.4,19,0,35,Safe
+STU0064,Diya Agarwal,Female,22,Electronics,Signals,Spring 2024,2024-01-21,7.98,81.5,77.5,13,0,48,Safe
+STU0065,Tanish Reddy,Other,20,Computer Science,Data Structures,Fall 2023,2023-08-03,3.77,54.6,43.6,5,4,17,Critical
+STU0066,Aman Menon,Male,19,Electronics,Signals,Fall 2024,2024-08-15,10.0,89.2,82.4,19,0,79,Safe
+STU0067,Kavya Chopra,Female,24,Computer Science,Operating Systems,Fall 2023,2023-08-03,8.59,83.9,69.0,15,0,30,Safe
+STU0068,Aman Chauhan,Male,24,Mechanical,Machine Design,Spring 2024,2024-01-24,7.9,77.2,88.9,16,0,46,Safe
+STU0069,Aman Das,Male,24,Physics,Optics,Spring 2025,2025-01-14,4.68,42.2,54.8,7,3,45,Critical
+STU0070,Kabir Das,Male,21,Mechanical,Robotics,Fall 2023,2023-08-07,4.29,48.3,50.1,9,4,15,Critical
+STU0071,Anjali Iyer,Other,18,Computer Science,Databases,Fall 2024,2024-08-07,4.09,45.1,35.7,9,3,36,Critical
+STU0072,Neha Singh,Female,20,Computer Science,Databases,Spring 2024,2024-01-19,9.66,81.5,90.3,19,0,56,Safe
+STU0073,Rohan Pandey,Male,20,Business Admin,Finance,Spring 2024,2024-01-13,9.53,93.5,100,13,0,54,Safe
+STU0074,Tanish Sinha,Male,20,Electronics,Microprocessors,Spring 2025,2025-01-02,4.05,38.4,30,4,3,37,Critical
+STU0075,Parth Reddy,Male,23,Civil,Construction Mgmt,Spring 2024,2024-01-25,7.47,81.7,76.4,17,0,42,Safe
+STU0076,Ishaan Verma,Male,21,Business Admin,Finance,Spring 2025,2025-01-11,8.61,88.4,88.0,19,0,89,Safe
+STU0077,Diya Bose,Female,23,Computer Science,Operating Systems,Fall 2024,2024-08-05,5.02,52.8,58.5,15,5,36,Critical
+STU0078,Arnav Pandey,Male,24,Mechanical,Manufacturing,Fall 2024,2024-08-25,7.79,71.7,73.6,12,0,58,Amber
+STU0079,Sai Bose,Male,21,Computer Science,Data Structures,Fall 2024,2024-08-12,8.08,74.0,78.6,16,0,65,Amber
+STU0080,Sara Nair,Female,18,Mechanical,Machine Design,Fall 2023,2023-08-06,6.7,67.3,68.9,5,0,25,Amber
+STU0081,Om Verma,Male,21,Civil,Surveying,Fall 2023,2023-08-21,9.07,100,80.7,15,0,38,Safe
+STU0082,Aarohi Sinha,Female,21,Civil,Geotechnics,Fall 2024,2024-08-02,5.16,56.4,50.3,11,3,37,Critical
+STU0083,Anjali Singh,Female,18,Mathematics,Calculus,Fall 2024,2024-08-11,7.03,67.5,52.0,11,0,55,Amber
+STU0084,Rahul Malhotra,Male,18,Civil,Construction Mgmt,Fall 2024,2024-08-01,6.01,60.5,66.9,18,2,46,Amber
+STU0085,Tara Iyer,Female,18,Computer Science,Algorithms,Spring 2024,2024-01-12,8.06,75.0,79.8,20,0,49,Safe
+STU0086,Siya Gupta,Female,24,Computer Science,Machine Learning,Spring 2025,2025-01-21,10.0,100,100,19,0,97,Safe
+STU0087,Tanish Menon,Male,19,Mechanical,Fluid Mechanics,Fall 2024,2024-08-24,8.89,91.0,84.1,19,0,74,Safe
+STU0088,Veer Agarwal,Male,22,Civil,Geotechnics,Fall 2024,2024-08-20,7.55,69.2,71.3,16,0,60,Amber
+STU0089,Shreya Chopra,Female,18,Electronics,Signals,Fall 2023,2023-08-17,7.29,62.4,59.4,7,0,26,Amber
+STU0090,Yash Bhat,Male,20,Physics,Optics,Spring 2025,2025-01-12,6.58,56.9,65.4,14,0,62,Critical
+STU0091,Sai Deshpande,Male,20,Mathematics,Calculus,Spring 2024,2024-01-17,7.27,76.1,48.3,16,0,39,Safe
+STU0092,Rohan Deshpande,Male,18,Mathematics,Discrete Math,Fall 2024,2024-08-12,6.49,64.1,60.2,11,0,52,Amber
+STU0093,Veer Malhotra,Male,22,Business Admin,Finance,Fall 2024,2024-08-10,8.75,89.8,81.4,22,0,68,Safe
+STU0094,Aditya Bhat,Male,18,Electronics,Signals,Fall 2024,2024-08-09,8.29,88.8,86.8,13,0,69,Safe
+STU0095,Siya Yadav,Female,18,Civil,Geotechnics,Fall 2023,2023-08-01,8.08,79.7,83.5,17,0,36,Safe
+STU0096,Aarohi Nair,Female,22,Civil,Geotechnics,Fall 2024,2024-08-21,6.65,68.6,65.1,12,0,50,Amber
+STU0097,Vivaan Pandey,Male,21,Mathematics,Discrete Math,Spring 2025,2025-01-01,7.86,81.6,92.7,15,0,75,Safe
+STU0098,Nikhil Verma,Male,24,Computer Science,Databases,Spring 2025,2025-01-23,8.14,79.0,71.2,12,0,85,Safe
+STU0099,Kiara Bhat,Female,19,Electronics,Circuit Theory,Spring 2025,2025-01-01,7.46,79.7,56.0,14,0,76,Safe
+STU0100,Krishna Chopra,Male,23,Physics,Thermal Physics,Fall 2024,2024-08-17,6.27,64.0,68.3,11,1,49,Amber
+STU0101,Arnav Gupta,Male,18,Business Admin,Finance,Fall 2023,2023-08-01,9.68,100,100,20,0,34,Safe
+STU0102,Sneha Verma,Female,24,Computer Science,Machine Learning,Spring 2025,2025-01-07,7.44,83.9,68.3,10,0,76,Safe
+STU0103,Reyansh Rao,Male,24,Computer Science,Data Structures,Fall 2023,2023-08-26,5.35,49.0,52.5,12,1,21,Critical
+STU0104,Kian Shah,Male,18,Computer Science,Databases,Spring 2024,2024-01-10,7.34,78.8,71.1,22,0,48,Safe
+STU0105,Rohan Deshpande,Male,21,Mathematics,Calculus,Spring 2025,2025-01-01,6.71,68.9,69.7,9,0,64,Amber
+STU0106,Kiara Reddy,Female,24,Civil,Structural Analysis,Fall 2024,2024-08-10,6.41,66.4,64.4,14,1,54,Amber
+STU0107,Anjali Pillai,Female,24,Mechanical,Robotics,Spring 2025,2025-01-10,7.77,90.2,81.2,15,0,81,Safe
+STU0108,Aisha Kapoor,Female,23,Mechanical,Thermodynamics,Fall 2024,2024-08-13,7.89,82.1,76.7,14,0,63,Safe
+STU0109,Yash Pillai,Male,19,Electronics,Microprocessors,Spring 2025,2025-01-21,7.44,82.3,76.5,16,0,75,Safe
+STU0110,Ritika Sinha,Female,21,Civil,Construction Mgmt,Spring 2025,2025-01-06,7.81,64.0,69.9,13,0,81,Amber
+STU0111,Pooja Patel,Female,23,Business Admin,Finance,Spring 2024,2024-01-25,8.24,78.2,64.2,16,0,50,Safe
+STU0112,Kabir Rao,Male,18,Mechanical,Thermodynamics,Fall 2023,2023-08-22,5.97,57.1,59.9,13,1,25,Critical
+STU0113,Vihaan Bhat,Male,21,Computer Science,Databases,Spring 2024,2024-01-13,9.35,92.1,78.9,13,0,59,Safe
+STU0114,Ishaan Deshpande,Male,24,Mathematics,Discrete Math,Fall 2023,2023-08-08,7.98,68.8,75.9,12,0,30,Amber
+STU0115,Aisha Pandey,Female,19,Physics,Thermal Physics,Spring 2025,2025-01-22,6.18,60.5,76.0,15,2,59,Amber
+STU0116,Kian Menon,Male,22,Civil,Structural Analysis,Fall 2024,2024-08-14,7.06,78.8,89.8,20,0,52,Safe
+STU0117,Rudra Agarwal,Male,19,Computer Science,Data Structures,Spring 2024,2024-01-07,7.02,53.8,75.3,15,0,41,Critical
+STU0118,Siya Sharma,Female,23,Mathematics,Statistics,Fall 2024,2024-08-14,6.09,66.3,59.2,9,0,49,Amber
+STU0119,Navya Shah,Female,21,Civil,Hydraulics,Fall 2023,2023-08-03,9.0,89.9,84.8,20,0,38,Safe
+STU0120,Siya Patel,Female,19,Physics,Optics,Fall 2024,2024-08-06,8.3,86.1,85.7,14,0,70,Safe
+STU0121,Anjali Nair,Female,24,Mechanical,Manufacturing,Fall 2024,2024-08-10,7.19,67.7,62.1,15,0,59,Amber
+STU0122,Nisha Naidu,Female,24,Electronics,Microprocessors,Fall 2023,2023-08-24,7.16,65.6,63.5,16,0,30,Amber
+STU0123,Diya Naidu,Female,18,Mechanical,Fluid Mechanics,Spring 2025,2025-01-13,8.51,96.6,100,15,0,81,Safe
+STU0124,Aarohi Gupta,Female,22,Mathematics,Statistics,Spring 2024,2024-01-04,7.73,76.1,74.6,11,0,44,Safe
+STU0125,Dhruv Khan,Male,22,Business Admin,Finance,Fall 2024,2024-08-23,8.97,82.1,76.6,14,0,74,Safe
+STU0126,Siya Gupta,Female,22,Mathematics,Discrete Math,Fall 2024,2024-08-04,7.14,71.1,70.7,10,0,61,Amber
+STU0127,Aryan Pandey,Male,22,Electronics,Microprocessors,Spring 2024,2024-01-06,5.95,50.5,62.1,10,1,38,Critical
+STU0128,Kian Naidu,Male,23,Computer Science,Algorithms,Fall 2024,2024-08-21,6.11,67.5,51.8,5,1,45,Amber
+STU0129,Rudra Singh,Male,23,Electronics,Circuit Theory,Spring 2024,2024-01-14,7.72,82.6,74.5,16,0,45,Safe
+STU0130,Kabir Bose,Male,20,Mechanical,Robotics,Fall 2023,2023-08-10,6.37,52.9,45.7,18,1,24,Critical
+STU0131,Divya Iyer,Female,19,Mechanical,Fluid Mechanics,Spring 2024,2024-01-10,5.82,53.4,55.5,10,0,36,Critical
+STU0132,Aarav Verma,Male,18,Electronics,Microprocessors,Fall 2024,2024-08-22,3.5,48.4,36.8,6,2,27,Critical
+STU0133,Nikhil Das,Male,24,Mathematics,Linear Algebra,Fall 2023,2023-08-06,10.0,100,93.0,16,0,40,Safe
+STU0134,Navya Mishra,Female,18,Mechanical,Fluid Mechanics,Fall 2024,2024-08-11,10.0,88.7,98.9,18,0,84,Safe
+STU0135,Vihaan Singh,Male,21,Physics,Optics,Fall 2024,2024-08-13,7.83,100,82.6,18,0,64,Safe
+STU0136,Diya Bhat,Female,18,Civil,Geotechnics,Spring 2025,2025-01-21,6.91,67.9,57.3,6,0,66,Amber
+STU0137,Vihaan Nair,Male,19,Civil,Structural Analysis,Spring 2024,2024-01-19,5.83,55.4,48.8,10,1,31,Critical
+STU0138,Yash Chauhan,Male,18,Civil,Hydraulics,Fall 2024,2024-08-09,5.19,52.7,64.4,10,2,43,Critical
+STU0139,Dev Deshpande,Male,20,Electronics,Microprocessors,Fall 2024,2024-08-11,9.48,95.9,99.9,21,0,73,Safe
+STU0140,Nisha Menon,Female,24,Civil,Hydraulics,Spring 2025,2025-01-26,7.21,69.9,94.5,17,0,73,Amber
+STU0141,Sneha Sharma,Female,22,Physics,Electromagnetism,Fall 2024,2024-08-10,4.01,53.2,56.2,4,5,32,Critical
+STU0142,Riya Shah,Female,24,Mechanical,Manufacturing,Fall 2023,2023-08-25,6.04,67.9,63.0,5,1,24,Amber
+STU0143,Divya Khan,Female,22,Business Admin,Strategy,Spring 2024,2024-01-03,5.43,47.2,63.4,12,0,34,Critical
+STU0144,Reyansh Agarwal,Male,21,Mechanical,Robotics,Spring 2025,2025-01-26,7.22,69.0,76.2,9,0,71,Amber
+STU0145,Veer Pandey,Male,22,Mechanical,Robotics,Spring 2024,2024-01-17,8.97,83.1,87.0,14,0,54,Safe
+STU0146,Veer Mishra,Male,20,Electronics,Digital Systems,Fall 2023,2023-08-16,9.01,98.9,91.9,19,0,37,Safe
+STU0147,Meera Shah,Female,19,Business Admin,Economics,Fall 2023,2023-08-02,9.0,98.3,99.9,19,0,38,Safe
+STU0148,Aryan Singh,Male,24,Business Admin,Economics,Spring 2025,2025-01-09,10.0,100,100,20,0,96,Safe
+STU0149,Ayaan Mishra,Male,24,Mathematics,Discrete Math,Fall 2024,2024-08-03,7.66,60.2,77.5,12,0,58,Amber
+STU0150,Neha Pillai,Female,20,Civil,Geotechnics,Fall 2024,2024-08-06,9.07,100,95.7,19,0,72,Safe
+STU0151,Ananya Pandey,Female,20,Business Admin,Marketing,Spring 2025,2025-01-02,6.9,72.2,62.8,17,0,65,Amber
+STU0152,Neha Yadav,Female,23,Mechanical,Robotics,Fall 2024,2024-08-25,8.27,83.1,78.7,17,0,69,Safe
+STU0153,Aryan Patel,Male,21,Physics,Electromagnetism,Spring 2025,2025-01-01,8.96,70.1,78.1,16,0,90,Amber
+STU0154,Myra Singh,Female,24,Civil,Structural Analysis,Spring 2025,2025-01-13,9.94,100,100,19,0,98,Safe
+STU0155,Nikhil Malhotra,Male,19,Electronics,Signals,Spring 2024,2024-01-02,8.04,64.3,84.5,14,0,46,Amber
+STU0156,Arnav Sinha,Male,21,Mechanical,Machine Design,Spring 2025,2025-01-09,9.63,96.5,86.8,18,0,100,Safe
+STU0157,Tanish Khan,Male,18,Mathematics,Linear Algebra,Fall 2024,2024-08-10,6.14,79.5,94.0,21,0,51,Amber
+STU0158,Tanish Reddy,Male,18,Computer Science,Databases,Fall 2023,2023-08-21,7.86,68.9,67.0,14,0,35,Amber
+STU0159,Ayaan Bose,Male,19,Computer Science,Operating Systems,Spring 2024,2024-01-19,8.35,85.0,69.6,16,0,47,Safe
+STU0160,Sneha Menon,Female,22,Physics,Quantum Physics,Fall 2023,2023-08-05,7.31,77.7,84.2,18,0,25,Safe
+STU0161,Dev Pillai,Male,20,Civil,Structural Analysis,Fall 2024,2024-08-12,7.46,80.2,70.6,10,0,57,Safe
+STU0162,Navya Patel,Female,18,Electronics,VLSI Design,Spring 2025,2025-01-12,9.55,92.7,89.1,17,0,99,Safe
+STU0163,Siya Gupta,Female,24,Computer Science,Databases,Spring 2025,2025-01-11,7.25,66.7,69.6,19,0,75,Amber
+STU0164,Aarav Pillai,Male,18,Physics,Thermal Physics,Fall 2023,2023-08-08,5.37,49.9,54.2,11,0,17,Critical
+STU0165,Aman Yadav,Male,23,Electronics,Signals,Fall 2023,2023-08-20,5.89,56.4,56.3,15,0,23,Critical
+STU0166,Rudra Kulkarni,Male,21,Business Admin,Operations,Fall 2023,2023-08-04,5.28,64.2,59.4,13,5,23,Critical
+STU0167,Om Sharma,Male,24,Mathematics,Discrete Math,Fall 2024,2024-08-20,7.5,71.8,72.3,12,0,61,Amber
+STU0168,Anjali Kulkarni,Female,18,Physics,Quantum Physics,Spring 2025,2025-01-18,9.1,86.0,84.3,14,0,93,Safe
+STU0169,Aadhya Malhotra,Female,21,Computer Science,Machine Learning,Spring 2024,2024-01-11,8.39,91.3,91.1,8,0,53,Safe
+STU0170,Divya Pandey,Female,20,Computer Science,Data Structures,Spring 2025,2025-01-20,9.42,100,89.0,15,0,90,Safe
+STU0171,Navya Iyer,Female,20,Business Admin,Marketing,Fall 2024,2024-08-02,8.77,90.1,89.0,23,0,70,Safe
+STU0172,Arnav Joshi,Male,20,Electronics,Microprocessors,Fall 2023,2023-08-05,6.28,74.2,65.4,18,1,28,Amber
+STU0173,Avni Patel,Female,20,Mathematics,Discrete Math,Spring 2024,2024-01-23,5.17,59.5,51.8,10,3,30,Critical
+STU0174,Dhruv Kulkarni,Male,24,Civil,Structural Analysis,Spring 2025,2025-01-06,8.45,91.4,83.5,19,0,83,Safe
+STU0175,Harsh Sharma,Male,21,Electronics,VLSI Design,Fall 2023,2023-08-12,6.94,60.0,59.6,13,0,25,Amber
+STU0176,Rahul Malhotra,Male,24,Electronics,Digital Systems,Fall 2024,2024-08-09,5.52,59.3,69.1,6,2,44,Critical
+STU0177,Pooja Bhat,Female,18,Mathematics,Linear Algebra,Fall 2024,2024-08-04,6.52,64.0,65.4,13,0,52,Amber
+STU0178,Pari Iyer,Female,23,Civil,Hydraulics,Fall 2024,2024-08-10,8.08,72.3,65.0,14,0,65,Amber
+STU0179,Dev Mishra,Male,22,Civil,Hydraulics,Fall 2024,2024-08-06,6.5,76.4,68.4,20,0,53,Safe
+STU0180,Pari Sinha,Female,18,Electronics,Signals,Spring 2024,2024-01-14,9.46,98.3,99.1,17,0,60,Safe
+STU0181,Zara Deshpande,Female,23,Civil,Construction Mgmt,Spring 2025,2025-01-24,7.1,63.7,63.9,11,0,68,Amber
+STU0182,Ira Bose,Female,22,Mechanical,Robotics,Fall 2024,2024-08-18,8.04,78.8,69.5,16,0,65,Safe
+STU0183,Sneha Sinha,Female,18,Computer Science,Algorithms,Spring 2024,2024-01-12,9.57,77.9,95.1,14,0,61,Safe
+STU0184,Nisha Bhat,Female,19,Electronics,VLSI Design,Spring 2024,2024-01-17,5.0,46.3,54.8,13,2,31,Critical
+STU0185,Aisha Bhat,Female,24,Mathematics,Calculus,Fall 2024,2024-08-01,8.42,99.2,93.2,18,0,63,Safe
+STU0186,Aarohi Reddy,Female,22,Civil,Construction Mgmt,Fall 2024,2024-08-21,7.97,76.8,83.5,19,0,61,Safe
+STU0187,Harsh Pillai,Male,22,Computer Science,Data Structures,Fall 2023,2023-08-06,4.78,59.6,65.3,9,4,17,Critical
+STU0188,Meera Shah,Female,24,Electronics,Circuit Theory,Spring 2024,2024-01-04,5.23,64.1,52.5,14,5,27,Critical
+STU0189,Tanish Chopra,Male,19,Business Admin,Marketing,Fall 2024,2024-08-20,8.85,77.8,69.4,12,0,73,Safe
+STU0190,Karan Shah,Male,23,Civil,Structural Analysis,Spring 2024,2024-01-13,9.41,98.2,93.1,25,0,59,Safe
+STU0191,Parth Patel,Male,19,Computer Science,Algorithms,Fall 2023,2023-08-13,9.37,99.6,100,16,0,38,Safe
+STU0192,Aditya Iyer,Male,19,Civil,Surveying,Fall 2024,2024-08-13,10.0,93.6,93.1,20,0,76,Safe
+STU0193,Arjun Patel,Male,22,Mathematics,Linear Algebra,Fall 2023,2023-08-09,6.75,77.3,85.3,16,0,28,Safe
+STU0194,Dhruv Chopra,Male,22,Mathematics,Numerical Methods,Spring 2024,2024-01-16,8.1,71.0,59.1,7,0,48,Amber
+STU0195,Isha Kulkarni,Female,22,Mechanical,Robotics,Spring 2024,2024-01-20,8.91,94.9,89.8,14,0,55,Safe
+STU0196,Aman Kulkarni,Male,18,Electronics,Signals,Fall 2023,2023-08-23,6.15,69.3,73.4,16,0,21,Amber
+STU0197,Meera Khan,Female,20,Business Admin,Operations,Spring 2024,2024-01-23,8.94,89.1,79.2,13,0,56,Safe
+STU0198,Shreya Bhat,Female,18,Physics,Electromagnetism,Spring 2025,2025-01-06,10.0,91.6,92.6,13,0,96,Safe
+STU0199,Pooja Das,Female,18,Electronics,Microprocessors,Spring 2024,2024-01-21,8.88,81.8,72.3,15,0,49,Safe
+STU0200,Nisha Rao,Female,18,Physics,Quantum Physics,Fall 2023,2023-08-24,6.86,63.8,81.4,12,0,26,Amber
+STU0201,Pooja Pillai,Female,20,Mechanical,Manufacturing,Fall 2024,2024-08-19,8.36,81.6,71.1,21,0,62,Safe
+STU0202,Neha Iyer,Female,23,Computer Science,Databases,Spring 2024,2024-01-12,5.44,63.5,57.1,3,1,32,Amber
+STU0203,Meera Bose,Female,23,Civil,Surveying,Fall 2024,2024-08-24,8.39,78.8,86.9,16,0,71,Safe
+STU0204,Kavya Nair,Female,24,Civil,Geotechnics,Fall 2023,2023-08-23,5.59,62.6,40.7,9,1,26,Amber
+STU0205,Vivaan Reddy,Male,23,Mechanical,Machine Design,Fall 2024,2024-08-07,7.02,76.0,61.5,14,0,60,Safe
+STU0206,Myra Agarwal,Female,23,Mathematics,Statistics,Fall 2024,2024-08-05,9.41,92.0,79.8,22,0,79,Safe
+STU0207,Sai Naidu,Male,24,Mathematics,Linear Algebra,Fall 2024,2024-08-15,8.32,67.6,83.2,14,0,62,Amber
+STU0208,Kiara Rao,Female,19,Computer Science,Databases,Fall 2024,2024-08-04,9.09,80.8,80.7,18,0,69,Safe
+STU0209,Aryan Singh,Male,23,Civil,Structural Analysis,Spring 2025,2025-01-11,6.19,68.2,70.0,15,0,62,Amber
+STU0210,Aisha Mehta,Female,23,Mathematics,Numerical Methods,Spring 2025,2025-01-21,9.87,93.4,94.7,19,0,100,Safe
+STU0211,Kiara Malhotra,Female,19,Electronics,VLSI Design,Spring 2025,2025-01-22,9.15,100,100,15,0,92,Safe
+STU0212,Ayaan Nair,Male,19,Business Admin,Operations,Spring 2025,2025-01-09,9.21,93.6,96.8,11,0,94,Safe
+STU0213,Aarohi Menon,Female,22,Civil,Hydraulics,Spring 2025,2025-01-10,6.91,69.4,66.2,6,0,66,Amber
+STU0214,Ritika Das,Female,18,Civil,Geotechnics,Spring 2024,2024-01-12,9.18,97.9,94.7,14,0,53,Safe
+STU0215,Rahul Verma,Male,21,Business Admin,Strategy,Spring 2025,2025-01-03,10.0,99.8,100,19,0,101,Safe
+STU0216,Prisha Gupta,Female,22,Business Admin,Operations,Fall 2024,2024-08-14,6.93,87.0,97.1,14,0,52,Safe
+STU0217,Ananya Yadav,Female,22,Mathematics,Statistics,Fall 2024,2024-08-10,3.5,38,44.0,7,2,27,Critical
+STU0218,Dev Das,Male,20,Mathematics,Calculus,Fall 2023,2023-08-19,8.34,75.6,85.3,19,0,36,Safe
+STU0219,Vihaan Patel,Male,19,Electronics,Digital Systems,Fall 2024,2024-08-04,9.06,79.9,89.0,16,0,76,Safe
+STU0220,Yash Kulkarni,Male,22,Mathematics,Calculus,Spring 2025,2025-01-19,9.69,98.8,100,20,0,100,Safe
+STU0221,Pooja Sinha,Female,22,Physics,Mechanics,Fall 2024,2024-08-24,9.53,100,100,23,0,73,Safe
+STU0222,Harsh Deshpande,Male,18,Computer Science,Operating Systems,Spring 2024,2024-01-12,7.21,79.2,72.8,16,0,41,Safe
+STU0223,Tanish Gupta,Male,24,Business Admin,Finance,Fall 2024,2024-08-24,7.41,71.8,55.1,13,0,59,Amber
+STU0224,Ayaan Pillai,Male,21,Mathematics,Numerical Methods,Spring 2025,2025-01-24,7.63,81.6,81.9,16,0,73,Safe
+STU0225,Laksh Naidu,Male,21,Electronics,Signals,Spring 2024,2024-01-23,8.75,100,100,18,0,52,Safe
+STU0226,Yash Agarwal,Male,20,Mechanical,Manufacturing,Spring 2025,2025-01-19,7.39,67.5,83.4,8,0,69,Amber
+STU0227,Arjun Menon,Male,24,Business Admin,Strategy,Spring 2025,2025-01-26,8.97,86.1,74.3,14,0,87,Safe
+STU0228,Isha Chopra,Female,20,Electronics,VLSI Design,Fall 2024,2024-08-12,8.56,81.6,94.3,20,0,67,Safe
+STU0229,Ayaan Yadav,Male,20,Civil,Surveying,Fall 2024,2024-08-13,6.57,75.7,71.3,14,0,48,Safe
+STU0230,Sneha Naidu,Female,22,Electronics,Signals,Spring 2024,2024-01-03,9.86,100,89.5,18,0,57,Safe
+STU0231,Aditya Agarwal,Other,21,Business Admin,Marketing,Spring 2025,2025-01-25,5.8,55.4,66.7,14,1,55,Critical
+STU0232,Harsh Kapoor,Male,19,Mathematics,Statistics,Fall 2024,2024-08-21,5.39,42.3,44.4,9,1,44,Critical
+STU0233,Divya Menon,Female,19,Business Admin,Operations,Spring 2025,2025-01-26,8.86,84.5,100,15,0,90,Safe
+STU0234,Kiara Agarwal,Female,23,Electronics,VLSI Design,Fall 2023,2023-08-10,7.31,59.1,44.7,10,0,30,Critical
+STU0235,Reyansh Kulkarni,Male,20,Computer Science,Machine Learning,Fall 2023,2023-08-19,9.12,89.6,81.7,18,0,39,Safe
+STU0236,Sai Shah,Male,23,Mechanical,Robotics,Fall 2023,2023-08-06,8.27,70.8,73.5,17,0,32,Amber
+STU0237,Kiara Mishra,Female,18,Business Admin,Marketing,Spring 2024,2024-01-24,10.0,93.9,100,21,0,58,Safe
+STU0238,Ishaan Joshi,Male,19,Mathematics,Calculus,Fall 2024,2024-08-01,7.9,61.1,75.4,13,0,64,Amber
+STU0239,Parth Bose,Male,20,Physics,Mechanics,Fall 2023,2023-08-20,6.98,65.7,94.4,17,0,28,Amber
+STU0240,Riya Verma,Female,19,Civil,Construction Mgmt,Spring 2025,2025-01-11,7.58,76.5,82.1,18,0,72,Safe
+STU0241,Ayaan Bose,Male,19,Mechanical,Robotics,Fall 2024,2024-08-18,5.92,58.0,76.3,12,0,47,Critical
+STU0242,Zara Chauhan,Female,22,Civil,Construction Mgmt,Spring 2024,2024-01-17,9.77,100,100,19,0,59,Safe
+STU0243,Nikhil Patel,Male,19,Civil,Structural Analysis,Spring 2025,2025-01-20,9.29,94.7,100,17,0,90,Safe
+STU0244,Ritika Yadav,Female,24,Physics,Electromagnetism,Fall 2024,2024-08-12,8.91,94.8,100.0,17,0,72,Safe
+STU0245,Tara Das,Female,18,Electronics,Signals,Spring 2025,2025-01-01,8.0,73.7,58.0,13,0,79,Amber
+STU0246,Nisha Agarwal,Female,20,Civil,Geotechnics,Fall 2023,2023-08-01,5.86,62.5,59.3,14,2,23,Amber
+STU0247,Rudra Rao,Male,20,Business Admin,Finance,Fall 2024,2024-08-25,8.29,82.9,87.1,22,0,65,Safe
+STU0248,Rahul Deshpande,Male,24,Business Admin,Strategy,Spring 2024,2024-01-02,9.08,79.9,67.9,19,0,57,Safe
+STU0249,Parth Nair,Male,18,Mechanical,Thermodynamics,Spring 2025,2025-01-05,7.8,88.3,84.4,16,0,80,Safe
+STU0250,Kabir Bhat,Male,22,Mathematics,Discrete Math,Spring 2025,2025-01-02,7.16,60.3,58.4,11,0,75,Amber
+STU0251,Avni Bose,Female,20,Mathematics,Calculus,Spring 2025,2025-01-02,10.0,83.8,77.0,16,0,99,Safe
+STU0252,Myra Bhat,Female,22,Mathematics,Numerical Methods,Fall 2024,2024-08-04,8.24,71.6,82.3,13,0,64,Amber
+STU0253,Shreya Patel,Female,18,Mathematics,Calculus,Spring 2024,2024-01-06,8.35,77.7,78.0,11,0,51,Safe
+STU0254,Kabir Chauhan,Male,20,Computer Science,Operating Systems,Fall 2024,2024-08-18,6.79,80.2,95.4,13,0,56,Safe
+STU0255,Yash Bose,Male,21,Civil,Geotechnics,Spring 2024,2024-01-13,8.32,74.5,82.2,8,0,51,Amber
+STU0256,Pooja Rao,Other,24,Mathematics,Calculus,Fall 2023,2023-08-20,7.8,85.0,67.2,17,0,34,Safe
+STU0257,Riya Das,Female,24,Business Admin,Marketing,Fall 2024,2024-08-21,5.59,63.5,60.3,14,2,45,Amber
+STU0258,Tara Pillai,Female,18,Mechanical,Robotics,Fall 2024,2024-08-11,4.6,47.2,54.2,14,4,36,Critical
+STU0259,Prisha Mishra,Female,22,Mathematics,Statistics,Fall 2024,2024-08-16,8.52,80.8,73.2,11,0,69,Safe
+STU0260,Sai Nair,Male,24,Physics,Optics,Fall 2023,2023-08-21,7.0,77.7,62.9,19,0,30,Safe
+STU0261,Arjun Chauhan,Male,23,Mechanical,Manufacturing,Fall 2023,2023-08-12,7.91,75.1,83.0,8,0,28,Safe
+STU0262,Rudra Yadav,Male,18,Physics,Electromagnetism,Spring 2025,2025-01-05,9.29,96.6,93.2,19,0,93,Safe
+STU0263,Divya Chopra,Female,22,Mechanical,Thermodynamics,Fall 2024,2024-08-01,7.17,82.8,84.2,16,0,57,Safe
+STU0264,Diya Pillai,Female,19,Mathematics,Discrete Math,Spring 2025,2025-01-07,7.6,60.8,64.6,12,0,72,Amber
+STU0265,Tara Malhotra,Female,23,Computer Science,Databases,Spring 2025,2025-01-14,6.8,64.1,82.5,16,0,68,Amber
+STU0266,Reyansh Kapoor,Male,21,Physics,Mechanics,Fall 2023,2023-08-15,9.56,86.3,100,16,0,34,Safe
+STU0267,Arnav Das,Male,19,Civil,Hydraulics,Fall 2024,2024-08-16,8.01,84.4,89.0,19,0,63,Safe
+STU0268,Vivaan Agarwal,Male,21,Mathematics,Statistics,Fall 2024,2024-08-25,5.26,56.4,56.7,12,2,39,Critical
+STU0269,Parth Singh,Male,19,Electronics,VLSI Design,Fall 2024,2024-08-22,8.19,65.1,76.0,10,0,67,Amber
+STU0270,Ritika Bhat,Female,18,Electronics,Signals,Spring 2024,2024-01-17,9.38,88.7,82.4,16,0,58,Safe
+STU0271,Parth Mehta,Male,23,Business Admin,Strategy,Fall 2024,2024-08-14,9.66,89.7,77.4,19,0,76,Safe
+STU0272,Reyansh Joshi,Male,21,Mathematics,Statistics,Spring 2025,2025-01-22,6.32,66.1,73.6,12,2,67,Amber
+STU0273,Sneha Kapoor,Female,24,Computer Science,Machine Learning,Fall 2023,2023-08-19,7.23,74.9,64.3,12,0,31,Amber
+STU0274,Dev Das,Male,24,Electronics,Digital Systems,Fall 2023,2023-08-14,4.81,48.6,51.8,9,5,17,Critical
+STU0275,Dev Joshi,Male,23,Mathematics,Linear Algebra,Fall 2024,2024-08-22,7.35,65.8,85.1,18,0,57,Amber
+STU0276,Aryan Iyer,Male,19,Electronics,Circuit Theory,Spring 2025,2025-01-14,9.45,96.5,100,17,0,92,Safe
+STU0277,Tanya Chauhan,Female,20,Electronics,Circuit Theory,Fall 2023,2023-08-15,8.08,65.4,65.6,15,0,32,Amber
+STU0278,Om Rao,Male,20,Electronics,Digital Systems,Spring 2024,2024-01-02,7.02,57.1,65.0,16,0,39,Critical
+STU0279,Arjun Yadav,Male,18,Electronics,Microprocessors,Spring 2024,2024-01-13,8.69,90.9,85.0,15,0,49,Safe
+STU0280,Ayaan Sharma,Male,19,Physics,Optics,Spring 2025,2025-01-03,6.21,48.9,52.6,10,0,61,Critical
+STU0281,Ishaan Singh,Male,18,Physics,Electromagnetism,Fall 2024,2024-08-10,7.45,68.6,70.0,15,0,57,Amber
+STU0282,Aryan Menon,Male,18,Electronics,Signals,Spring 2025,2025-01-06,8.06,87.5,95.6,18,0,77,Safe
+STU0283,Ira Khan,Female,18,Electronics,VLSI Design,Spring 2024,2024-01-02,8.59,97.1,100,14,0,48,Safe
+STU0284,Rahul Yadav,Male,20,Electronics,Signals,Fall 2023,2023-08-03,9.08,99.1,94.0,15,0,36,Safe
+STU0285,Tanish Patel,Male,22,Computer Science,Algorithms,Fall 2024,2024-08-18,9.29,93.0,97.0,14,0,73,Safe
+STU0286,Yash Rao,Male,22,Electronics,Digital Systems,Spring 2025,2025-01-18,7.85,75.6,77.5,15,0,77,Safe
+STU0287,Anika Gupta,Female,18,Physics,Electromagnetism,Fall 2023,2023-08-09,6.44,61.2,64.0,14,1,24,Amber
+STU0288,Harsh Khan,Male,22,Business Admin,Marketing,Spring 2025,2025-01-03,9.4,89.8,94.3,23,0,92,Safe
+STU0289,Riya Gupta,Female,18,Physics,Optics,Fall 2024,2024-08-06,6.21,74.4,59.7,12,1,47,Amber
+STU0290,Kavya Nair,Female,20,Electronics,Digital Systems,Spring 2025,2025-01-22,6.52,67.2,84.3,13,0,61,Amber
+STU0291,Harsh Kapoor,Male,24,Computer Science,Machine Learning,Fall 2024,2024-08-07,5.62,47.3,52.1,10,1,47,Critical
+STU0292,Sneha Menon,Female,18,Electronics,Signals,Spring 2025,2025-01-10,4.92,62.0,65.8,8,5,51,Critical
+STU0293,Divya Mishra,Female,22,Business Admin,Operations,Spring 2025,2025-01-19,7.52,57.1,69.9,14,0,74,Critical
+STU0294,Arnav Das,Male,23,Business Admin,Finance,Spring 2025,2025-01-19,5.09,53.8,48.2,7,4,52,Critical
+STU0295,Aditya Patel,Male,24,Mathematics,Statistics,Fall 2024,2024-08-14,5.81,76.5,59.8,16,2,46,Amber
+STU0296,Kabir Joshi,Male,22,Electronics,Circuit Theory,Spring 2024,2024-01-15,6.55,69.5,69.3,12,0,42,Amber
+STU0297,Yash Khan,Male,18,Electronics,Circuit Theory,Spring 2024,2024-01-21,4.85,62.3,57.9,11,4,31,Critical
+STU0298,Kabir Pandey,Male,21,Business Admin,Economics,Spring 2024,2024-01-06,8.33,83.2,92.1,23,0,52,Safe
+STU0299,Neha Shah,Female,23,Mathematics,Statistics,Fall 2024,2024-08-18,7.62,82.2,100,21,0,57,Safe
+STU0300,Kabir Das,Male,23,Mechanical,Machine Design,Spring 2024,2024-01-22,5.72,58.3,50.3,11,2,37,Critical
+STU0301,Aarav Verma,Male,20,Physics,Mechanics,Fall 2024,2024-08-15,7.47,63.6,63.0,17,0,57,Amber
+STU0302,Laksh Pandey,Male,22,Mechanical,Fluid Mechanics,Spring 2024,2024-01-19,8.09,84.6,78.7,11,0,48,Safe
+STU0303,Anika Mehta,Female,21,Physics,Thermal Physics,Fall 2023,2023-08-18,5.68,51.2,52.9,16,1,23,Critical
+STU0304,Arnav Menon,Male,19,Physics,Mechanics,Spring 2025,2025-01-12,8.27,73.9,76.9,15,0,86,Amber
+STU0305,Rohan Agarwal,Male,24,Computer Science,Machine Learning,Spring 2024,2024-01-13,10.0,95.8,100,21,0,61,Safe
+STU0306,Tara Iyer,Female,21,Mathematics,Statistics,Spring 2024,2024-01-11,6.49,74.4,86.4,18,2,42,Amber
+STU0307,Aisha Reddy,Female,24,Physics,Quantum Physics,Fall 2023,2023-08-09,5.86,52.5,47.8,13,2,27,Critical
+STU0308,Ritika Bhat,Female,18,Computer Science,Databases,Fall 2024,2024-08-01,8.07,73.8,79.2,20,0,65,Amber
+STU0309,Krishna Pandey,Male,23,Computer Science,Machine Learning,Fall 2023,2023-08-20,8.56,79.4,71.5,18,0,31,Safe
+STU0310,Tara Sinha,Female,24,Physics,Quantum Physics,Spring 2024,2024-01-16,9.6,77.8,83.0,15,0,61,Safe
+STU0311,Laksh Pandey,Male,18,Mechanical,Fluid Mechanics,Spring 2024,2024-01-22,9.01,79.9,81.2,16,0,53,Safe
+STU0312,Navya Khan,Female,24,Physics,Electromagnetism,Fall 2023,2023-08-22,8.37,92.1,100,14,0,35,Safe
+STU0313,Myra Bhat,Female,23,Mathematics,Discrete Math,Fall 2024,2024-08-09,9.71,98.0,88.9,19,0,74,Safe
+STU0314,Arnav Pandey,Male,22,Physics,Mechanics,Spring 2024,2024-01-23,9.23,96.7,86.1,17,0,53,Safe
+STU0315,Veer Verma,Male,18,Civil,Construction Mgmt,Fall 2024,2024-08-26,10.0,100,100,17,0,81,Safe
+STU0316,Anika Rao,Female,22,Business Admin,Finance,Spring 2024,2024-01-26,6.57,64.6,66.4,12,0,43,Amber
+STU0317,Ayaan Gupta,Male,18,Mathematics,Statistics,Spring 2025,2025-01-19,5.72,65.7,58.4,18,1,61,Amber
+STU0318,Ishaan Gupta,Male,21,Mathematics,Discrete Math,Fall 2024,2024-08-14,3.66,51.5,35.6,6,3,26,Critical
+STU0319,Rohan Singh,Male,18,Electronics,Circuit Theory,Spring 2025,2025-01-17,6.54,68.3,61.7,12,0,65,Amber
+STU0320,Aadhya Agarwal,Female,20,Mathematics,Numerical Methods,Spring 2025,2025-01-03,9.62,95.4,100,15,0,100,Safe
+STU0321,Ayaan Bhat,Male,20,Electronics,VLSI Design,Fall 2024,2024-08-12,9.28,100,87.6,23,0,71,Safe
+STU0322,Parth Nair,Male,20,Mechanical,Manufacturing,Fall 2024,2024-08-03,7.27,82.2,82.2,14,0,55,Safe
+STU0323,Navya Pillai,Female,18,Civil,Geotechnics,Spring 2024,2024-01-22,8.28,83.6,99.5,11,0,51,Safe
+STU0324,Tanish Sinha,Male,19,Civil,Geotechnics,Fall 2023,2023-08-04,6.44,71.9,87.4,15,0,28,Amber
+STU0325,Aarohi Pandey,Female,20,Business Admin,Economics,Spring 2025,2025-01-11,4.39,45.1,55.0,11,4,45,Critical
+STU0326,Ira Kulkarni,Female,22,Electronics,Digital Systems,Fall 2024,2024-08-19,8.17,94.8,98.4,14,0,61,Safe
+STU0327,Sara Chopra,Female,23,Mathematics,Linear Algebra,Spring 2025,2025-01-16,9.7,85.4,97.3,14,0,96,Safe
+STU0328,Arnav Khan,Male,23,Mathematics,Linear Algebra,Fall 2024,2024-08-24,9.25,94.3,100,17,0,70,Safe
+STU0329,Dhruv Patel,Male,22,Electronics,Circuit Theory,Spring 2025,2025-01-21,8.7,84.0,87.5,17,0,84,Safe
+STU0330,Manav Pillai,Male,22,Electronics,VLSI Design,Fall 2024,2024-08-04,5.47,71.9,69.4,13,0,47,Amber
+STU0331,Diya Pillai,Female,24,Business Admin,Economics,Fall 2024,2024-08-26,4.81,51.0,43.8,6,3,34,Critical
+STU0332,Veer Khan,Male,23,Physics,Optics,Spring 2024,2024-01-23,7.16,81.1,92.9,15,0,39,Safe
+STU0333,Meera Naidu,Female,18,Computer Science,Data Structures,Spring 2025,2025-01-04,6.77,71.2,62.9,6,0,66,Amber
+STU0334,Aditya Verma,Male,21,Computer Science,Machine Learning,Spring 2024,2024-01-13,4.86,63.8,45.3,9,2,25,Critical
+STU0335,Pooja Yadav,Female,24,Computer Science,Algorithms,Spring 2025,2025-01-14,8.99,80.2,79.8,15,0,89,Safe
+STU0336,Aadhya Kapoor,Female,23,Civil,Structural Analysis,Fall 2023,2023-08-06,5.84,61.2,55.4,9,1,23,Amber
+STU0337,Aadhya Bose,Female,20,Business Admin,Marketing,Spring 2024,2024-01-18,8.93,85.2,74.1,21,0,57,Safe
+STU0338,Vivaan Sinha,Male,20,Physics,Quantum Physics,Fall 2024,2024-08-11,6.04,61.8,53.6,12,0,52,Amber
+STU0339,Laksh Bose,Male,20,Business Admin,Marketing,Fall 2024,2024-08-07,7.53,64.5,68.7,20,0,63,Amber
+STU0340,Sara Chauhan,Female,20,Mathematics,Statistics,Spring 2025,2025-01-08,10.0,98.9,97.0,17,0,100,Safe
+STU0341,Aisha Bhat,Female,22,Mathematics,Numerical Methods,Fall 2023,2023-08-03,9.96,92.1,95.7,16,0,36,Safe
+STU0342,Vihaan Yadav,Male,24,Civil,Construction Mgmt,Fall 2024,2024-08-09,7.93,62.5,74.4,17,0,61,Amber
+STU0343,Dev Pandey,Male,18,Computer Science,Operating Systems,Spring 2024,2024-01-07,5.97,62.8,59.4,9,0,34,Amber
+STU0344,Aditya Reddy,Male,19,Physics,Thermal Physics,Spring 2024,2024-01-09,8.92,93.5,88.4,16,0,53,Safe
+STU0345,Avni Kulkarni,Female,20,Electronics,Circuit Theory,Fall 2023,2023-08-01,8.72,78.2,79.0,15,0,34,Safe
+STU0346,Sai Pillai,Male,19,Mathematics,Calculus,Spring 2025,2025-01-26,7.46,66.6,68.5,11,0,73,Amber
+STU0347,Kavya Chopra,Female,20,Physics,Quantum Physics,Spring 2024,2024-01-16,7.24,77.9,66.3,15,0,46,Safe
+STU0348,Vihaan Das,Male,21,Business Admin,Strategy,Fall 2023,2023-08-04,8.02,76.0,80.7,19,0,29,Safe
+STU0349,Ishaan Malhotra,Male,22,Civil,Hydraulics,Spring 2024,2024-01-11,8.79,95.3,93.3,8,0,54,Safe
+STU0350,Kian Pillai,Male,24,Computer Science,Algorithms,Fall 2024,2024-08-17,3.76,38,30,7,5,28,Critical
+STU0351,Aryan Bhat,Male,24,Mechanical,Thermodynamics,Spring 2024,2024-01-22,7.91,73.4,70.2,14,0,51,Amber
+STU0352,Aisha Menon,Female,24,Mathematics,Calculus,Fall 2024,2024-08-08,7.81,69.8,75.4,14,0,63,Amber
+STU0353,Ritika Mishra,Female,22,Mechanical,Fluid Mechanics,Fall 2024,2024-08-01,3.98,55.2,57.6,8,3,31,Critical
+STU0354,Avni Rao,Female,18,Computer Science,Operating Systems,Fall 2023,2023-08-06,10.0,94.6,100,20,0,43,Safe
+STU0355,Aarohi Deshpande,Female,20,Electronics,Digital Systems,Spring 2025,2025-01-07,9.52,92.5,100,17,0,96,Safe
+STU0356,Aman Sharma,Male,24,Business Admin,Operations,Spring 2025,2025-01-08,8.63,91.6,93.9,14,0,89,Safe
+STU0357,Pooja Chopra,Female,20,Electronics,Signals,Spring 2024,2024-01-04,8.98,83.4,91.6,11,0,49,Safe
+STU0358,Kian Reddy,Male,21,Computer Science,Machine Learning,Spring 2025,2025-01-26,6.98,60.5,61.5,13,0,69,Amber
+STU0359,Pooja Bose,Female,18,Computer Science,Data Structures,Fall 2024,2024-08-04,8.08,79.4,75.8,16,0,66,Safe
+STU0360,Divya Naidu,Female,19,Mathematics,Numerical Methods,Fall 2024,2024-08-15,8.05,73.1,77.2,13,0,68,Amber
+STU0361,Aarohi Bose,Female,21,Computer Science,Machine Learning,Spring 2025,2025-01-19,8.54,94.0,91.5,14,0,82,Safe
+STU0362,Ananya Deshpande,Female,24,Mathematics,Discrete Math,Spring 2024,2024-01-11,8.6,95.3,82.4,22,0,49,Safe
+STU0363,Kabir Khan,Male,22,Electronics,Microprocessors,Fall 2023,2023-08-07,4.79,52.1,40.4,8,5,20,Critical
+STU0364,Krishna Bhat,Male,19,Electronics,Signals,Fall 2023,2023-08-17,5.55,68.1,56.4,9,2,23,Amber
+STU0365,Meera Malhotra,Female,21,Mathematics,Discrete Math,Spring 2024,2024-01-26,6.95,59.7,60.3,16,0,41,Critical
+STU0366,Aisha Rao,Female,19,Mathematics,Linear Algebra,Spring 2025,2025-01-25,10.0,82.2,87.3,16,0,97,Safe
+STU0367,Ritika Naidu,Female,22,Physics,Thermal Physics,Fall 2023,2023-08-01,5.21,50.4,55.5,12,3,16,Critical
+STU0368,Sai Shah,Male,18,Mathematics,Linear Algebra,Fall 2023,2023-08-04,6.89,90.8,80.6,17,0,31,Safe
+STU0369,Rohan Bose,Male,18,Mathematics,Discrete Math,Spring 2025,2025-01-11,8.63,84.5,89.4,24,0,84,Safe
+STU0370,Sneha Kapoor,Female,22,Mechanical,Robotics,Fall 2024,2024-08-07,8.52,96.0,93.4,18,0,70,Safe
+STU0371,Aman Sharma,Male,21,Electronics,Signals,Spring 2025,2025-01-26,9.65,97.0,100,20,0,95,Safe
+STU0372,Anjali Naidu,Female,19,Civil,Construction Mgmt,Fall 2024,2024-08-01,4.9,54.8,55.7,7,4,43,Critical
+STU0373,Yash Kapoor,Male,18,Mathematics,Calculus,Fall 2023,2023-08-24,7.14,83.1,68.8,10,0,27,Safe
+STU0374,Tara Pandey,Other,21,Mechanical,Fluid Mechanics,Fall 2023,2023-08-08,4.17,56.2,50.4,3,4,18,Critical
+STU0375,Dev Mehta,Male,18,Computer Science,Machine Learning,Spring 2024,2024-01-10,7.55,74.9,81.1,14,0,46,Amber
+STU0376,Veer Chauhan,Male,22,Business Admin,Operations,Fall 2024,2024-08-16,8.23,78.8,73.7,12,0,67,Safe
+STU0377,Ishaan Khan,Male,24,Mathematics,Numerical Methods,Spring 2024,2024-01-11,5.34,53.9,44.9,4,1,28,Critical
+STU0378,Aryan Gupta,Male,19,Mathematics,Statistics,Fall 2023,2023-08-18,9.14,95.7,98.7,18,0,37,Safe
+STU0379,Aditya Nair,Male,18,Civil,Structural Analysis,Spring 2025,2025-01-24,9.49,100,90.4,18,0,98,Safe
+STU0380,Nisha Reddy,Female,21,Electronics,Digital Systems,Spring 2024,2024-01-26,5.72,62.1,70.4,10,0,31,Amber
+STU0381,Dev Pandey,Male,22,Mathematics,Discrete Math,Fall 2024,2024-08-06,8.18,76.1,88.8,18,0,68,Safe
+STU0382,Om Pillai,Male,21,Mechanical,Fluid Mechanics,Fall 2023,2023-08-17,4.18,55.4,62.7,9,4,14,Critical
+STU0383,Ritika Kapoor,Female,24,Mathematics,Linear Algebra,Fall 2024,2024-08-02,8.0,86.9,98.6,17,0,60,Safe
+STU0384,Riya Patel,Female,20,Physics,Quantum Physics,Spring 2025,2025-01-09,8.95,77.6,75.1,17,0,88,Safe
+STU0385,Rahul Bose,Male,24,Physics,Thermal Physics,Spring 2025,2025-01-08,10.0,93.8,98.2,19,0,100,Safe
+STU0386,Kabir Chopra,Male,23,Civil,Surveying,Fall 2023,2023-08-18,5.97,42.8,39.9,14,1,21,Critical
+STU0387,Sneha Mishra,Female,24,Mathematics,Numerical Methods,Fall 2024,2024-08-02,8.28,83.4,91.0,18,0,65,Safe
+STU0388,Meera Patel,Female,24,Computer Science,Data Structures,Fall 2023,2023-08-01,5.14,56.1,43.3,7,2,19,Critical
+STU0389,Aisha Chopra,Female,23,Mechanical,Manufacturing,Spring 2025,2025-01-10,3.98,45.1,57.7,10,4,36,Critical
+STU0390,Anjali Pandey,Female,18,Business Admin,Marketing,Fall 2024,2024-08-14,5.6,69.6,65.1,15,1,41,Amber
+STU0391,Avni Verma,Female,23,Civil,Construction Mgmt,Fall 2024,2024-08-01,10.0,100,100,14,0,77,Safe
+STU0392,Dev Deshpande,Male,21,Physics,Mechanics,Spring 2024,2024-01-24,8.2,78.3,81.0,16,0,50,Safe
+STU0393,Kabir Pillai,Male,22,Mathematics,Linear Algebra,Fall 2024,2024-08-25,9.36,99.8,94.2,22,0,72,Safe
+STU0394,Laksh Bhat,Male,18,Business Admin,Marketing,Spring 2025,2025-01-12,4.58,51.6,57.3,10,3,49,Critical
+STU0395,Arjun Joshi,Male,24,Electronics,Digital Systems,Fall 2023,2023-08-15,8.03,84.6,73.9,17,0,35,Safe
+STU0396,Harsh Sharma,Male,23,Physics,Quantum Physics,Spring 2025,2025-01-06,7.79,87.9,88.1,22,0,76,Safe
+STU0397,Shreya Mishra,Female,23,Electronics,VLSI Design,Spring 2025,2025-01-04,5.93,58.3,71.3,8,2,55,Critical
+STU0398,Aditya Mishra,Male,20,Computer Science,Machine Learning,Fall 2024,2024-08-05,8.67,75.9,91.4,16,0,68,Safe
+STU0399,Aryan Reddy,Other,20,Physics,Optics,Spring 2024,2024-01-14,6.45,76.1,69.6,12,1,36,Safe
+STU0400,Om Das,Male,21,Physics,Thermal Physics,Fall 2024,2024-08-09,7.09,65.1,62.5,14,0,55,Amber
+STU0401,Aman Chopra,Male,21,Computer Science,Operating Systems,Fall 2023,2023-08-24,6.94,72.0,54.3,7,0,31,Amber
+STU0402,Parth Khan,Male,23,Mathematics,Discrete Math,Spring 2024,2024-01-21,7.87,87.5,76.0,17,0,51,Safe
+STU0403,Sneha Yadav,Female,24,Computer Science,Algorithms,Fall 2024,2024-08-22,6.08,68.4,62.8,13,2,46,Amber
+STU0404,Arjun Pandey,Male,21,Physics,Mechanics,Fall 2024,2024-08-26,6.97,63.2,66.1,13,0,59,Amber
+STU0405,Tanya Kapoor,Female,21,Mathematics,Discrete Math,Fall 2023,2023-08-09,6.19,56.1,59.9,12,0,24,Critical
+STU0406,Kiara Sinha,Female,18,Civil,Geotechnics,Spring 2025,2025-01-13,7.29,74.3,70.3,12,0,72,Amber
+STU0407,Vivaan Bose,Male,18,Mechanical,Thermodynamics,Spring 2025,2025-01-24,9.66,91.5,92.3,21,0,95,Safe
+STU0408,Rudra Mishra,Male,24,Mathematics,Discrete Math,Fall 2024,2024-08-21,6.45,67.8,73.5,15,0,47,Amber
+STU0409,Vivaan Sharma,Male,18,Mechanical,Fluid Mechanics,Fall 2023,2023-08-06,7.6,92.1,66.0,11,0,32,Safe
+STU0410,Kian Shah,Male,23,Civil,Geotechnics,Fall 2024,2024-08-01,9.48,98.0,100,21,0,76,Safe
+STU0411,Aisha Verma,Female,24,Civil,Construction Mgmt,Fall 2024,2024-08-02,4.45,55.3,47.3,13,4,37,Critical
+STU0412,Arjun Mishra,Male,19,Computer Science,Machine Learning,Fall 2024,2024-08-16,5.84,60.9,56.5,9,0,47,Amber
+STU0413,Rahul Rao,Male,20,Business Admin,Strategy,Spring 2025,2025-01-14,10.0,95.3,94.2,18,0,100,Safe
+STU0414,Kian Khan,Other,23,Mathematics,Numerical Methods,Spring 2025,2025-01-19,9.82,85.4,76.0,15,0,99,Safe
+STU0415,Parth Joshi,Male,21,Civil,Surveying,Spring 2025,2025-01-03,10.0,94.6,100,13,0,104,Safe
+STU0416,Laksh Sharma,Male,21,Computer Science,Machine Learning,Spring 2025,2025-01-04,6.48,61.0,67.4,9,1,61,Amber
+STU0417,Aisha Malhotra,Female,20,Computer Science,Data Structures,Fall 2024,2024-08-24,7.97,89.4,88.4,22,0,67,Safe
+STU0418,Arnav Chauhan,Male,21,Physics,Quantum Physics,Fall 2024,2024-08-11,4.88,54.9,61.1,11,3,39,Critical
+STU0419,Parth Joshi,Male,24,Mathematics,Linear Algebra,Spring 2024,2024-01-13,8.4,87.2,78.0,20,0,46,Safe
+STU0420,Karan Menon,Male,24,Mathematics,Calculus,Spring 2025,2025-01-11,8.94,94.7,100,22,0,86,Safe
+STU0421,Anjali Pillai,Female,21,Mechanical,Machine Design,Fall 2023,2023-08-08,8.25,79.3,85.5,21,0,33,Safe
+STU0422,Kavya Gupta,Female,19,Mathematics,Discrete Math,Fall 2024,2024-08-15,10.0,100,100,15,0,82,Safe
+STU0423,Aryan Menon,Male,19,Physics,Thermal Physics,Spring 2025,2025-01-09,6.24,68.1,83.8,19,2,65,Amber
+STU0424,Avni Malhotra,Female,20,Computer Science,Machine Learning,Fall 2024,2024-08-19,7.21,66.2,46.0,17,0,55,Amber
+STU0425,Rohan Kapoor,Male,24,Civil,Construction Mgmt,Fall 2024,2024-08-11,9.01,86.7,90.6,14,0,73,Safe
+STU0426,Laksh Bhat,Male,23,Electronics,VLSI Design,Spring 2025,2025-01-22,6.6,63.7,64.4,14,0,65,Amber
+STU0427,Avni Gupta,Female,19,Civil,Structural Analysis,Spring 2024,2024-01-03,5.41,53.2,48.1,12,0,31,Critical
+STU0428,Pooja Naidu,Female,18,Computer Science,Databases,Fall 2023,2023-08-14,8.27,89.0,82.9,16,0,35,Safe
+STU0429,Aman Kulkarni,Male,19,Business Admin,Finance,Fall 2023,2023-08-07,8.58,82.5,88.8,12,0,35,Safe
+STU0430,Tara Chopra,Female,21,Mathematics,Calculus,Fall 2023,2023-08-23,7.08,71.0,62.8,14,0,29,Amber
+STU0431,Aadhya Sharma,Female,21,Computer Science,Operating Systems,Fall 2024,2024-08-21,8.25,97.0,86.4,19,0,64,Safe
+STU0432,Arjun Nair,Male,19,Computer Science,Machine Learning,Spring 2025,2025-01-04,7.77,66.4,77.0,15,0,80,Amber
+STU0433,Aadhya Yadav,Female,24,Computer Science,Algorithms,Fall 2024,2024-08-08,9.15,99.5,100,21,0,75,Safe
+STU0434,Harsh Verma,Male,19,Electronics,Circuit Theory,Fall 2024,2024-08-17,5.44,66.0,60.0,12,0,44,Amber
+STU0435,Riya Bhat,Female,22,Computer Science,Operating Systems,Spring 2025,2025-01-03,7.73,72.5,74.4,9,0,74,Amber
+STU0436,Nisha Agarwal,Female,24,Electronics,VLSI Design,Fall 2023,2023-08-04,7.89,89.5,96.3,13,0,31,Safe
+STU0437,Kabir Verma,Male,19,Computer Science,Machine Learning,Spring 2025,2025-01-23,6.33,66.7,59.5,12,2,59,Amber
+STU0438,Neha Chopra,Female,23,Computer Science,Algorithms,Fall 2024,2024-08-18,7.69,69.1,70.6,18,0,62,Amber
+STU0439,Dhruv Bose,Male,18,Mathematics,Discrete Math,Fall 2023,2023-08-03,8.44,86.5,96.4,13,0,33,Safe
+STU0440,Rahul Agarwal,Male,18,Civil,Construction Mgmt,Spring 2025,2025-01-10,8.61,100,86.9,18,0,89,Safe
+STU0441,Rahul Naidu,Male,18,Computer Science,Algorithms,Fall 2024,2024-08-24,9.37,72.2,89.0,16,0,74,Amber
+STU0442,Aman Sinha,Male,19,Mechanical,Manufacturing,Spring 2025,2025-01-09,8.56,93.0,90.1,17,0,87,Safe
+STU0443,Aisha Agarwal,Female,24,Electronics,Signals,Spring 2025,2025-01-04,6.17,65.7,59.7,8,1,65,Amber
+STU0444,Avni Das,Female,22,Mathematics,Numerical Methods,Fall 2024,2024-08-10,10.0,100,100,21,0,84,Safe
+STU0445,Anika Deshpande,Female,21,Mechanical,Robotics,Fall 2023,2023-08-01,6.33,61.2,59.5,14,2,26,Amber
+STU0446,Krishna Chauhan,Male,20,Physics,Thermal Physics,Fall 2024,2024-08-18,10.0,87.3,96.4,18,0,81,Safe
+STU0447,Aarohi Yadav,Female,20,Civil,Surveying,Spring 2025,2025-01-15,8.07,91.1,75.8,20,0,80,Safe
+STU0448,Pooja Sharma,Female,21,Mechanical,Robotics,Fall 2023,2023-08-12,7.79,89.4,62.6,14,0,31,Safe
+STU0449,Anika Kapoor,Female,23,Mechanical,Manufacturing,Fall 2023,2023-08-26,7.08,67.7,79.2,10,0,29,Amber
+STU0450,Ritika Das,Female,23,Mechanical,Manufacturing,Fall 2023,2023-08-05,8.16,79.3,74.4,22,0,31,Safe
+STU0451,Parth Reddy,Male,24,Computer Science,Operating Systems,Fall 2024,2024-08-05,8.41,72.8,83.9,6,0,67,Amber
+STU0452,Manav Chopra,Other,20,Electronics,Microprocessors,Spring 2025,2025-01-24,7.68,76.7,74.3,15,0,75,Safe
+STU0453,Arnav Naidu,Male,19,Business Admin,Economics,Spring 2024,2024-01-04,6.89,57.2,77.4,14,0,38,Critical
+STU0454,Kabir Pillai,Male,18,Mathematics,Numerical Methods,Fall 2023,2023-08-15,5.28,45.8,63.0,8,2,20,Critical
+STU0455,Dhruv Patel,Male,19,Mathematics,Discrete Math,Spring 2024,2024-01-19,7.67,74.2,59.0,13,0,49,Amber
+STU0456,Aarav Verma,Male,22,Mathematics,Discrete Math,Fall 2024,2024-08-20,10.0,100,79.4,21,0,78,Safe
+STU0457,Ira Shah,Female,20,Physics,Optics,Spring 2025,2025-01-03,6.9,66.9,66.0,15,0,71,Amber
+STU0458,Aryan Mehta,Male,19,Mathematics,Statistics,Fall 2024,2024-08-23,8.88,89.7,88.8,18,0,75,Safe
+STU0459,Tanish Chopra,Male,22,Mechanical,Machine Design,Fall 2024,2024-08-18,6.4,82.2,63.6,16,1,49,Safe
+STU0460,Parth Iyer,Male,19,Mechanical,Fluid Mechanics,Fall 2024,2024-08-12,6.65,61.2,57.9,9,0,56,Amber
