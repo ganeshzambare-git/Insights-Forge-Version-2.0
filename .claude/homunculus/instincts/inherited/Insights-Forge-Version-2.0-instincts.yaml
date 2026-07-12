@@ -1,0 +1,316 @@
+# Instincts generated from https://github.com/ganeshzambare-git/Insights-Forge-Version-2.0
+# Generated: 2026-07-11T08:15:19.626Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: Insights-Forge-Version-2.0-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Commit Length
+
+## Action
+
+Write detailed commit messages (~139 characters for first line)
+
+## Evidence
+
+- Average commit message length: 139 chars
+- Based on 1 commits
+
+---
+id: Insights-Forge-Version-2.0-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: Insights-Forge-Version-2.0-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: Insights-Forge-Version-2.0-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Export Style
+
+## Action
+
+Prefer default exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: default
+
+---
+id: Insights-Forge-Version-2.0-arch-feature-based
+trigger: "when adding a new feature"
+confidence: 0.85
+domain: architecture
+source: repo-analysis
+source_repo: https://github.com/ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Arch Feature Based
+
+## Action
+
+Create a new folder in src/features/ with all related code colocated
+
+## Evidence
+
+- Feature-based module organization detected
+- Structure: src/features/[feature-name]/
+
+---
+id: insights-forge-version-2.0-instinct-file-naming-camelCase
+trigger: "When creating a new file in the codebase"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Instinct File Naming CamelCase
+
+## Action
+
+Name the file using camelCase convention
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.files
+
+---
+id: insights-forge-version-2.0-instinct-function-naming-camelCase
+trigger: "When defining a new function"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Instinct Function Naming CamelCase
+
+## Action
+
+Name the function using camelCase convention
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.functions
+
+---
+id: insights-forge-version-2.0-instinct-class-naming-pascalCase
+trigger: "When defining a new class"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Instinct Class Naming PascalCase
+
+## Action
+
+Name the class using PascalCase convention
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.classes
+
+---
+id: insights-forge-version-2.0-instinct-constant-naming-screaming-snake-case
+trigger: "When defining a constant"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Instinct Constant Naming Screaming Snake Case
+
+## Action
+
+Name the constant using SCREAMING_SNAKE_CASE convention
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.constants
+
+---
+id: insights-forge-version-2.0-instinct-imports-relative
+trigger: "When importing modules"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Instinct Imports Relative
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Pattern in codeStyle.importStyle
+
+---
+id: insights-forge-version-2.0-instinct-exports-default
+trigger: "When exporting modules or components"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Instinct Exports Default
+
+## Action
+
+Use default export style
+
+## Evidence
+
+- Pattern in codeStyle.exportStyle
+
+---
+id: insights-forge-version-2.0-instinct-error-handling-try-catch
+trigger: "When handling errors in code"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Instinct Error Handling Try Catch
+
+## Action
+
+Use try-catch blocks for error handling
+
+## Evidence
+
+- Pattern in errorHandling.style
+
+---
+id: insights-forge-version-2.0-instinct-commit-prefix-backend
+trigger: "When making a commit related to backend changes"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Instinct Commit Prefix Backend
+
+## Action
+
+Prefix the commit message with 'Backend:'
+
+## Evidence
+
+- Seen in commit example: 'Backend: datasets/ingestion + cleaning, real analytics...'
+
+---
+id: insights-forge-version-2.0-instinct-commit-format-freeform
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Instinct Commit Format Freeform
+
+## Action
+
+Use a freeform message format, optionally with a feature prefix (e.g., 'Backend:')
+
+## Evidence
+
+- Pattern in commits.type
+- Seen in commit example
+
+---
+id: insights-forge-version-2.0-instinct-test-location-mixed
+trigger: "When adding tests"
+confidence: 0.6
+domain: testing
+source: repo-analysis
+source_repo: ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Instinct Test Location Mixed
+
+## Action
+
+Place test files in both source and test-specific directories as appropriate (mixed location)
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation
+
+---
+id: insights-forge-version-2.0-instinct-module-organization-feature-based
+trigger: "When organizing new modules or features"
+confidence: 0.8
+domain: architecture
+source: repo-analysis
+source_repo: ganeshzambare-git/Insights-Forge-Version-2.0
+---
+
+# Insights Forge Version 2.0 Instinct Module Organization Feature Based
+
+## Action
+
+Organize code by feature rather than by type or layer
+
+## Evidence
+
+- Pattern in architecture.moduleOrganization
+
